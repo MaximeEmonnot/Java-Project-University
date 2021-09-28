@@ -89,5 +89,5 @@ public class Character {
     private GraphicsEngine.Sprite sprite;
     private ArrayList<GraphicsEngine.Animation> animations = new ArrayList<GraphicsEngine.Animation>();
     private int iCurSequence = 0;
-    private float speed = 20.0f;
+    private float speed = 5.0f;
 }
