@@ -43,11 +43,12 @@ public class Character {
         if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_UP)) dir.y--;
         if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_DOWN)) dir.y++;
 
-        if (rect.x + dir.x > 0 && rect.x + rect.width + dir.x < 800){
-            rect.x += dir.x;
+        
+        if (rect.x + dir.x * speed > 0 && rect.x + rect.width + dir.x * speed< 800){
+            rect.x += dir.x * speed;;
         }
-        if (rect.y + dir.y > 0 && rect.y + rect.height + dir.y < 600){
-            rect.y += dir.y;
+        if (rect.y + dir.y * speed > 0 && rect.y + rect.height + dir.y * speed < 600){
+            rect.y += dir.y * speed;
         }
 
         if (dir.x != 0 || dir.y != 0){
@@ -88,4 +89,5 @@ public class Character {
     private GraphicsEngine.Sprite sprite;
     private ArrayList<GraphicsEngine.Animation> animations = new ArrayList<GraphicsEngine.Animation>();
     private int iCurSequence = 0;
+    private float speed = 20.0f;
 }
