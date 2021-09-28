@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Engine Documentation</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div id="Summary">
+        <h1>Documentation Engine</h1>
+        <ul>
+            <li><a href="Engine.html#Core">CoreSystem</a></li>
+            <li><a href="Engine.html#Graphics">GraphicsEngine</a></li>
+            <li><a href="Engine.html#Exception">Exceptions</a></li>
+            <li><a href="Engine.html#GFiles">GameFiles</a></li>
+        </ul>
+    </div>
+
+    <br>
+
+    <div id="Core">
+        <h2>CoreSystem</h2>
+        <p>Ce package comporte tout ce qui est coeur du système, à savoir Window, Timer, Keyboard et Mouse. Cliquez sur les liens suivants pour atteindre chaque documentation : </p>
+        <br>
+        <ul>
+            <li><a href="Engine.html#Window">Window</a></li>
+            <li><a href="Engine.html#Mouse">Mouse</a></li>
+            <li><a href="Engine.html#Keyboard">Keyboard</a></li>
+            <li><a href="Engine.html#Timer">Timer</a></li>
+        </ul>
+
+        <br>
+
+        <div id="Window">
+            <h2>Window</h2>
+            <p>La classe Window sert à gérer la fenêtre Utilisateur. Elle possède un attribut de type JFrame, de Swing permettant de générer une fenêtre. Elle est accompagnée des méthodes suivantes : </p>
+            <ul>
+                <li>
+                    <h3>public synchronized static Window GetInstance()</h3>
+                    <p>Cette méthode entre dans le cadre du patron de conception Singleton, permettant de générer un unique Objet Window dans tout le programme, atteignable partout.</p>
+                    <p>Le constructeur est déclaré private pour forcer l'utilisation de cette fonction.</p>
+                </li>
+                <li>
+                    <h3>public JFrame GetFrame()</h3>
+                    <p>Getter du JFrame. Utilisé dans la classe GraphicsSystem (nous y reviendrons plus tard).</p>
+                </li>
+                <li>
+                    <h3>public boolean ListensToEvents()</h3>
+                    <p>Simple fonction booléenne qui intervient dans le cadre de la boucle de jeu. Tant que la touche ECHAP n'est pas touchée, le jeu continue. Pour fermer la fenêtre, cliquer sur la croix rouge.</p>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div id="Mouse">
+            <h2>Mouse</h2>
+            <p>La classe Mouse enregistre toutes les entrées liées à la souris. Elle étend les classes MouseListener, MouseWheelListener, MouseMotionListener, pour ne pas avoir à appeler leurs fonctions.</p>
+            <p>Elle est accompagnée des méthodes suivantes (hors méthodes MouseListener, MouseWheelListener, MouseMotionListener) : </p>
+            <ul>
+                <li>
+                    <h3>public synchronized static Mouse GetInstance()</h3>
+                    <p>Même chose que pour Window, cette méthode entre dans le cadre du Singleton.</p>
+                </li>
+                <li>
+                    <h3>public EventType Read()</h3>
+                    <p>Permet de lire la dernière entrée souris enregistrée. Peut avoir les valeurs : LClick, LPress, LRelease, MClick, MPress, MRelease, RClick, RPress, RRelease, WheelUp, WheelDown, Move.</p>
+                </li>
+                <li>
+                    <h3>public int GetMousePosX()</h3>
+                    <p>Retourne la position X de la souris.</p>
+                </li>
+                <li>
+                    <h3>public int GetMousePosY()</h3>
+                    <p>Retourne la position Y de la souris.(Attention au sens des axes)</p>
+                </li>
+                <li>
+                    <h3>public Point GetMousePos()</h3>
+                    <p>Retourne les coordonnées XY de la souris.</p>
+                </li>
+                <li>
+                    <h3>public boolean LeftIsPressed()</h3>
+                    <p>Retourne l'état du clic gauche (pressé ou non)</p>
+                </li>
+                <li>
+                    <h3>public boolean MiddleIsPressed()</h3>
+                    <p>Retourne l'état du clic molette (pressé ou non)</p>
+                </li>
+                <li>
+                    <h3>public boolean RightIsPressed()</h3>
+                    <p>Retourne l'état du clic droit (pressé ou non)</p>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div id="Keyboard">
+            <h2>Keyboard</h2>
+            <p>La classe Keyboard enregistre tout ce qui est entrée clavier. Elle étend la classe KeyListener, pour ne pas avoir à appeler ses méthodes.</p>
+            <p>Elle est constituée d'une classe Event constitué d'un type d'événement (Pressed, Released, None), et d'une valeur de touche (int).</p>
+            <p>Elle est accompagnée des méthodes suivantes : </p>
+            <ul>
+                <li>
+                    <h3>public synchronized static Keyboard GetInstance()</h3>
+                    <p>Même chose que pour Window. Rentre dans le cadre du Singleton.</p>
+                </li>
+                <li>
+                    <h3>public boolean KeyIsPressed(int keycode)</h3>
+                    <p>Indique si la touche associée au code est pressée. Le keycode est indiqué par la classe KeyEvent.NAME (ex : KeyEvent.VK_UP pour la flèche vers le haut)</p>
+                </li>
+                <li>
+                    <h3>public Event ReadKey()</h3>
+                    <p>Permet de lire la dernière entrée clavier. Retourne le type d'entrée et la touche.</p>
+                </li>
+                <li>
+                    <h3>public char ReadChar()</h3>
+                    <p>Retourne le dernier charactère enregistré par le clavier.</p>
+                </li>
+                <li>
+                    <h3>public boolean IsEmpty()</h3>
+                    <p>Retourne vrai si le clavier n'a enregistré aucune activité. Peut être utilisé dans le cas d'une détection du mode AFK.</p>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div id="Timer">
+            <h2>Timer</h2>
+            <p>La classe Timer sert à calculer le temps écoulé entre chaque boucle. Très utile pour les animations.</p>
+            <p>Elle est accompagnée des méthodes suivantes :</p>
+            <ul>
+                <li>
+                    <h3>public synchronized static Timer GetInstance()</h3>
+                    <p>Entre dans le cadre du Singleton.</p>
+                </li>
+                <li>
+                    <h3>public void Update()</h3>
+                    <p>Met à jour le paramètre deltaTime, temps écoulé depuis le dernier appel de Update(). IMPORTANT : une seule fonction Update() par boucle, qui est déjà implémentée dans la boucle de jeu.</p>
+                </li>
+                <li>
+                    <h3>public float DeltaTime()</h3>
+                    <p>Retourne le temps écoulé lors de la frame.</p>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <br>
+
+    <div id="Graphics">
+        <h2>GraphicsEngine</h2>
+        <p>Ce package comporte tout ce qui est lié à l'interface graphique. Elle est constituée des éléments suivants :</p>
+        <ul>
+            <li><a href="Engine.html#GraphicsSystem">GraphicsSystem</a></li>
+            <li><a href="Engine.html#Sprite">Sprite</a></li>
+            <li><a href="Engine.html#Animation">Animation</a></li>
+        </ul>
+
+        <br>
+        <div id="GraphicsSystem">
+            <h2>GraphicsSystem</h2>
+            <p>Cette classe fait partie des classes les plus importantes. En effet, tout l'affichage est géré ici. Elle étend la classe JPanel et implémente tout un lot de fonctions remplaçant les fonctions Swing.</p>
+            <p>Voici les différentes méthodes (beaucoup de surcharges fonctionelles) :</p>
+            <ul>
+                <li>
+                    <h3>public synchronized static GraphicsSystem GetInstance()</h3>
+                    <p>Entre dans le cadre du Singleton.</p>
+                </li>
+                <li>
+                    <h3>public void Render()</h3>
+                    <p>Permet de rendre toute la scène. Lance toutes les fonctions enregistrées dans la boucle de jeu.</p>
+                </li>
+                <li>
+                    <h3>public void DrawPixel(Point p, Color c)</h3>
+                    <h3>public void DrawPixel(int x, int y, Color c)</h3>
+                    <h3>public void DrawPixel(int x, int, y, Color c, int priority)</h3>
+                    <p>Affiche un pixel de couleur c aux coordonnées (x,y) et de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>public void DrawLine(Point p0, Point p1, Color c)</h3>
+                    <h3>public void DrawLine(Point p0, Point p1, Color c, int priority)</h3>
+                    <h3>public void DrawLine(int x0, int y0, int x1, int y1, Color c)</h3>
+                    <h3>public void DrawLine(int x0, int y0, int x1, int y1, Color c, int priority)</h3>
+                    <p>Dessine une ligne de couleur c entre deux points p0 et p1 et de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>public void DrawRect(Rectangle r, Color c)</h3>
+                    <h3>public void DrawRect(Rectangle r, Color c, int priority)</h3>
+                    <h3>public void DrawRect(int x, int y, int w, int h, Color c)</h3>
+                    <h3>public void DrawRect(int x, int y, int w, int h, Color c, int priority)</h3>
+                    <p>Dessine les contours de couleur c d'un rectangle r, de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>public void DrawFilledRect(Rectangle r, Color c)</h3>
+                    <h3>public void DrawFilledRect(Rectangle r, Color c, int priority)</h3>
+                    <h3>public void DrawFilledRect(int x, int y, int w, int h, Color c)</h3>
+                    <h3>public void DrawFilledRect(int x, int y, int w, int h, Color c, int priority)</h3>
+                    <p>Dessine un rectangle plein r de couleur c, de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>public void DrawRoundRect(Rectangle r, int aw, int ah, Color c)</h3>
+                    <h3>public void DrawRoundRect(Rectangle r, int aw, int ah, Color c, int priority)</h3>
+                    <h3>public void DrawRoundRect(int x, int y, int w, int h, int aw, int ah, Color c)</h3>
+                    <h3>public void DrawRoundRect(int x, int y, int w, int h, int aw, int ah, Color c, int priority)</h3>
+                    <p>Dessine les contours de couleur c, d'un rectangle r aux bords arrondis définis par aw et ah (largeur hauteur), de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>public void DrawFilledRoundRect(Rectangle r, int aw, int ah, Color c)</h3>
+                    <h3>public void DrawFilledRoundRect(Rectangle r, int aw, int ah, Color c, int priority)</h3>
+                    <h3>public void DrawFilledRoundRect(int x, int y, int w, int h, int aw, int ah, Color c)</h3>
+                    <h3>public void DrawFilledRoundRect(int x, int y, int w, int h, int aw, int ah, Color c, int priority)</h3>
+                    <p>Dessine un rectangle r aux bords arrondis définis par aw et ah (largeur hauteur), de couleur c, de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>DrawText(String text, Point p, Color c)</h3>
+                    <h3>DrawText(String text, Point p, Color c, int priority)</h3>
+                    <h3>DrawText(String text, int x, int y, Color c)</h3>
+                    <h3>DrawText(String text, int x, int y, Color c, int priority)</h3>
+                    <p>Affiche du texte à la position (x,y), de couleur c, de priorité d'affichage priority (par défaut 0)</p>
+                </li>
+                <li>
+                    <h3>public void DrawSprite(Sprite s, Point p)</h3>
+                    <h3>public void DrawSprite(Sprite s, Point p, int priority)</h3>
+                    <h3>public void DrawSprite(Sprite s, int x, int y)</h3>
+                    <h3>public void DrawSprite(Sprite s, int x, int y, int priority)</h3>
+                    <h3>public void DrawSprite(Sprite s, Rectangle rect)</h3>
+                    <h3>public void DrawSprite(Sprite s, Rectangle rect, int priority)</h3>
+                    <h3>public void DrawSprite(Sprite s, int x, int y, int w, int h)</h3>
+                    <h3>public void DrawSprite(Sprite s, int x, int y, int w, int h, int priority)</h3>
+                    <h3>public void DrawSprite(Sprite s, Rectangle dest, Rectangle src)</h3>
+                    <h3>public void DrawSprite(Sprite s, Rectangle dest, Rectangle src, int priority)</h3>
+                    <h3>public void DrawSprite(Sprite s, int dx, int dy, int dw, int dh, int sx, int sy, int sw, int sh)</h3>
+                    <h3>public void DrawSprite(Sprite s, int dx, int dy, int dw, int dh, int sx, int sy, int sw, int sh, int priority)</h3>
+                    <p>Affiche une portion de Sprite s définie par un rectangle src, dans un rectangle dest, de priorité d'affichage priority (par défaut 0) </p>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div id="Sprite">
+            <h2>Sprite</h2>
+            <p>Permet de gérer les sprites. Elle est constituée des méthodes suivantes : </p>
+            <br>
+            <ul>
+                <li>
+                    <h3>public Sprite(String path)</h3>
+                    <p>Constructeur de la classe. Permet d'ouvrir le fichier enregistré sur le chemin relatif pour initialiser le sprite.</p>
+                </li>
+                <li>
+                    <h3>public Image GetSprite()</h3>
+                    <p>Retourne le sprite intialisé. Utilisé pour la méthode DrawSprite() de GraphicsSystem</p>
+                </li>
+                <li>
+                    <h3>public int GetWidth()</h3>
+                    <p>Retourne la largeur du sprite</p>
+                </li>
+                <li>
+                    <h3>public int GetHeight()</h3>
+                    <p>Retourne la hauteur du sprite.</p>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div id="Animation">
+            <h2>Animation</h2>
+            <p>Permet de gérer les différentes animations. On utilise un sprite un peu particulier appelé SpriteSheet, qui possède toutes les images des animations.</p>
+            <p>Elle est constituée des méthodes suivantes : </p>
+            <br>
+            <ul>
+                <li>
+                    <h3>public Animation(Rectangle rect, int count, Sprite _s, float _holdTime)</h3>
+                    <p>Constructeur de la classe. Initilise les différents découpages pour l'animation.</p>
+                    <p>Rect représente les dimensions d'une image, count le nombre d'images, et holdTime le temps d'apparition d'une image</p>
+                </li>
+                <li>
+                    <h3>public void Update()</h3>
+                    <p>Met à jour l'animation en fonction du temps (issu de <a>CoreSystem.Timer</a>)</p>
+                </li>
+                <li>
+                    <h3>public void Draw(Rectangle dest)</h3>
+                    <p>Permet d'afficher l'image en cours dans l'animation.</p>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div id="Exception">
+        <h2>Exceptions</h2>
+        <p>Ce package contient une unique classe ProjectException. Elle étend la classe Exception, et est accompagnée de la méthode suivante : </p>
+        <h3>public static void ShowMessageBox(Exception e, String title)</h3>
+        <p>Utilisé dans les try-catch dans la classe Main</p>
+    </div>
+
+    <br>
+
+    <div id="GFiles">
+        <h2>GameFiles</h2>
+        <p>Ce package regroupe toutes les classes liées au jeu. Elle est constituée de la classe Game (boucle de jeu), et des différentes classes à développer plus tard.</p>
+        <p>Voici les différentes classes ajoutées :</p>
+        <ul>
+            <li><a href="Engine.html#Game">Game</a></li>
+            <li><a href="Engine.html#Character">Character</a></li>
+        </ul>
+
+        <br>
+
+        <div id="Game">
+            <h2>Game</h2>
+            <p>Classe principale du moteur, c'est ici que se déroule la boucle de jeu. Elle est constitué des 2 méthodes suivantes (appelées toutes deux dans une méthode publique) : </p>
+            <ul>
+                <li>
+                    <h3>public void Go()</h3>
+                    <p>La boucle de jeu. Appelle les deux fontions importantes.</p>
+                </li>
+                <li>
+                    <h3>private void UpdateFrame()</h3>
+                    <p>Là où se déroulent tous les calculs pour la frame en cours. Aucun affichage n'est fait ici.</p>
+                </li>
+                <li>
+                    <h3>private void RenderFrame()</h3>
+                    <p>Là où se déroule l'affichage. Aucun calcul n'est fait ici.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div id="Character">
+
+            <h2>Character</h2>
+            <p>Classe ajoutée pour montrer le potentiel du moteur, peut être utilisée pour n'importe quel personnage. méthodes :</p>
+            <ul>
+                <li>
+                    <h3>public Character(Rectangle _rect, String spriteFile)</h3>
+                    <p>Constructeur. On entre en paramètres le rectangle d'écriture (première position), et le nom du fichier (le sprite)</p>
+                </li>
+                <li>
+                    <h3>public void Update()</h3>
+                    <p>Gestion de tous les calculs concernant Character. Dans le cas de la démo, on s'occupe de l'Animation et des déplacements.</p>
+                </li>
+                <li>
+                    <h3>public void Draw()</h3>
+                    <p>Gestion de l'affichage de l'Animation.</p>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
