@@ -28,6 +28,7 @@
             <li><a href="Engine.html#Mouse">Mouse</a></li>
             <li><a href="Engine.html#Keyboard">Keyboard</a></li>
             <li><a href="Engine.html#Timer">Timer</a></li>
+            <li><a href="Engine.html#JSON">JSONReader</a></li>
         </ul>
 
         <br>
@@ -145,6 +146,29 @@
                     <p>Retourne le temps écoulé lors de la frame.</p>
                 </li>
             </ul>
+        </div>
+
+        <br>
+
+        <div id="JSON">
+            <h2>JSONReader</h2>
+            <p>La classe JSONReader implémente des méthodes d'un add-on simple.JSON.</p>
+            <p>Des méthodes ont été créées pour faciliter l'utilisation du parser :</p>
+            <ul>
+                <li>
+                    <h3>public JSONReader(String path)</h3>
+                    <p>Constructeur de la classe JSONReader. Permet d'ouvrir le fichier JSON (IMPORTANT : toujours enregistrer dans le dossier json)</p>
+                </li>
+                <li>
+                    <h3>public &lt;T&gt; T GetValue(String key)</h3>
+                    <p>Permet de récupérer une valeur simple enregistrée dans le JSON. Par généricité, la fonction s'adapte pour la réception de la donnée (voir dans le constructeur de Character)</p>
+                </li>
+                <li>
+                    <h3>public TreeMap&lt;String, JSONArray&gt; GetObjectMember(String key)</h3>
+                    <p>Permet d'obtenir les membres des objets JSON. Ce n'est pas utilisé souvent dans le moteur, tout est implémenté dans le constructeur de Character</p>
+                </li>
+            </ul>
+
         </div>
 
     </div>
