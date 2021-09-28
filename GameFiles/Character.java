@@ -1,9 +1,14 @@
 package GameFiles;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.json.simple.JSONArray;
 
 public class Character {
 
@@ -17,15 +22,19 @@ public class Character {
         Count
     }
     
-    public Character(Rectangle _rect, String spriteFile) {
+    public Character(Rectangle _rect, String jsonFile) throws Exception {
         rect = _rect;
-        sprite = new GraphicsEngine.Sprite(spriteFile);
+        CoreSystem.JSONReader jr = new CoreSystem.JSONReader(jsonFile);
+        String fileName = jr.GetValue("filename");
+        sprite = new GraphicsEngine.Sprite(fileName);
+        
+        TreeMap<String, JSONArray> anim = jr.GetObjectMember("animations");
 
-        for (int i = AnimationList.WalkingRight.ordinal(); i < AnimationList.IdleRight.ordinal(); i++){
-            animations.add(new GraphicsEngine.Animation(new Rectangle(0, 25 * i, 25, 25), 10, sprite, 0.075f));
-        }
-        for (int i = AnimationList.IdleRight.ordinal(); i < AnimationList.Count.ordinal(); i++){
-            animations.add(new GraphicsEngine.Animation(new Rectangle(250, 21 * (i - AnimationList.IdleRight.ordinal()), 21, 21), 10, sprite, 0.075f));
+        Iterator<Map.Entry<String, JSONArray>> itr = anim.entrySet().iterator();
+        while(itr.hasNext()){
+            Object val = itr.next().getValue();
+            JSONArray arr = (JSONArray)val;
+            animations.add(new GraphicsEngine.Animation(new Rectangle(Math.toIntExact((Long)arr.get(0)), Math.toIntExact((Long)arr.get(1)), Math.toIntExact((Long)arr.get(2)), Math.toIntExact((Long)arr.get(3))), Math.toIntExact((Long)arr.get(4)), sprite, (Double)arr.get(5)));
         }
         iCurSequence = AnimationList.IdleRight.ordinal();
     }

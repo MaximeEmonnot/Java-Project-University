@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class Animation {
-    public Animation(Rectangle rect, int count, Sprite _s, float _holdTime){
+    public Animation(Rectangle rect, int count, Sprite _s, double _holdTime){
         s = _s;
         holdTime = _holdTime;
 
@@ -35,7 +35,7 @@ public class Animation {
 
     private Sprite s;
     private ArrayList<Rectangle> frames = new ArrayList<Rectangle>();
-    private float curFrameTime = 0.0f;
-    private float holdTime;
+    private double curFrameTime = 0.0f;
+    private double holdTime;
     private int iCurFrame = 0;
 }

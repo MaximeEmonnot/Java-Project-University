@@ -3,10 +3,10 @@ package GameFiles;
 import java.awt.*;
 
 public class Game {
-    public Game() throws Exceptions.ProjectException{
+    public Game() throws Exceptions.ProjectException, Exception{
         //Graphics initialization
         GraphicsEngine.GraphicsSystem.GetInstance();
-        kirby = new Character(new Rectangle(150, 150, 64, 64), "Images/kirby25x25.png");
+        kirby = new Character(new Rectangle(150, 150, 64, 64), "json/kirby.json");
     }
 
     public void Go() throws Exceptions.ProjectException{

@@ -1,0 +1,11 @@
+{
+    "filename": "Images/kirby25x25.png",
+    "animations": {
+        "1WalkingRight": [0, 0, 25, 25, 10, 0.05],
+        "2WalkingLeft": [0, 25, 25, 25, 10, 0.05],
+        "3WalkingUp": [0, 50, 25, 25, 10, 0.05],
+        "4WalkingDown": [0, 75, 25, 25, 10, 0.05],
+        "5IdleFrontRight": [250, 0, 21, 21, 10, 0.1],
+        "6IdleFrontLeft": [250, 21, 21, 21, 10, 0.1]
+    }
+}
