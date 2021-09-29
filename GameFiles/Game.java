@@ -1,7 +1,6 @@
 package GameFiles;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -11,9 +10,6 @@ public class Game {
     public Game() throws Exceptions.ProjectException, Exception{
         //Graphics initialization
         GraphicsEngine.GraphicsSystem.GetInstance();
-        
-        SoundEngine.SoundSystem.GetInstance().SelectNewSong("Audio/test.wav");
-        SoundEngine.SoundSystem.GetInstance().PlaySong();
         
         kirby = new Character(new Rectangle(150, 150, 64, 64), "json/kirby.json");
     }
@@ -27,28 +23,24 @@ public class Game {
     private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
-        if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_F1)){
-            SoundEngine.SoundSystem.GetInstance().PauseSong();
-        }
-        else if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_F2)){
-            SoundEngine.SoundSystem.GetInstance().ResumeSong();
-        }
-        else if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_F3)){
-            SoundEngine.SoundSystem.GetInstance().StopSong();
-        }
-        else if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_F4)){
-            SoundEngine.SoundSystem.GetInstance().PlaySong();
-        }
-        else if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_F5)){
-            SoundEngine.SoundSystem.GetInstance().RestartSong();
-        }
 
+        menuTest.Update();
         kirby.Update();
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {
         kirby.Draw();
+        menuTest.Draw();
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(150, 150, 50, 50), Color.WHITE);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(250, 150, 50, 50), Color.WHITE);
+
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(150, 250, 50, 50), Color.WHITE);
+
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(250, 250, 50, 50), Color.WHITE);
+
+
     }
 
     private Character kirby;
+    private MenuSystem.IMenu menuTest = new MenuSystem.MenuTest(new MenuSystem.BasicMenu());
 }

@@ -15,6 +15,7 @@
             <li><a href="Engine.html#Exception">Exceptions</a></li>
             <li><a href="Engine.html#GFiles">GameFiles</a></li>
             <li><a href="Engine.html#SEngine">SoundEngine</a></li>
+            <li><a href="Engine.html#Menus">MenuSystem</a></li>
         </ul>
     </div>
 
@@ -432,6 +433,129 @@
                 <p>Permet de rejouer le son depuis le début</p>
             </li>
         </ul>
+
+    </div>
+
+    <br>
+
+    <div id="Menus">
+        <h2>MenuSystem</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
+        <p>Ce package permet de créer des menus.</p>
+        <p>Chaque menu étend la classe MenuDecorator, et utilise le principe du patron de conception <a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Décorateur">Décorateur</a>.</p>
+        <p>Cela permet une création rapide des Menus, seul le constructeur est modifié pour chaque menu, rendant la création de Menu rapide (un menu en 2 min facilement, permet également de faire des associations de menu)</p>
+        <p>Le package comporte les classes suivantes :</p>
+        <ul>
+            <li><a href="Engine.html#IMenu">IMenu</a></li>
+            <li><a href="Engine.html#Lambda">Lambda</a></li>
+            <li><a href="Engine.html#BasicMenu">BasicMenu</a></li>
+            <li><a href="Engine.html#MenuDecorator">MenuDecorator</a></li>
+            <li><a href="Engine.html#Button">Button</a></li>
+            <li><a href="Engine.html#TextBox">TextBox</a></li>
+            <li><a href="Engine.html#MenuTest">MenuTest</a></li>
+        </ul>
+
+        <br>
+
+        <div id="IMenu">
+            <h2>IMenu</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Il s'agit d'une interface où sont définies toutes les fonctions propres aux menus, qui sont les suivantes :</p>
+            <ul>
+                <li>
+                    <h3>public abstract void Update()</h3>
+                    <h3>public abstract void Update(CoreSystem.Mouse.EventType e)</h3>
+                    <p>Permet de mettre à jour le menu. Surcharge fonctionnelle pour les menus décorés (dans le cas d'un clic de la souris)</p>
+                </li>
+                <li>
+                    <h3>public abstract void Draw()</h3>
+                    <p>Permet d'afficher tout ce qui compose un menu</p>
+                </li>
+            </ul>
+        </div>
+
+        <div id="Lambda">
+            <h2>Lambda</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Il s'agit d'une interface permettant l'enregistrement de fonctions nommées Lambda. Dans notre cas, les fonctions n'ont pas de paramètres, mais on peut modifier à tout moment les fonctions (et éventuellement utiliser la généricité pour cela)</p>
+            <p>Une unique méthode : </p>
+            <h3>public abstract func()</h3>
+        </div>
+
+        <div id="BasicMenu">
+            <h2>BasicMenu</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Menu vide. Indispensable pour l'initialisation des menus pour faire le menu décoré de fin.</p>
+            <p>Toutes les méthodes sont celles de <a href="Engine.html#IMenu">IMenu</a></p>
+        </div>
+
+        <div id="MenuDecorator">
+            <h2>MenuDecorator</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Classe permettant la décoration des menus. Implémente l'interface IMenu. Tous les menus futurs étendent cette classe.</p>
+            <p>Toutes les méthodes sont celles de <a href="Engine.html#IMenu">IMenu</a>, sauf une : </p>
+            <h3>protected void InitializeButtonsAndTextBoxes(HashMap&lt;Rectangle, Map.Entry&lt;String, Lambda&gt;&gt; _buttons, HashMap&lt;Rectangle, String&gt; _textBoxes)</h3>
+            <p>Méthode uniquement accessible par les enfants de MenuDecorateur. Permet d'initialiser les différents boutons et textbox composant le menu. Les paramètres sont des tableaux à triple entrées et à double entrées.</p>
+        </div>
+
+        <div id="Button">
+            <h2>Button</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Classe permettant de définir un bouton. Le bouton est cliquable, et on peut passer dessus.</p>
+            <p>Les différentes méthodes :</p>
+            <ul>
+                <li>
+                    <h3>public Button(Rectangle _rect, String _text, Lambda _func)</h3>
+                    <p>Constructeur du bouton. Associe un rectangle, un texte et une fonction à exécuter</p>
+                </li>
+                <li>
+                    <h3>public boolean OnClick()</h3>
+                    <p>Retourne vrai en cas de clic Souris</p>
+                </li>
+                <li>
+                    <h3>public boolean OnHover()</h3>
+                    <p>Retourne vrai en cas de survol Souris</p>
+                </li>
+                <li>
+                    <h3>public void ComputeFunction()</h3>
+                    <p>Exécute la fonction enregistrée dans le constructeur</p>
+                </li>
+                <li>
+                    <h3>public void Draw(Color c)</h3>
+                    <p>Affiche le bouton à l'écran (text + rectangle plein de couleur c)</p>
+                </li>
+                <li>
+                    <h3>public boolean IsClicked()</h3>
+                    <p>Retourne l'état du bouton (cliqué ou pas cliqué)</p>
+                </li>
+            </ul>
+        </div>
+
+        <div id="TextBox">
+            <h2>TextBox</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Classe permettant de définir une boîte de texte.</p>
+            <p>Les différentes méthodes : </p>
+            <ul>
+                <li>
+                    <h3>public TextBox(Rectangle _rect)</h3>
+                    <h3>public TextBox(Rectangle _rect, _text)</h3>
+                    <p>Différents constructeurs d'une TextBox, en fonction de ce que l'on veut (texte dynamique ou statique)</p>
+                </li>
+                <li>
+                    <h3>public void Draw(Color textColor, Color boxColor, Color backgroundColor)</h3>
+                    <h3>public void Draw(String _text, Color textColor, Color boxColor, Color backgroundColor)</h3>
+                    <p>Différentes méthodes d'affichage, en fonction de ce qu'on a (texte dynamique ou statique)</p>
+                </li>
+            </ul>
+        </div>
+
+        <div id="MenuTest">
+            <h2>MenuTest</h2>
+            <a href="Engine.html#Menus">Retour au sommaire de MenuSystem</a>
+            <p>Classe de démo pour les menus.</p>
+            <p>Seul le constructeur est ajouté, vous pouvez étudier le code. La syntaxe est toujours la même.</p>
+        </div>
 
     </div>
 

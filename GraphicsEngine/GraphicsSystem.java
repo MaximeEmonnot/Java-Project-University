@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 
 public class GraphicsSystem extends JPanel {
@@ -22,23 +22,21 @@ public class GraphicsSystem extends JPanel {
             INSTANCE = new GraphicsSystem();
         return INSTANCE;
     }
-    
+
     @Override
     public void paintComponent(Graphics g){
         
         synchronized(renderMap){
             super.paintComponent(g);
             setBackground(Color.BLACK);
-            ArrayList<Lambda> lambdas = new ArrayList<Lambda>();
-            lambdas.addAll(renderMap.values());
-            for (int i = 0; i < lambdas.size(); i++){
-                 lambdas.get(i).func(g);
-            }
+
+            renderMap.forEach((e) -> e.getValue().func(g));
         }
         renderMap.clear();
     }
     
     public void Render(){
+        renderMap.sort((e0, e1) -> e0.getKey() - e1.getKey());
         repaint();
     } 
 
@@ -50,10 +48,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawPixel(int x, int y, Color c, int priority){
         synchronized (renderMap){
-            renderMap.put(priority, (Graphics g) -> {
+            renderMap.add(Map.entry(priority, (Graphics g) -> {
                 g.setColor(c);
                 g.drawLine(x, y, x, y);
-            });
+            }));
         }
     }
 
@@ -68,10 +66,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawLine(int x0, int y0, int x1, int y1, Color c, int priority){
         synchronized (renderMap){
-            renderMap.put(priority, (Graphics g) -> {
+            renderMap.add(Map.entry(priority, (Graphics g) -> {
                 g.setColor(c);
                 g.drawLine(x0, y0, x1, y1);
-            });
+            }));
         }
     }
 
@@ -86,10 +84,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawRect(int x, int y, int w, int h, Color c, int priority){
         synchronized (renderMap){
-        renderMap.put(priority, (Graphics g) -> {
+        renderMap.add(Map.entry(priority, (Graphics g) -> {
             g.setColor(c);
             g.drawRect(x, y, w, h);
-        });
+        }));
     }
     }
 
@@ -104,10 +102,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawFilledRect(int x, int y, int w, int h, Color c, int priority){
         synchronized (renderMap){
-            renderMap.put(priority,(Graphics g) -> {
+            renderMap.add(Map.entry(priority,(Graphics g) -> {
                 g.setColor(c);
                 g.fillRect(x, y, w, h);
-            });
+            }));
         }
     }
 
@@ -122,10 +120,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawRoundRect(int x, int y, int w, int h, int aw, int ah, Color c, int priority){
         synchronized (renderMap){
-        renderMap.put(priority, (Graphics g) -> {
+        renderMap.add(Map.entry(priority, (Graphics g) -> {
             g.setColor(c);
             g.drawRoundRect(x, y, w, h, aw, ah);
-        });
+        }));
     }
     }
 
@@ -140,10 +138,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawFilledRoundRect(int x, int y, int w, int h, int aw, int ah, Color c, int priority){
         synchronized (renderMap){
-            renderMap.put(priority,(Graphics g) -> {
+            renderMap.add(Map.entry(priority,(Graphics g) -> {
                 g.setColor(c);
                 g.fillRoundRect(x, y, w, h, aw, ah);
-            });
+            }));
         }
     }
 
@@ -158,10 +156,10 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawText(String text, int x, int y, Color c, int priority){
         synchronized (renderMap){
-            renderMap.put(priority,(Graphics g) -> {
+            renderMap.add(Map.entry(priority,(Graphics g) -> {
                 g.setColor(c);
                 g.drawString(text, x, y);
-            });
+            }));
         }
     }
 
@@ -200,11 +198,11 @@ public class GraphicsSystem extends JPanel {
     }
     public void DrawSprite(Sprite s, int dx, int dy, int dw, int dh, int sx, int sy, int sw, int sh, int priority){
         synchronized (renderMap){
-            renderMap.put(priority, (Graphics g) -> g.drawImage(s.GetSprite(), dx, dy, dx + dw, dy + dh, sx, sy, sx + sw, sy + sh, null));
+            renderMap.add(Map.entry(priority, (Graphics g) -> g.drawImage(s.GetSprite(), dx, dy, dx + dw, dy + dh, sx, sy, sx + sw, sy + sh, null)));
         }
     }
 
     private static GraphicsSystem INSTANCE = null;
 
-    private HashMap<Integer, Lambda> renderMap = new HashMap<Integer, Lambda>();    
+    private ArrayList<Map.Entry<Integer, Lambda>> renderMap = new ArrayList<Map.Entry<Integer, Lambda>>();    
 }
