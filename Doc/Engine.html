@@ -14,6 +14,7 @@
             <li><a href="Engine.html#Graphics">GraphicsEngine</a></li>
             <li><a href="Engine.html#Exception">Exceptions</a></li>
             <li><a href="Engine.html#GFiles">GameFiles</a></li>
+            <li><a href="Engine.html#SEngine">SoundEngine</a></li>
         </ul>
     </div>
 
@@ -21,6 +22,7 @@
 
     <div id="Core">
         <h2>CoreSystem</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
         <p>Ce package comporte tout ce qui est coeur du système, à savoir Window, Timer, Keyboard et Mouse. Cliquez sur les liens suivants pour atteindre chaque documentation : </p>
         <br>
         <ul>
@@ -35,6 +37,7 @@
 
         <div id="Window">
             <h2>Window</h2>
+            <a href="Engine.html#Core">Retour au sommaire de CoreSystem</a>
             <p>La classe Window sert à gérer la fenêtre Utilisateur. Elle possède un attribut de type JFrame, de Swing permettant de générer une fenêtre. Elle est accompagnée des méthodes suivantes : </p>
             <ul>
                 <li>
@@ -57,6 +60,7 @@
 
         <div id="Mouse">
             <h2>Mouse</h2>
+            <a href="Engine.html#Core">Retour au sommaire de CoreSystem</a>
             <p>La classe Mouse enregistre toutes les entrées liées à la souris. Elle étend les classes MouseListener, MouseWheelListener, MouseMotionListener, pour ne pas avoir à appeler leurs fonctions.</p>
             <p>Elle est accompagnée des méthodes suivantes (hors méthodes MouseListener, MouseWheelListener, MouseMotionListener) : </p>
             <ul>
@@ -99,6 +103,7 @@
 
         <div id="Keyboard">
             <h2>Keyboard</h2>
+            <a href="Engine.html#Core">Retour au sommaire de CoreSystem</a>
             <p>La classe Keyboard enregistre tout ce qui est entrée clavier. Elle étend la classe KeyListener, pour ne pas avoir à appeler ses méthodes.</p>
             <p>Elle est constituée d'une classe Event constitué d'un type d'événement (Pressed, Released, None), et d'une valeur de touche (int).</p>
             <p>Elle est accompagnée des méthodes suivantes : </p>
@@ -130,6 +135,7 @@
 
         <div id="Timer">
             <h2>Timer</h2>
+            <a href="Engine.html#Core">Retour au sommaire de CoreSystem</a>
             <p>La classe Timer sert à calculer le temps écoulé entre chaque boucle. Très utile pour les animations.</p>
             <p>Elle est accompagnée des méthodes suivantes :</p>
             <ul>
@@ -152,6 +158,7 @@
 
         <div id="JSON">
             <h2>JSONReader</h2>
+            <a href="Engine.html#Core">Retour au sommaire de CoreSystem</a>
             <p>La classe JSONReader implémente des méthodes d'un add-on simple.JSON.</p>
             <p>Des méthodes ont été créées pour faciliter l'utilisation du parser :</p>
             <ul>
@@ -176,6 +183,7 @@
 
     <div id="Graphics">
         <h2>GraphicsEngine</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
         <p>Ce package comporte tout ce qui est lié à l'interface graphique. Elle est constituée des éléments suivants :</p>
         <ul>
             <li><a href="Engine.html#GraphicsSystem">GraphicsSystem</a></li>
@@ -186,6 +194,7 @@
         <br>
         <div id="GraphicsSystem">
             <h2>GraphicsSystem</h2>
+            <a href="Engine.html#Graphics">Retour au sommaire de GraphicsEngine</a>
             <p>Cette classe fait partie des classes les plus importantes. En effet, tout l'affichage est géré ici. Elle étend la classe JPanel et implémente tout un lot de fonctions remplaçant les fonctions Swing.</p>
             <p>Voici les différentes méthodes (beaucoup de surcharges fonctionelles) :</p>
             <ul>
@@ -267,6 +276,7 @@
 
         <div id="Sprite">
             <h2>Sprite</h2>
+            <a href="Engine.html#Graphics">Retour au sommaire de GraphicsEngine</a>
             <p>Permet de gérer les sprites. Elle est constituée des méthodes suivantes : </p>
             <br>
             <ul>
@@ -293,6 +303,7 @@
 
         <div id="Animation">
             <h2>Animation</h2>
+            <a href="Engine.html#Graphics">Retour au sommaire de GraphicsEngine</a>
             <p>Permet de gérer les différentes animations. On utilise un sprite un peu particulier appelé SpriteSheet, qui possède toutes les images des animations.</p>
             <p>Elle est constituée des méthodes suivantes : </p>
             <br>
@@ -319,6 +330,7 @@
 
     <div id="Exception">
         <h2>Exceptions</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
         <p>Ce package contient une unique classe ProjectException. Elle étend la classe Exception, et est accompagnée de la méthode suivante : </p>
         <h3>public static void ShowMessageBox(Exception e, String title)</h3>
         <p>Utilisé dans les try-catch dans la classe Main</p>
@@ -328,6 +340,7 @@
 
     <div id="GFiles">
         <h2>GameFiles</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
         <p>Ce package regroupe toutes les classes liées au jeu. Elle est constituée de la classe Game (boucle de jeu), et des différentes classes à développer plus tard.</p>
         <p>Voici les différentes classes ajoutées :</p>
         <ul>
@@ -339,6 +352,7 @@
 
         <div id="Game">
             <h2>Game</h2>
+            <a href="Engine.html#GFiles">Retour au sommaire de GameFiles</a>
             <p>Classe principale du moteur, c'est ici que se déroule la boucle de jeu. Elle est constitué des 2 méthodes suivantes (appelées toutes deux dans une méthode publique) : </p>
             <ul>
                 <li>
@@ -359,6 +373,7 @@
         <div id="Character">
 
             <h2>Character</h2>
+            <a href="Engine.html#GFiles">Retour au sommaire de GameFiles</a>
             <p>Classe ajoutée pour montrer le potentiel du moteur, peut être utilisée pour n'importe quel personnage. méthodes :</p>
             <ul>
                 <li>
@@ -378,6 +393,48 @@
 
 
     </div>
+
+    <br>
+
+    <div id="SEngine">
+        <h2>SoundEngine</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
+        <p>Ce package contient une unique classe SoundEngine, permettant de jouer des musiques. Toutefois, il faut rester vigilant avec cette classe, car durant les tests le jeu peut parfois rester figé (j'ai tenté de régler avec un délai, mais il faudra
+            faire plus de tests pour vérifier la récurrence du bug)</p>
+        <p>Voici les méthodes proposées par la classe SoundSystem :</p>
+        <ul>
+            <li>
+                <h3>public synchronized static SoundSystem GetInstance()</h3>
+                <p>Entre dans le cadre du Singleton (peut être à modifier plus tard)</p>
+            </li>
+            <li>
+                <h3>public void SelectNewSong(String path)</h3>
+                <p>Permet d'ouvrir un fichier musical</p>
+            </li>
+            <li>
+                <h3>public void PlaySong()</h3>
+                <p>Permet de jouer le son enregistré via le SelectNewSong()</p>
+            </li>
+            <li>
+                <h3>public void PauseSong()</h3>
+                <p>Permet de mettre en pause le son en jeu.</p>
+            </li>
+            <li>
+                <h3>public void ResumeSong()</h3>
+                <p>Permet de reprendre le son après la pause (fonction à vérifier car cause un gel)</p>
+            </li>
+            <li>
+                <h3>public void StopSong()</h3>
+                <p>Permet d'arrêter le son en jeu</p>
+            </li>
+            <li>
+                <h3>public void RestartSong()</h3>
+                <p>Permet de rejouer le son depuis le début</p>
+            </li>
+        </ul>
+
+    </div>
+
 </body>
 
 </html>

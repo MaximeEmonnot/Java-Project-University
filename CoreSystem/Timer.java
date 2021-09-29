@@ -10,7 +10,7 @@ public class Timer {
             INSTANCE = new Timer();
         return INSTANCE;
     }
-
+    
     public void Update(){
         long newTime = System.currentTimeMillis();
         deltaTime = (newTime - oldTime) / 1000.0f;
