@@ -13,7 +13,7 @@ public class MenuTest extends MenuDecorator {
         HashMap<Rectangle, String> textBoxes = new HashMap<Rectangle, String>();
 
         //Init buttons
-        buttons.put(new Rectangle(150, 150, 50, 50), Map.entry("Button0", (Lambda)(()->{ System.out.println("Button0");})));
+        buttons.put(new Rectangle(150, 150, 50, 50), Map.entry("Button0", (Lambda)(()->{ System.out.println("Salut tout le monde");})));
         buttons.put(new Rectangle(250, 150, 50, 50), Map.entry("Button1", (Lambda)(()->{ System.out.println("Button1");})));
         buttons.put(new Rectangle(350, 150, 50, 50), Map.entry("Button2", (Lambda)(()->{ System.out.println("Button2");})));
 

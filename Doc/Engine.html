@@ -16,6 +16,7 @@
             <li><a href="Engine.html#GFiles">GameFiles</a></li>
             <li><a href="Engine.html#SEngine">SoundEngine</a></li>
             <li><a href="Engine.html#Menus">MenuSystem</a></li>
+            <li><a href="Engine.html#DB">DataBaseSystem</a></li>
         </ul>
     </div>
 
@@ -556,6 +557,41 @@
             <p>Classe de démo pour les menus.</p>
             <p>Seul le constructeur est ajouté, vous pouvez étudier le code. La syntaxe est toujours la même.</p>
         </div>
+
+    </div>
+
+    <br>
+
+    <div id="DB">
+        <h2>DataBaseSystem</h2>
+        <a href="Engine.html#Summary">Retour au sommaire</a>
+        <p>Ce module est à tester impérativement. Pour le moment je n'ai pas réussi à le tester car MySQL Workbench ne veut pas ouvrir de script SQL. Mais vous pouvez essayer si ça fonctionne chez vous.</p>
+        <p>Ce package ne comporte qu'une seule classe : DataBaseManager</p>
+        <p>Voici les méthodes de DataBaseManager : </p>
+        <ul>
+            <li>
+                <h3>public DataBaseManager(String databaseName, String password)</h3>
+                <p>Constructeur de la classe. Permet de se connecter à une base de données en connaissant son nom et le mot de passe d'entrée</p>
+            </li>
+            <li>
+                <h3>public ResultSet GetResultFromSQLRequest(String request)</h3>
+                <p>Retourne un ResultSet après une requête SQL (nécessite de connaître les requêtes SQL pour que cela fonctionne)</p>
+            </li>
+            <li>
+                <h3>public void SendSDLRequest(String request)</h3>
+                <p>Permet d'envoyer une requête à la base de données (utilisé pour l'écriture notamment, ou la suppression de tables. Même chose que pour la méthode précédente, nécessaire de connaître les requêtes SQL)</p>
+            </li>
+            <li>
+                <h3>public ArrayList&lt;ArrayList&lt;Object&gt;&gt; GetArrayFrom(ResultSet rs)</h3>
+                <p>Permet de récupérer le tableau associé au résultat des requêtes. ArrayList d'ArrayList car on ne peut pas traîter autant de données avec une Map (double entrée contre une multitude avec le ArrayList d'ArrayList)</p>
+                <p>Voici un exemple de code pour l'utilisation:</p>
+                <div>
+                    <i>DataBaseSystem.DataBaseManager dbm = new DataBaseSystem.DataBaseManager("test", "password123");<br> ArrayList&lt;ArrayList&lt;Object&gt;&gt; result = dbm.GetArrayFrom(dbm.GetResultFromSQLRequest("SELECT id, first, last, age
+                    FROM Registration"));
+                    </i>
+                </div>
+            </li>
+        </ul>
 
     </div>
 
