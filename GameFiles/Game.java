@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import Exceptions.ProjectException;
+
 public class Game {
     public Game() throws Exceptions.ProjectException, Exception{
         //Graphics initialization
@@ -20,10 +22,12 @@ public class Game {
         GraphicsEngine.GraphicsSystem.GetInstance().Render();
     }
 
-    private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
+    private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException, ProjectException{
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
         kirby.Update();
+
+        throw new Exceptions.ProjectException("Exemple");
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {

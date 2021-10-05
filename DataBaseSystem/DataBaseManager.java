@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class DataBaseManager {
     public DataBaseManager(String databaseName, String password) throws ClassNotFoundException, SQLException{
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         String url = "jdbc:mysql://localhost:3306/" + databaseName + "?allowPublicKeyRetrieval=true&useSSL=false";
         con = DriverManager.getConnection(url, "root", password);
