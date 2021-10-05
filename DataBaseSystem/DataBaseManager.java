@@ -28,7 +28,7 @@ public class DataBaseManager {
         ArrayList<ArrayList<Object>> out = new ArrayList<ArrayList<Object>>();
         //Add labels for each column
         ArrayList<Object> labels = new ArrayList<Object>();
-        for (int i = 0; i < rs.getMetaData().getColumnCount(); i++){
+        for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
             labels.add(rs.getMetaData().getColumnLabel(i));
         }
         out.add(labels);
@@ -36,7 +36,7 @@ public class DataBaseManager {
         //Add values
         while(rs.next()){
             ArrayList<Object> line = new ArrayList<Object>();
-            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++){
+            for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
                 line.add(rs.getObject(i));
             }
             out.add(line);

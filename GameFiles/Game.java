@@ -27,6 +27,8 @@ public class Game {
         CoreSystem.Timer.GetInstance().Update();
         kirby.Update();
 
+       
+
         throw new Exceptions.ProjectException("Exemple");
     }
 
