@@ -23,24 +23,16 @@ public class Game {
     private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
-
-        menuTest.Update();
         kirby.Update();
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {
         kirby.Draw();
-        menuTest.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(150, 150, 50, 50), Color.WHITE);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(250, 150, 50, 50), Color.WHITE);
-
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(150, 250, 50, 50), Color.WHITE);
-
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(250, 250, 50, 50), Color.WHITE);
-
-
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(10, 10), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.BLUE);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(500, 10), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.RED);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(10, 500), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.GREEN);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(500, 500), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.YELLOW);
     }
 
     private Character kirby;
-    private MenuSystem.IMenu menuTest = new MenuSystem.MenuTest(new MenuSystem.BasicMenu());
 }
