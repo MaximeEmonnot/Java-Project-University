@@ -26,6 +26,8 @@ public class Game {
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
         kirby.Update();
+
+        throw new Exceptions.ProjectException("Exemple");
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {
