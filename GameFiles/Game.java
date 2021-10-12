@@ -2,6 +2,7 @@ package GameFiles;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -9,10 +10,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import Exceptions.ProjectException;
 
 public class Game {
-    public Game() throws Exceptions.ProjectException, Exception{
+    public Game() throws Exceptions.ProjectException, Exception, SQLException{
         //Graphics initialization
         GraphicsEngine.GraphicsSystem.GetInstance();
-        
+
         kirby = new Character(new Rectangle(150, 150, 64, 64), "json/kirby.json");
     }
 
@@ -26,8 +27,6 @@ public class Game {
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
         kirby.Update();
-
-        throw new Exceptions.ProjectException("Exemple");
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {
