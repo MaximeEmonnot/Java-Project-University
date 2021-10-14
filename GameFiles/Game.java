@@ -2,41 +2,41 @@ package GameFiles;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Exceptions.ProjectException;
+import GameFiles.Scenes.*;
+import GraphicsEngine.GraphicsSystem;
 
 public class Game {
     public Game() throws Exceptions.ProjectException, Exception{
-        //Graphics initialization
+        //Graphics initialization (MUST BE FIRST)
         GraphicsEngine.GraphicsSystem.GetInstance();
-        
-        kirby = new Character(new Rectangle(150, 150, 64, 64), "json/kirby.json");
+
+        testScene = new SearchScene();
     }
 
-    public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException{
+    public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException, SQLException{
         UpdateFrame();
         RenderFrame();
         GraphicsEngine.GraphicsSystem.GetInstance().Render();
     }
 
-    private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException, ProjectException{
+    private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException, ProjectException, SQLException{
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
-        kirby.Update();
 
-        throw new Exceptions.ProjectException("Exemple");
+        testScene.Update();
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {
-        kirby.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(10, 10), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.BLUE);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(500, 10), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.RED);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(10, 500), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.GREEN);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(500, 500), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.YELLOW);
+        testScene.Draw();
+
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 0), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.RED);
     }
 
-    private Character kirby;
+    AScene testScene;
 }

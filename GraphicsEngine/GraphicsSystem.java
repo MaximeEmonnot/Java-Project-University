@@ -29,15 +29,17 @@ public class GraphicsSystem extends JPanel {
         synchronized(renderMap){
             super.paintComponent(g);
             setBackground(Color.BLACK);
-
+            
             renderMap.forEach((e) -> e.getValue().func(g));
+            renderMap.clear();
+            }
         }
-        renderMap.clear();
-    }
-    
+        
     public void Render(){
-        renderMap.sort((e0, e1) -> e0.getKey() - e1.getKey());
-        repaint();
+        synchronized(renderMap){
+            renderMap.sort((e0, e1) -> e0.getKey() - e1.getKey());
+            repaint();
+        }
     } 
 
     public void DrawPixel(Point p, Color c){
@@ -88,7 +90,7 @@ public class GraphicsSystem extends JPanel {
             g.setColor(c);
             g.drawRect(x, y, w, h);
         }));
-    }
+        }
     }
 
     public void DrawFilledRect(Rectangle r, Color c){
@@ -124,7 +126,7 @@ public class GraphicsSystem extends JPanel {
             g.setColor(c);
             g.drawRoundRect(x, y, w, h, aw, ah);
         }));
-    }
+        }
     }
 
     public void DrawFilledRoundRect(Rectangle r, int aw, int ah, Color c){
@@ -145,18 +147,20 @@ public class GraphicsSystem extends JPanel {
         }
     }
 
-    public void DrawText(String text, Point p, Color c){
-        DrawText(text, p, c, 0);
+    public void DrawText(String text, Point p, int size, Color c){
+        DrawText(text, p, size, c, 0);
     }
-    public void DrawText(String text, Point p, Color c, int priority){
-        DrawText(text, p.x, p.y, c, priority);
+    public void DrawText(String text, Point p, int size, Color c, int priority){
+        DrawText(text, p.x, p.y, size, c, priority);
     }
-    public void DrawText(String text, int x, int y, Color c){
-        DrawText(text, x, y, c, 0);
+    public void DrawText(String text, int x, int y, int size, Color c){
+        DrawText(text, x, y, size, c, 0);
     }
-    public void DrawText(String text, int x, int y, Color c, int priority){
+    public void DrawText(String text, int x, int y, int size, Color c, int priority){
         synchronized (renderMap){
             renderMap.add(Map.entry(priority,(Graphics g) -> {
+                Font font = new Font("Comic Sans MS", Font.BOLD, size);
+                g.setFont(font);
                 g.setColor(c);
                 g.drawString(text, x, y);
             }));

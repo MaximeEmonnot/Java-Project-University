@@ -11,7 +11,7 @@ public class DataBaseManager {
     public DataBaseManager(String databaseName, String password) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        String url = "jdbc:mysql://localhost:3306/" + databaseName + "?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=CTT";
+        String url = "jdbc:mysql://localhost:3306/" + databaseName + "?useUnicode=true&characterEncoding=utf8&useSSL=false"; //&serverTimezone=CTT";
         con = DriverManager.getConnection(url, "root", password);
         stmt = con.createStatement();
     }
