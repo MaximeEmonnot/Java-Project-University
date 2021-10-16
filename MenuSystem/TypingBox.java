@@ -29,7 +29,7 @@ public class TypingBox {
     public void Draw() throws ProjectException{
         GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, Color.WHITE);
         GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(rect, Color.BLACK);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 5, rect.y + rect.height / 3),textSize, Color.BLACK, 12);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 5, rect.y + rect.height / 3), Color.BLACK, 12);
     }
 
     public String GetText(){

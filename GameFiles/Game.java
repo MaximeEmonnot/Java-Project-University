@@ -16,7 +16,7 @@ public class Game {
         //Graphics initialization (MUST BE FIRST)
         GraphicsEngine.GraphicsSystem.GetInstance();
 
-        testScene = new SearchScene();
+        testScene = new QuizzScene();
     }
 
     public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException, SQLException{
@@ -34,8 +34,6 @@ public class Game {
 
     private void RenderFrame() throws Exceptions.ProjectException {
         testScene.Draw();
-
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 0), CoreSystem.Mouse.GetInstance().GetMousePos(), Color.RED);
     }
 
     AScene testScene;

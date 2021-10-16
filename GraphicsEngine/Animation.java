@@ -14,7 +14,11 @@ public class Animation {
     }
 
     public void Draw(Rectangle dest) throws Exceptions.ProjectException {
-        GraphicsSystem.GetInstance().DrawSprite(s, dest, frames.get(iCurFrame));
+        Draw(dest, 0);
+    }
+    public void Draw (Rectangle dest, int priority) throws Exceptions.ProjectException{
+        GraphicsSystem.GetInstance().DrawSprite(s, dest, frames.get(iCurFrame), priority);
+
     }
 
     public void Update(){
