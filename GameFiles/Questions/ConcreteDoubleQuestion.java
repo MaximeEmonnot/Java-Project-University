@@ -32,7 +32,7 @@ public class ConcreteDoubleQuestion extends ADoubleAnswerQuestion {
         nose.Update();
         finger.Update();
         bIsWon = nose.HasWon();
-        bIsLost = nose.HasLost();
+        bIsLost = bIsLost || nose.HasLost();
     }
     
     @Override 

@@ -12,7 +12,8 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
         ANSWER_AB,
         ANSWER_AC,
         ANSWER_BC,
-        ANSWER_ABC
+        ANSWER_ABC,
+        NONE
     }
 
     public ATripleAnswerQuestion(String _question, String _answerA, String _answerB, String _answerC, AnswerType _type) {

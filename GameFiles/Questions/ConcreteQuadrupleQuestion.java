@@ -123,7 +123,7 @@ public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
         catD.Update(e);
 
         bIsWon = (catA.HasWon() || catB.HasWon() || catC.HasWon() || catD.HasWon());
-        bIsLost = (catA.HasLost() || catB.HasLost() || catC.HasLost() || catD.HasLost());
+        bIsLost = bIsLost || (catA.HasLost() || catB.HasLost() || catC.HasLost() || catD.HasLost());
     }
 
     @Override

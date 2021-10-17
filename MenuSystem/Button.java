@@ -31,10 +31,16 @@ public class Button {
     public void ComputeFunction(){
         func.func();
     }
-
+    
+    
     public void Draw(Color c) throws ProjectException{
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, c, 10);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 10, rect.y + rect.height / 3), Color.BLACK, 11);
+        Draw(c, rect);
+    }
+    
+    public void Draw(Color c, Rectangle _rect) throws ProjectException{
+        rect = _rect;
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(_rect, c, 10);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(_rect.x + _rect.width / 10, _rect.y + _rect.height / 3), Color.BLACK, 11);
     }
 
     public boolean IsClicked(){
@@ -43,8 +49,17 @@ public class Button {
         return out;
     }
 
+    public String GetText(){
+        return text;
+    }
+
+    @Override
+    public int hashCode(){
+        return text.hashCode();
+    }
+
     private boolean bIsClicked = false;
-    private final Rectangle rect;
+    private Rectangle rect;
     private final String text;
     private final int textSize;
     private Lambda func;

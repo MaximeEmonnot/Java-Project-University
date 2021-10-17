@@ -29,7 +29,7 @@ public class TypingBox {
     public void Draw() throws ProjectException{
         GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, Color.WHITE);
         GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(rect, Color.BLACK);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 5, rect.y + rect.height / 3), Color.BLACK, 12);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 10, rect.y + rect.height / 3), Color.BLACK, 12);
     }
 
     public String GetText(){
@@ -56,6 +56,7 @@ public class TypingBox {
             text = text.replace("|", "");
         }
         else if (c == 8 && text.length() > 0){
+            text = text.replace("|", "");
             text = text.substring(0, text.length() -1);
         }
     }

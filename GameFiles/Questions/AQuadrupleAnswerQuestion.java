@@ -20,7 +20,8 @@ public abstract class AQuadrupleAnswerQuestion extends AQuestion {
         ANSWER_ABD,
         ANSWER_ACD,
         ANSWER_BCD,
-        ANSWER_ABCD
+        ANSWER_ABCD,
+        NONE
     }
 
     public AQuadrupleAnswerQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {

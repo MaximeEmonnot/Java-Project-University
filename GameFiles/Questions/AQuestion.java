@@ -34,7 +34,14 @@ public abstract class AQuestion {
 
     }
 
-    private float timer = 5.0f;
+    public boolean IsLost(){
+        return bIsLost;
+    }
+    public boolean IsWon(){
+        return bIsWon;
+    }
+
+    private float timer = 10.0f;
     private String question;
     protected boolean bIsWon;
     protected boolean bIsLost;

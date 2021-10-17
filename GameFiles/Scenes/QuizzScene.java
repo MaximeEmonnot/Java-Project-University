@@ -7,20 +7,40 @@ import GameFiles.Questions.*;
 public class QuizzScene extends AScene {
 
     public QuizzScene() throws Exception{
-        testQuestion = new ConcreteQuadrupleQuestion("Question Title", "Answer A", "Answer B", "Answer C", "Answer D", AQuadrupleAnswerQuestion.AnswerType.ANSWER_A);
+        nextSceneIndex = 0;
     }
 
     @Override
     public void Update() throws SQLException {
         // TODO Auto-generated method stub
-        testQuestion.Update();
+
+        questions.get(iCurQuestion).Update();
+        if (questions.get(iCurQuestion).IsLost() || questions.get(iCurQuestion).IsWon()){
+            timerNextQuestion -= CoreSystem.Timer.GetInstance().DeltaTime();
+            if (timerNextQuestion <= 0.0f){
+                iCurQuestion++;
+                timerNextQuestion = 1.0f;
+                if (questions.get(iCurQuestion).IsLost()){
+                    lives--;
+                }
+            }
+        }
+
+        if (lives <= 0){
+            bChangeScene = true;
+            lives = 3;
+        }
+
     }
 
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
-        testQuestion.Draw();
+        questions.get(iCurQuestion).Draw();
     }
     
-    private AQuestion testQuestion;
+
+    private int lives = 3;
+    private float timerNextQuestion = 1.0f;
+    private int iCurQuestion = 0;
 }

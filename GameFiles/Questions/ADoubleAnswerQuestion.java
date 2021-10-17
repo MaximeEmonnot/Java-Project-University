@@ -9,7 +9,8 @@ public abstract class ADoubleAnswerQuestion extends AQuestion {
     public enum AnswerType{
         ANSWER_A,
         ANSWER_B,
-        BOTH
+        BOTH,
+        NONE
     }
 
     public ADoubleAnswerQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {

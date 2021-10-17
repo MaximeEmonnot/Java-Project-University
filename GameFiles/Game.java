@@ -1,5 +1,8 @@
 package GameFiles;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,7 +19,8 @@ public class Game {
         //Graphics initialization (MUST BE FIRST)
         GraphicsEngine.GraphicsSystem.GetInstance();
 
-        testScene = new QuizzScene();
+        scenes.add(new SearchScene());
+        scenes.add(new QuizzScene());
     }
 
     public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException, SQLException{
@@ -29,12 +33,16 @@ public class Game {
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
 
-        testScene.Update();
+        scenes.get(iCurScene).Update();
+        if (scenes.get(iCurScene).ChangeScene()){
+            iCurScene = scenes.get(iCurScene).GetNextSceneIndex();
+        }
     }
 
     private void RenderFrame() throws Exceptions.ProjectException {
-        testScene.Draw();
+        scenes.get(iCurScene).Draw();
     }
 
-    AScene testScene;
+    private List<AScene> scenes = new ArrayList<AScene>();
+    private int iCurScene = 1;
 }

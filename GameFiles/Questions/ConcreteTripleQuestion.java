@@ -66,7 +66,7 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
         }
 
         bIsWon = (eggA.HasWon() || eggB.HasWon() || eggC.HasWon());
-        bIsLost = (eggA.HasLost() || eggB.HasLost() || eggC.HasLost());
+        bIsLost = (bIsLost || eggA.HasLost() || eggB.HasLost() || eggC.HasLost());
     }
     @Override
     public void Draw() throws ProjectException {
