@@ -30,6 +30,8 @@ public class ConcreteDoubleQuestion extends ADoubleAnswerQuestion {
         // TODO Auto-generated method stub
         nose.Update();
         finger.Update();
+        bIsWon = nose.HasWon();
+        bIsLost = nose.HasLost();
     }
     
     @Override 

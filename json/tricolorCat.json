@@ -1,0 +1,17 @@
+{
+    "filename": "Images/tricolorCat.png",
+    "animations": {
+        "A1IdleBottomLeft": [0, 0, 32, 32, 4, 0.15],
+        "A2IdleTopLeft": [0, 32, 32, 32, 4, 0.15],
+        "A3IdleTopRight": [0, 64, 32, 32, 4, 0.15],
+        "A4IdleBottomRight": [0, 96, 32, 32, 4, 0.15],
+        "A5SleepingBottomLeft": [0, 128, 32, 32, 4, 0.15],
+        "A6SleepingTopLeft": [0, 160, 32, 32, 4, 0.15],
+        "A7SleepingTopRight": [0, 192, 32, 32, 4, 0.15],
+        "A8SleepingBottomRight": [0, 224, 32, 32, 4, 0.15],
+        "A9WalkingBottomLeft": [0, 256, 32, 32, 4, 0.15],
+        "B1WalkingTopLeft": [0, 288, 32, 32, 4, 0.15],
+        "B2WalkingTopRight": [0, 320, 32, 32, 4, 0.15],
+        "B3WalkingBottomRight": [0, 352, 32, 32, 4, 0.15]
+    }
+}

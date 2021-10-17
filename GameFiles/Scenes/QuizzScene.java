@@ -6,8 +6,8 @@ import GameFiles.Questions.*;
 
 public class QuizzScene extends AScene {
 
-    public QuizzScene() throws ProjectException{
-        testQuestion = new ConcreteQuadrupleQuestion("Question Title", "Answer A", "Answer B","Answer C", "Answer D", AQuadrupleAnswerQuestion.AnswerType.ANSWER_A);
+    public QuizzScene() throws Exception{
+        testQuestion = new ConcreteQuadrupleQuestion("Question Title", "Answer A", "Answer B", "Answer C", "Answer D", AQuadrupleAnswerQuestion.AnswerType.ANSWER_A);
     }
 
     @Override

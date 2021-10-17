@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import GraphicsEngine.Sprite;
 
 public class Egg {
-    public Egg(Rectangle _rect, Rectangle _insideRect, boolean bIsRight){
+    public Egg(Rectangle _rect, Rectangle _insideRect, boolean _bIsRight){
         rect = _rect;
         insideRect = _insideRect;
 
@@ -19,6 +19,8 @@ public class Egg {
             states.add(new Rectangle(0 + 78 * i, 0, 78, 78));
         }
         states.add(new Rectangle(312, 0, 134, 78));
+
+        bIsRight = _bIsRight;
 
         if (bIsRight){
             insideSprite = new Sprite("Images/bird.png");
@@ -46,14 +48,21 @@ public class Egg {
         }
     }
 
-    public boolean IsFinished(){
+    public boolean HasWon(){
+        return bIsRight && IsFinished();
+    }
+    public boolean HasLost(){
+        return !bIsRight && IsFinished();
+    }
+    private boolean IsFinished(){
         return iCurState == 4;
     }
-
+    
     private Rectangle rect;
     private final Rectangle insideRect;
     private Sprite eggSprite = new Sprite("Images/egg.png");
     private Sprite insideSprite;
     private List<Rectangle> states = new ArrayList<Rectangle>();
     private int iCurState = 0;
+    private final boolean bIsRight;
 }

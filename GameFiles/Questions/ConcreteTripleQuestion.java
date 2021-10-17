@@ -58,11 +58,14 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
         // TODO Auto-generated method stub
         CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
 
-        if (!eggA.IsFinished() && !eggB.IsFinished() && !eggC.IsFinished()){
+        if (!bIsWon && !bIsLost){
             eggA.Update(e);
             eggB.Update(e);
             eggC.Update(e);
         }
+
+        bIsWon = (eggA.HasWon() || eggB.HasWon() || eggC.HasWon());
+        bIsLost = (eggA.HasLost() || eggB.HasLost() || eggC.HasLost());
     }
     @Override
     public void Draw() throws ProjectException {

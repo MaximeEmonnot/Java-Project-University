@@ -71,6 +71,13 @@ public class Nose {
         }
     }
 
+    public boolean HasWon(){
+        return bIsWon;
+    }
+    public boolean HasLost(){
+        return bIsLost;
+    }
+
     private Sprite sprite;
     private Animation droplet;
     private Sprite gold;
