@@ -28,6 +28,7 @@ public class ConcreteDoubleQuestion extends ADoubleAnswerQuestion {
     @Override
     public void Update() {
         // TODO Auto-generated method stub
+        super.Update();
         nose.Update();
         finger.Update();
         bIsWon = nose.HasWon();

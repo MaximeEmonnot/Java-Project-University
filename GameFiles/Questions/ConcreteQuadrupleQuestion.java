@@ -96,6 +96,7 @@ public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
     @Override
     public void Update() {
         // TODO Auto-generated method stub
+        super.Update();
         CoreSystem.Mouse.EventType e = CoreSystem.Mouse.EventType.None;
         
         if (!bIsWon && !bIsLost){

@@ -56,6 +56,7 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
     @Override
     public void Update() {
         // TODO Auto-generated method stub
+        super.Update();
         CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
 
         if (!bIsWon && !bIsLost){
