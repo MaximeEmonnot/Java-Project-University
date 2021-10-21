@@ -44,5 +44,5 @@ public class Game {
     }
 
     private List<AScene> scenes = new ArrayList<AScene>();
-    private int iCurScene = 1;
+    private int iCurScene = 0;
 }

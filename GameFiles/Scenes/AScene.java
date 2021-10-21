@@ -26,5 +26,7 @@ public abstract class AScene {
 
     protected static List<AQuestion> questions = new ArrayList<AQuestion>();
     protected static boolean bChangeScene = false;
+    protected static int lives = 3;
+    protected static int iCurQuestion = 0;
     protected int nextSceneIndex;
 }

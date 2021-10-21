@@ -21,9 +21,9 @@ public abstract class AQuestion {
     {
         GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(0, 480, 800, 105), Color.WHITE, 15);
         GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(0, 480, 800, 105), Color.BLACK, 16);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(question, new Point((int)((800 - (question.length() * 11))/2), 500), new Font("Arial Bold", Font.BOLD, 22), Color.BLACK, 16);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(question, new Point((int)((800 - (question.length() * 8))/2), 500), new Font("Arial Bold", Font.BOLD, 16), Color.BLACK, 16);
      
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(String.valueOf(timer), new Point(700, 500), new Font ("Arial Bold", Font.PLAIN, 16), Color.BLACK, 18);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(String.valueOf(timer), new Point(700, 525), new Font ("Arial Bold", Font.PLAIN, 16), Color.BLACK, 18);
 
         if (bIsWon){
             GraphicsEngine.GraphicsSystem.GetInstance().DrawText("WON", new Point(700, 550), new Font("Arial Bold", Font.BOLD, 22), Color.GREEN, 20);

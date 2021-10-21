@@ -54,6 +54,14 @@ public class Button {
     }
 
     @Override
+    public boolean equals(Object o){
+        if (o instanceof Button){
+            return text.equals(((Button)o).text);
+        }
+        return false;
+    }
+
+    @Override
     public int hashCode(){
         return text.hashCode();
     }

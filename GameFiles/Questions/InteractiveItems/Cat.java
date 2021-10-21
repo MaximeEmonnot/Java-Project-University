@@ -124,7 +124,7 @@ public class Cat extends Character {
     }
 
     public boolean HasLost(){
-        return iCurSequence > 8;
+        return iCurSequence >= 8;
     }
 
     private final double speed = 5.0f;

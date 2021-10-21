@@ -24,13 +24,13 @@ public class SearchScene extends AScene {
         System.out.println("Connected");
         ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
         while(rs.next()){
-            ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("difficulte") + " - " + rs.getString("categorie"), 12, () -> {
+            String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
+            ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, 12, () -> {
                 bChangeScene = true;
                 try {
                     questions.clear();
-                    String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("difficulte") + " - " + rs.getString("categorie");
                     String[] args = name.split(" - ");
-                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions WHERE (id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND difficulte = \"" + args[2] + "\" AND categorie = \"" + args[3] + "\")");
+                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions WHERE (id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                     while(questionSet.next()){
                         if (questionSet.getString("reponseD").length() != 0){
                             AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -150,13 +150,13 @@ public class SearchScene extends AScene {
            try {
                 ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
                 while(rSet.next()){
-                    ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), String.valueOf(rSet.getLong("id_prof"))  + " - " + rSet.getString("domaine") + "  - " + rSet.getString("difficulte") + " - " + rSet.getString("categorie"), 12, () -> {
+                    String name = String.valueOf(rSet.getLong("id_prof"))  + " - " + rSet.getString("domaine") + "  - " + rSet.getString("categorie") + " - " + rSet.getString("niveau");
+                    ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, 12, () -> {
                         bChangeScene = true;
                         try {
                             questions.clear();
-                            String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("difficulte") + " - " + rs.getString("categorie");
                             String[] args = name.split(" - ");
-                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions WHERE (id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND difficulte = \"" + args[2] + "\" AND categorie = \"" + args[3] + "\")");
+                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions WHERE (id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                             while(questionSet.next()){
                                 if (questionSet.getString("reponseD").length() != 0){
                                     AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -280,6 +280,9 @@ public class SearchScene extends AScene {
     
     @Override
     public void Update() throws SQLException {
+        lives = 3;
+        iCurQuestion = 0;
+
         searchDomain.Update();
         searchCategory.Update();
         searchDifficulty.Update();
@@ -287,6 +290,12 @@ public class SearchScene extends AScene {
         if (refreshButton.OnClick()){
             refreshButton.ComputeFunction();
         }
+
+        ddcArray.forEach((btn) -> {
+            if (btn.OnClick()){
+                btn.ComputeFunction();
+            }
+        });
     }
     
     @Override
@@ -313,11 +322,11 @@ public class SearchScene extends AScene {
         while(itr.hasNext()){
             Button btn = itr.next();
             if (btn.GetText().startsWith(searchId.GetText()) && btn.GetText().contains(searchDomain.GetText()) && btn.GetText().contains(searchCategory.GetText()) && btn.GetText().contains(searchDifficulty.GetText())){
-                btn.Draw(Color.LIGHT_GRAY, new Rectangle(50, 10 + 75 * j, 100, 50));
+                btn.Draw(Color.LIGHT_GRAY, new Rectangle(50 + 300 * (int)(j / 8), 10 + 50 * (j % 8), 100, 50));
                 j++;
             }
             else {
-                btn.Draw(Color.BLACK, new Rectangle(0, 0, 0, 0));
+                btn.Draw(Color.BLACK, new Rectangle(-100, -100, 0, 0));
             }
         }
     }

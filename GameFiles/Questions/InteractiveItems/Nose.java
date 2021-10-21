@@ -10,7 +10,7 @@ public class Nose {
     public Nose(int questionCode){
         sprite = new Sprite("Images/nose.png");
         gold = new Sprite("Images/gold.png");
-        droplet = new Animation(new Rectangle(0, 0, 16, 12), 4, new Sprite("Images/droplet.png"), 0.75);
+        droplet = new Animation(new Rectangle(0, 0, 16, 12), 4, new Sprite("Images/droplet.png"), 0.25);
 
         switch(questionCode){
         case 1:
@@ -86,7 +86,7 @@ public class Nose {
     private final Rectangle leftZone;
     private final Rectangle rightZone;
     private final Rectangle destDroplet;
-    private Rectangle goldRect = new Rectangle(0, 0, 16, 16);
+    private Rectangle goldRect = new Rectangle(-100, -100, 16, 16);
 
     private boolean bIsWon = false;
     private boolean bIsLost = false;

@@ -28,9 +28,9 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
     @Override
     public void Draw() throws ProjectException{
         super.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A - " + answerA, new Point(50, 525), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 16);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B - " + answerB, new Point(450, 525), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 16);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("C - " + answerC, new Point(300, 545), new Font("Arial Bold", Font.BOLD, 16), Color.BLACK, 16);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A) " + answerA, new Point(50, 525), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 16);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B) " + answerB, new Point(450, 525), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 16);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("C) " + answerC, new Point(300, 545), new Font("Arial Bold", Font.BOLD, 16), Color.BLACK, 16);
     }
     
     private final String answerA;

@@ -19,6 +19,6 @@ public class Finger {
         GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(sprite, rect, 1);
     }
 
-    private Rectangle rect = new Rectangle(0, 0, 132, 200);
+    private Rectangle rect = new Rectangle(-200, -200, 132, 200);
     private Sprite sprite;
 }
