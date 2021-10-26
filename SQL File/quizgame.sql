@@ -3,21 +3,22 @@
 drop table if exists `admin`;
 drop table if exists `professeur`;
 drop table if exists `statistique`;
-drop table if exists `utilisateur`;
+drop table if exists `etudiant`;
 drop table if exists `questions`;
 
 /* Création de la table utilisateur*/
 
-create table `utilisateur`(
-	`id_utilisateur` int not null auto_increment,
+create table `etudiant`(
+	`id_etudiant` int not null auto_increment unique,
+	`code_etudiant` varchar(30) not null,
     `nom` varchar(30) not null,
     `prenom` varchar(50) not null,
     `email` varchar(50) unique not null,
     `telephone` varchar(10) unique not null,
     `motDePass` varchar(20) not null,
     `adresse` varchar(60),
-    constraint pk_utilisateur primary key (id_utilisateur)
-);
+    constraint pk_etudiant primary key (id_etudiant)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /* Création de la table statistique */
 
@@ -27,13 +28,14 @@ create table `statistique`(
     `domainQuiz` varchar(30),
     `categoryQuiz` varchar(30),
     `levelQuiz`varchar(30),
-    constraint fk_stats_utilisateur foreign key (id_statistique) references utilisateur (id_utilisateur) 
-);
+    constraint fk_stats_utilisateur foreign key (id_statistique) references etudiant (id_etudiant) 
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /* Création de la table professeur */
 
 create table `professeur`(
-	`id_professeur` int not null auto_increment,
+	`id_professeur` int not null auto_increment unique,
+	`code_professeur` varchar(30) not null,
     `nom` varchar(30) not null,
     `prenom` varchar(50) not null,
     `email` varchar(50) unique not null,
@@ -42,7 +44,7 @@ create table `professeur`(
     `specialite` varchar(30) not null,
     `adresse` varchar(60),
     constraint pk_professeur primary key (id_professeur)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Creation de la table questions */
 
@@ -1070,10 +1072,12 @@ values ('0', '1', 'Mathematiques', 'Nombres', 'Primaire', 'Facile', '15 + 48 = ?
 /*Creation de la table administrateur*/
 
 create table admin(
-	id int auto_increment primary key,
+	id_admin int auto_increment unique,
+	code_admin varchar(30) not null,
     nom varchar(30),
     prenom varchar(30),
     tel varchar(20) unique,
     mail varchar(20) unique,
-    passwd varchar(150)
-);
+    passwd varchar(150),
+    constraint pk_admin primary key (code_admin)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 
