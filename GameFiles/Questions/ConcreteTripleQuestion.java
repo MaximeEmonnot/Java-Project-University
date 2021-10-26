@@ -71,6 +71,7 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
     @Override
     public void Draw() throws ProjectException {
         super.Draw();
+        GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);
         eggA.Draw();
         eggB.Draw();
         eggC.Draw();

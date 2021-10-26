@@ -307,7 +307,7 @@ public class SearchScene extends AScene {
         searchDomain.Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter Category", new Point(350, 480), Color.BLACK, 5);
         searchCategory.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter Difficulty", new Point(510, 480), Color.BLACK, 5);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter Level", new Point(510, 480), Color.BLACK, 5);
         searchDifficulty.Draw();
         if (refreshButton.IsClicked()){
             refreshButton.Draw(Color.DARK_GRAY);
@@ -322,7 +322,7 @@ public class SearchScene extends AScene {
         while(itr.hasNext()){
             Button btn = itr.next();
             if (btn.GetText().startsWith(searchId.GetText()) && btn.GetText().contains(searchDomain.GetText()) && btn.GetText().contains(searchCategory.GetText()) && btn.GetText().contains(searchDifficulty.GetText())){
-                btn.Draw(Color.LIGHT_GRAY, new Rectangle(50 + 300 * (int)(j / 8), 10 + 50 * (j % 8), 100, 50));
+                btn.Draw(Color.LIGHT_GRAY, new Rectangle(50 + 375 * (int)(j / 8), 10 + 50 * (j % 8), 345, 45));
                 j++;
             }
             else {

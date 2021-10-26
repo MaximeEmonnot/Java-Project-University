@@ -1,6 +1,13 @@
+/*Destruction des tables*/
+
+drop table if exists `admin`;
+drop table if exists `professeur`;
+drop table if exists `statistique`;
+drop table if exists `utilisateur`;
+drop table if exists `questions`;
+
 /* Création de la table utilisateur*/
 
-Drop table if exists `utilisateur`;
 create table `utilisateur`(
 	`id_utilisateur` int not null auto_increment,
     `nom` varchar(30) not null,
@@ -14,18 +21,17 @@ create table `utilisateur`(
 
 /* Création de la table statistique */
 
-Drop table if exists `statistique`;
 create table `statistique`(
-	`id_statistique` int not null,
-    `score` int,
+    `id_statistique` int not null,
     `PourcentageDeProgression` float,
-    `domaineDeQuiz` varchar(30),
-	constraint fk_stats_utilisateur foreign key (id_statistique) references utilisateur (id_utilisateur) 
+    `domainQuiz` varchar(30),
+    `categoryQuiz` varchar(30),
+    `levelQuiz`varchar(30),
+    constraint fk_stats_utilisateur foreign key (id_statistique) references utilisateur (id_utilisateur) 
 );
 
 /* Création de la table professeur */
 
-Drop table if exists `professeur`;
 create table `professeur`(
 	`id_professeur` int not null auto_increment,
     `nom` varchar(30) not null,
@@ -40,7 +46,6 @@ create table `professeur`(
 
 /*Creation de la table questions */
 
-DROP TABLE IF EXISTS `questions`;
 create table questions(
 	id int auto_increment primary key,
     code_question varchar(20) unique,
@@ -660,31 +665,31 @@ values ('0', '1', 'Mathematiques', 'Nombres', 'Primaire', 'Facile', '15 + 48 = ?
 ('597', '1', 'Informatique', 'Systeme d`exploitation', 'Superieur', 'Facile', '', '01', '', '', '', ''),
 ('598', '1', 'Informatique', 'Systeme d`exploitation', 'Superieur', 'Facile', '', '01', '', '', '', ''),
 ('599', '1', 'Informatique', 'Systeme d`exploitation', 'Superieur', 'Facile', '', '01', '', '', '', ''),
-('600', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('601', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('602', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('603', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('604', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('605', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('606', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('607', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('608', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('609', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('610', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('611', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('612', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('613', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('614', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('615', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('616', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('617', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('618', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('619', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('620', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('621', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('622', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('623', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('624', '1', 'Histoire', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
+('600', '1', 'Histoire', 'Prehistoire', 'Primaire', 'Facile', 'Où ont été trouvés les plus vieux ossements humains ?', '1000', 'En Afrique', 'En Asie', 'En Europe', 'En Amérique'),
+('601', '1', 'Histoire', 'Prehistoire', 'Primaire', 'Facile', 'L`homme moderne est un', '10', 'Homo sapiens', 'Home neandertalis', '', ''),
+('602', '1', 'Histoire', 'Antiquite', 'Primaire', 'Facile', 'L`écriture de l`Egypte antique se nomme', '10', 'Hiéroglyphe', 'Cursive', '', ''),
+('603', '1', 'Histoire', 'Antiquite', 'Primaire', 'Facile', 'Cléopâtre régna sur l`Egypte vers', '1000', '40 avant Jésus-Christ', '400 avant Jésus-Christ', '40 après Jésus-Christ', '400 après Jésus-Christ'),
+('604', '1', 'Histoire', 'Antiquite', 'Primaire', 'Facile', 'Vrai ou Faux : Vercingétorix était un soldat romain', '01', 'Vrai', 'Faux', '', ''),
+('605', '1', 'Histoire', 'Antiquite', 'Primaire', 'Facile', 'Vrai ou Faux : Vercingétorix a déposé les armes à Alexia', '10', 'Vrai', 'Faux', '', ''),
+('606', '1', 'Histoire', 'Antiquite', 'Primaire', 'Facile', 'Jules César est un personnage datant de', '1000', 'L`Antiquité', 'Le Moyen-âge', 'La Renaissance', 'Les Temps Modernes'),
+('607', '1', 'Histoire', 'Moyen-Age', 'Primaire', 'Facile', 'Clovis est né vers', '010', '1180', '466', '1980', ''),
+('608', '1', 'Histoire', 'Moyen-Age', 'Primaire', 'Facile', 'Jeanne d`Arc est un personnage datant de', '0100', 'L`Antiquité', 'Le Moyen-âge', 'La Renaissance', 'Les Temps Modernes'),
+('609', '1', 'Histoire', 'Moyen-Age', 'Primaire', 'Facile', 'Vrai ou Faux : Dagobert 1er régna avant Clovis', '01', 'Vrai', 'Faux', '', ''),
+('610', '1', 'Histoire', 'Moyen-Age', 'Primaire', 'Facile', 'Quelle dynastie succéda à celle des Mérovingiens ?', '1000', 'Les Carolingiens', 'Les Capétiens', 'Les Valois', 'Les Bourbons'),
+('611', '1', 'Histoire', 'Moyen-Age', 'Primaire', 'Facile', 'Charlemagne était le fils de ', '010', 'Clovis', 'Pépin le Bref', 'Hugues Capet', ''),
+('612', '1', 'Histoire', 'Moyen-Age', 'Primaire', 'Facile', 'Sous quels autres noms connaît-on Louis IX', '110', 'Saint-Louis', 'Le Prudhomme', 'Louis le Bon', ''),
+('613', '1', 'Histoire', 'Decouvertes', 'Primaire', 'Facile', 'Quel élément n`est pas du Moyen-Âge ?', '001', 'Les châteaux forts', 'Les chevaliers', 'Les montgolfières', ''),
+('614', '1', 'Histoire', 'Decouvertes', 'Primaire', 'Facile', 'A qui doit-on l`invention de l`imprimerie ?', '0100', 'Léonard de Vinci', 'Guttenberg', 'Papin', 'Einstein'),
+('615', '1', 'Histoire', 'Decouvertes', 'Primaire', 'Facile', 'A qui doit-on l`invention de la machine à vapeur ?', '0010', 'Léonard de Vinci', 'Guttenberg', 'Papin', 'Einstein'),
+('616', '1', 'Histoire', 'Decouvertes', 'Primaire', 'Facile', 'Léonard de Vinci a travaillé pour ', '0100', 'Jules César', 'François 1er', 'Louis XIV', 'Napoléon'),
+('617', '1', 'Histoire', 'Decouvertes', 'Primaire', 'Facile', 'Parmi ces personnages qui étaient explorateurs ?', '1110', 'Marco Polo', 'Magellan', 'Christophe Collomb', 'Guttenberg'),
+('618', '1', 'Histoire', '', 'Primaire', 'Facile', 'Louis XIV était surnommé', '10', 'Le roi Soleil', 'Le roi fainéant', '', ''),
+('619', '1', 'Histoire', '', 'Primaire', 'Facile', 'Molière était ', '001', 'Chevalier', 'Roi', 'Ecrivain', ''),
+('620', '1', 'Histoire', '', 'Primaire', 'Facile', 'La Révolution Française a eu lieu en ', '0100', '1515', '1789', '1804', '1968'),
+('621', '1', 'Histoire', '', 'Primaire', 'Facile', 'La Bastille était ', '100', 'Une prison', 'La résidence du Roi', 'Une auberge', ''),
+('622', '1', 'Histoire', '', 'Primaire', 'Facile', 'Quel roi fut guillotiné ?', '010', 'Henri IV', 'Louis XVI', 'Louis-Philippe', ''),
+('623', '1', 'Histoire', '', 'Primaire', 'Facile', 'Napoléon Bonaparte devint empereur des Français en ', '001', '800', '1792', '1804', ''),
+('624', '1', 'Histoire', '', 'Primaire', 'Facile', 'Le Général de Gaulle a combattu', '0001', 'Les Romains avec Vercingétorix', 'Les Anglais avec Jeanne d`Arc', 'Les Russes avec Napoléon', 'Les Allemands avec Churchill'),
 ('625', '1', 'Histoire', '', 'College', 'Facile', '', '01', '', '', '', ''),
 ('626', '1', 'Histoire', '', 'College', 'Facile', '', '01', '', '', '', ''),
 ('627', '1', 'Histoire', '', 'College', 'Facile', '', '01', '', '', '', ''),
@@ -760,31 +765,31 @@ values ('0', '1', 'Mathematiques', 'Nombres', 'Primaire', 'Facile', '15 + 48 = ?
 ('698', '1', 'Histoire', '', 'Superieur', 'Facile', '', '01', '', '', '', ''),
 ('699', '1', 'Histoire', '', 'Superieur', 'Facile', '', '01', '', '', '', ''),
 ('700', '1', 'Histoire', '', 'Superieur', 'Facile', '', '01', '', '', '', ''),
-('701', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('702', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('703', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('704', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('705', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('706', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('707', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('708', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('709', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('710', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('711', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('712', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('713', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('714', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('715', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('716', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('717', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('718', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('719', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('720', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('721', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('722', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('723', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('724', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('725', '1', 'Geographie', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
+('701', '1', 'Geographie', '', 'Primaire', 'Facile', 'Combien y a-t-il de continents ?', '001', '2', '4', '6', ''),
+('702', '1', 'Geographie', '', 'Primaire', 'Facile', 'Quel fleuve n`est pas un fleuve Français ?', '0010', 'La Garonne', 'La Loire', 'Le Nil', 'La Seine'),
+('703', '1', 'Geographie', '', 'Primaire', 'Facile', 'Quel est le plus long fleuve de France ?', '0001', 'La Garonne', 'Le Rhône', 'La Seine', 'La Loire'),
+('704', '1', 'Geographie', '', 'Primaire', 'Facile', 'Quels massifs montagneux sont en France ?', '1110', 'Les Alpes', 'Les Pyrennées', 'Le Massif Central', 'L`Himalaya'),
+('705', '1', 'Geographie', '', 'Primaire', 'Facile', 'Combien y a t-il de saisons en Europe ?', '10', '4', '2', '', ''),
+('706', '1', 'Geographie', '', 'Primaire', 'Facile', 'En hiver, les nuits sont', '100', 'plus longues que les jours', 'aussi longues que les jours', 'moins longues que les jours', ''),
+('707', '1', 'Geographie', '', 'Primaire', 'Facile', 'Au printemps, les nuits sont', '010', 'plus longues que les jours', 'aussi longues que les jours', 'moins longues que les jours', ''),
+('708', '1', 'Geographie', '', 'Primaire', 'Facile', 'Combien y a-t-il de jours dans une année ?', '100', '365-366 jours', '255-256 jours', '405-406 jours', ''),
+('709', '1', 'Geographie', '', 'Primaire', 'Facile', 'Combien de jours comprend le mois de Mars ?', '001', '29', '30', '31', ''),
+('710', '1', 'Geographie', '', 'Primaire', 'Facile', 'Une année de 366 jours s`appelle une année ...', '010', 'bipolaire', 'bissextile', 'bipode', ''),
+('711', '1', 'Geographie', '', 'Primaire', 'Facile', 'Une année bissextile arrive tous les ', '1000', '4 ans', '5 ans', '6 ans', '7 ans'),
+('712', '1', 'Geographie', '', 'Primaire', 'Facile', 'Vrai ou Faux : Le Soleil tourne autour de la Terre', '01', 'Vrai', 'Faux', '', ''),
+('713', '1', 'Geographie', '', 'Primaire', 'Facile', 'Vrai ou Faux : La Terre tourne sur elle-même', '10', 'Vrai', 'Faux', '', ''),
+('714', '1', 'Geographie', '', 'Primaire', 'Facile', 'Vrai ou Faux : La Lune tourne autour de la Terre', '10', 'Vrai', 'Faux', '', ''),
+('715', '1', 'Geographie', '', 'Primaire', 'Facile', 'La Lune tourne autour de la Terre en environ', '1000', '1 mois', '3 mois', '6 mois', '1 an'),
+('716', '1', 'Geographie', '', 'Primaire', 'Facile', 'La Terre tourne autour du Soleil en ', '0001', '1 mois', '3 mois', '6 mois', '1 an'),
+('717', '1', 'Geographie', '', 'Primaire', 'Facile', 'La Terre fait un tour sur elle-même en ', '100', '1 jour', '1 mois', '1 an', ''),
+('718', '1', 'Geographie', '', 'Primaire', 'Facile', 'Une journée dure ', '10', '24 heures', '12 heures', '', ''),
+('719', '1', 'Geographie', '', 'Primaire', 'Facile', 'Le Soleil se lève', '1000', 'à l`Est', 'à l`Ouest', 'au Nord', 'au Sud'),
+('720', '1', 'Geographie', '', 'Primaire', 'Facile', 'Comment appelle-t-on Nord, Est, Ouest, Sud', '001', 'Les points noirs', 'Les points blancs', 'Les points cardinaux', ''),
+('721', '1', 'Geographie', '', 'Primaire', 'Facile', 'Quelles mers bordent la France ?', '101', 'Mer méditerrannée', 'Mer rouge', 'La Manche', ''),
+('722', '1', 'Geographie', '', 'Primaire', 'Facile', 'A combien culmine le Mont Blanc ?', '100', '4807', '8848', '5891', ''),
+('723', '1', 'Geographie', '', 'Primaire', 'Facile', 'Quels pays ont frontière commune avec la France ?', '110', 'La Belgique', 'L`Allemagne', 'La Russie', ''),
+('724', '1', 'Geographie', '', 'Primaire', 'Facile', 'Quelle la capitale de la France ?', '100', 'Paris', 'Lille', 'Marseille', ''),
+('725', '1', 'Geographie', '', 'Primaire', 'Facile', 'Combien de pays comprend l`union européenne ?', '010', '17', '27', '37', ''),
 ('726', '1', 'Geographie', '', 'College', 'Facile', '', '01', '', '', '', ''),
 ('727', '1', 'Geographie', '', 'College', 'Facile', '', '01', '', '', '', ''),
 ('728', '1', 'Geographie', '', 'College', 'Facile', '', '01', '', '', '', ''),
@@ -862,21 +867,21 @@ values ('0', '1', 'Mathematiques', 'Nombres', 'Primaire', 'Facile', '15 + 48 = ?
 ('801', '1', 'Geographie', '', 'Superieur', 'Facile', '', '01', '', '', '', ''),
 ('802', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', 'Quels verbes sont du 1er groupe ?', '01', '', '', '', ''),
 ('803', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', 'Quels verbes sont du 2ème groupe ?', '01', '', '', '', ''),
-('804', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('805', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('806', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('807', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('808', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('809', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('810', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('811', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('812', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('813', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('814', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('815', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('816', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('817', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
-('818', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
+('804', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', 'Quels verbes sont du 3ème groupe ?', '01', '', '', '', ''),
+('805', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', 'Quels verbes sont du 3ème groupe ?', '01', '', '', '', ''),
+('806', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', 'Présent  : Vous (manger)', '01', '', '', '', ''),
+('807', '1', 'Francais', 'Conjugaison', 'Primaire', 'Facile', 'Futur : Vous (courir)', '01', '', '', '', ''),
+('808', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Imparfait : Ils (finir)', '', '', ''),
+('809', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Passé Composé : Tu (aller)', '', '', ''),
+('810', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Quel temps : On entend le rossignol chanter', '', '', ''),
+('811', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Quel temps : La fusée décollera à 12 heures', '', '', ''),
+('812', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Quel temps : Nous étions les rois du monde', '', '', ''),
+('813', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Où est le verbe : Le chat mange une souris', '', '', ''),
+('814', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Qui est le nom noyau : La petite fille aux alumettes', '', '', ''),
+('815', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Combien de verbes : Le chat suit des yeux le mulot, se tapit, puis bondit dessus', '', '', ''),
+('816', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'COD ou COI (une souris) : Le chat mange une souris', '', '', ''),
+('817', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'COD ou COI (à sa grand-mère) : La fille écrit à sa grand-mère', '', '', ''),
+('818', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', 'Nature de "Sous le rebord de la fenêt', '', '', ''),
 ('819', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
 ('820', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
 ('821', '1', 'Francais', '', 'Primaire', 'Facile', '', '01', '', '', '', ''),
@@ -1064,7 +1069,6 @@ values ('0', '1', 'Mathematiques', 'Nombres', 'Primaire', 'Facile', '15 + 48 = ?
 
 /*Creation de la table administrateur*/
 
-DROP TABLE IF EXISTS `admin`;
 create table admin(
 	id int auto_increment primary key,
     nom varchar(30),
