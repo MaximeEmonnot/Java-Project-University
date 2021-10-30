@@ -8,9 +8,8 @@ import java.awt.Color;
 import java.awt.Point;
 
 public class TypingBox {
-    public TypingBox(Rectangle _rect, int _textSize){
+    public TypingBox(Rectangle _rect){
         rect = _rect;
-        textSize = _textSize;
     }  
 
     public void Update(){
@@ -62,7 +61,6 @@ public class TypingBox {
     }
 
     private Rectangle rect;
-    private final int textSize;
 
     private final float timer = 0.75f;
     private float currentTimer = 0.0f; 

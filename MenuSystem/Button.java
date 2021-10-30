@@ -17,9 +17,9 @@ public class Button {
         func = _func;
     }
 
-    public boolean OnClick(){
+    public boolean OnClick(CoreSystem.Mouse.EventType e){
         bIsClicked = false;
-        if (rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos()) && CoreSystem.Mouse.GetInstance().LeftIsPressed()){
+        if (rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos()) && e == CoreSystem.Mouse.EventType.LPress){
             bIsClicked = true;
         }
         return bIsClicked;

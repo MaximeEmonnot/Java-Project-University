@@ -1,8 +1,10 @@
 package GameFiles.Scenes;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.sql.ResultSet;
 
@@ -25,6 +27,12 @@ public class SearchScene extends AScene {
         ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
+            domains.add(rs.getString("domaine"));
+            difficulty.add(rs.getString("niveau"));
+            if (!categories.containsKey(rs.getString("domaine"))){
+                categories.put(rs.getString("domaine"), new HashSet<String>());
+            }
+            categories.get(rs.getString("domaine")).add(rs.getString("categorie"));
             ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, 12, () -> {
                 bChangeScene = true;
                 try {
@@ -147,10 +155,19 @@ public class SearchScene extends AScene {
         }
        refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", 22, () -> {
            ddcArray.clear();
+           domains.clear();
+           categories.clear();
+           difficulty.clear();
            try {
                 ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
                 while(rSet.next()){
                     String name = String.valueOf(rSet.getLong("id_prof"))  + " - " + rSet.getString("domaine") + "  - " + rSet.getString("categorie") + " - " + rSet.getString("niveau");
+                    domains.add(rSet.getString("domaine"));
+                    difficulty.add(rSet.getString("niveau"));
+                    if (!categories.containsKey(rSet.getString("domaine"))){
+                        categories.put(rSet.getString("domaine"), new HashSet<String>());
+                    }
+                    categories.get(rSet.getString("domaine")).add(rSet.getString("categorie"));
                     ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, 12, () -> {
                         bChangeScene = true;
                         try {
@@ -280,22 +297,31 @@ public class SearchScene extends AScene {
     
     @Override
     public void Update() throws SQLException {
+        CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
+        searchDomain.SetChoices(domains);
+        if (categories.containsKey(searchDomain.GetText())){
+            searchCategory.SetChoices(categories.get(searchDomain.GetText()));
+        }
+        searchDifficulty.SetChoices(difficulty);
+
         lives = 3;
         iCurQuestion = 0;
 
-        searchDomain.Update();
-        searchCategory.Update();
-        searchDifficulty.Update();
-        searchId.Update();
-        if (refreshButton.OnClick()){
-            refreshButton.ComputeFunction();
-        }
-
-        ddcArray.forEach((btn) -> {
-            if (btn.OnClick()){
-                btn.ComputeFunction();
+        if (!searchDomain.IsExpanding() && !searchCategory.IsExpanding() && !searchDifficulty.IsExpanding()){
+            if (refreshButton.OnClick(e)){
+                refreshButton.ComputeFunction();
             }
-        });
+            
+            ddcArray.forEach((btn) -> {
+                if (btn.OnClick(e)){
+                    btn.ComputeFunction();
+                }
+            });
+        }
+        searchDomain.Update(e);
+        searchCategory.Update(e);
+        searchDifficulty.Update(e);
+        searchId.Update();
     }
     
     @Override
@@ -333,11 +359,15 @@ public class SearchScene extends AScene {
     
     private DataBaseManager dbm;
 
-    private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50), 22); 
-    private TypingBox searchDomain = new TypingBox(new Rectangle(175, 500, 150, 50), 22); 
-    private TypingBox searchCategory = new TypingBox(new Rectangle(335, 500, 150, 50), 22); 
-    private TypingBox searchDifficulty = new TypingBox(new Rectangle(495, 500, 150, 50), 22); 
+    private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50)); 
+    private ChoiceBox searchDomain = new ChoiceBox(new Rectangle(175, 500, 150, 50)); 
+    private ChoiceBox searchCategory = new ChoiceBox(new Rectangle(335, 500, 150, 50)); 
+    private ChoiceBox searchDifficulty = new ChoiceBox(new Rectangle(495, 500, 150, 50)); 
 
+
+    private Set<String> domains = new HashSet<String>();
+    private Map<String, HashSet<String>> categories = new HashMap<String, HashSet<String>>();
+    private Set<String> difficulty = new HashSet<String>();
     private Button refreshButton;
     private Set<Button> ddcArray = new HashSet<Button>();
 }

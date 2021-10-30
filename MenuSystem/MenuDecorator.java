@@ -24,7 +24,7 @@ public class MenuDecorator implements IMenu {
         if (e == CoreSystem.Mouse.EventType.LPress){
             decoratedMenu.Update(e);
             for (Button b : buttons){
-                if (b.OnClick()){
+                if (b.OnClick(e)){
                     b.ComputeFunction();
                     break;
                 }
@@ -38,7 +38,7 @@ public class MenuDecorator implements IMenu {
         if (e == CoreSystem.Mouse.EventType.LPress){
             decoratedMenu.Update(e);
             for (Button b : buttons){
-                if (b.OnClick()){
+                if (b.OnClick(e)){
                     b.ComputeFunction();
                     break;
                 }
