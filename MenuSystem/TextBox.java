@@ -8,26 +8,29 @@ import java.awt.Color;
 import java.awt.Point;
 
 public class TextBox {
-    public TextBox(Rectangle _rect, int _textSize){
+    public TextBox(Rectangle _rect){
         rect = _rect;
-        textSize = _textSize;
     }
-    public TextBox(Rectangle _rect, String _text, int _textSize){
+    public TextBox(Rectangle _rect, String _text){
         rect = _rect;
         text = _text;
-        textSize = _textSize;
     }
-
+    
     public void Draw(Color textColor, Color boxColor, Color backgroundColor) throws ProjectException{
-        Draw(text, textColor, boxColor, backgroundColor);
+        Draw(textColor, boxColor, backgroundColor, 0);
+    }
+    public void Draw(Color textColor, Color boxColor, Color backgroundColor, int priority) throws ProjectException{
+        Draw(text, textColor, boxColor, backgroundColor, priority);
     }
     public void Draw(String _text, Color textColor, Color boxColor, Color backgroundColor) throws ProjectException{
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, backgroundColor, 10);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(rect, boxColor, 11);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(_text, new Point(rect.x + rect.width / 5, rect.y + rect.height / 3), textColor, 12);
+        Draw(_text, textColor, boxColor, backgroundColor, 0);
+    }
+    public void Draw(String _text, Color textColor, Color boxColor, Color backgroundColor, int priority) throws ProjectException{
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, backgroundColor, priority);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(rect, boxColor, priority + 1);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(_text, new Point(rect.x + rect.width / 5, rect.y + rect.height / 3), textColor, priority + 2);
     }
 
     private final Rectangle rect;
     private String text;
-    private final int textSize;
 }

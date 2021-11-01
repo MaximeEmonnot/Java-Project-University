@@ -2,13 +2,13 @@ package GameFiles.Scenes;
 
 import java.sql.SQLException;
 import Exceptions.ProjectException;
-import GameFiles.Questions.*;
 import java.awt.*;
 
 public class QuizzScene extends AScene {
 
     public QuizzScene() throws Exception{
-        nextSceneIndex = 0;
+        super();
+        nextSceneIndex = 1;
     }
 
     @Override

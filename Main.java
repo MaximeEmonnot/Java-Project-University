@@ -3,7 +3,14 @@ import Exceptions.ProjectException;
 public class Main {
     public static void main(String[] args){
         try{
+            long beginDelay = System.currentTimeMillis();
             CoreSystem.Window.GetInstance();
+            while(System.currentTimeMillis() - beginDelay < 200){
+            }
+            GraphicsEngine.GraphicsSystem.GetInstance();
+            while(System.currentTimeMillis() - beginDelay < 400){
+            }
+            
             GameFiles.Game theGame = new GameFiles.Game();
             while(CoreSystem.Window.GetInstance().listensToEvents()){
                 long beginFrame = System.currentTimeMillis();

@@ -15,7 +15,7 @@ create table `etudiant`(
     `prenom` varchar(50) not null,
     `email` varchar(50) unique not null,
     `telephone` varchar(10) unique not null,
-    `motDePass` varchar(20) not null,
+    `password` varchar(512) not null,
     `adresse` varchar(60),
     constraint pk_etudiant primary key (id_etudiant)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,8 +40,7 @@ create table `professeur`(
     `prenom` varchar(50) not null,
     `email` varchar(50) unique not null,
     `telephone` varchar(10) unique not null,
-    `motDePass` varchar(20) not null,
-    `specialite` varchar(30) not null,
+    `password` varchar(512) not null,
     `adresse` varchar(60),
     constraint pk_professeur primary key (id_professeur)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -1078,6 +1077,6 @@ create table admin(
     prenom varchar(30),
     tel varchar(20) unique,
     mail varchar(20) unique,
-    passwd varchar(150),
+    password varchar(512),
     constraint pk_admin primary key (code_admin)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 

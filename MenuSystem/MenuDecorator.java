@@ -67,12 +67,12 @@ public class MenuDecorator implements IMenu {
         Iterator<Map.Entry<Rectangle, Map.Entry<String, Lambda>>> itrButtons = _buttons.entrySet().iterator();
         while(itrButtons.hasNext()){
             Map.Entry<Rectangle, Map.Entry<String, Lambda>> val = itrButtons.next();
-            buttons.add(new Button(val.getKey(), val.getValue().getKey(), 32, val.getValue().getValue()));
+            buttons.add(new Button(val.getKey(), val.getValue().getKey(), val.getValue().getValue()));
         }
         Iterator<Map.Entry<Rectangle, String>> itrTextBoxes = _textBoxes.entrySet().iterator();
         while(itrTextBoxes.hasNext()){
             Map.Entry<Rectangle, String> val = itrTextBoxes.next();
-            textBoxes.add(new TextBox(val.getKey(), val.getValue(), 32));
+            textBoxes.add(new TextBox(val.getKey(), val.getValue()));
         }
     }
     

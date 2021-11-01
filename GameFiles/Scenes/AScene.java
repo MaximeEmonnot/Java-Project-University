@@ -4,11 +4,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataBaseSystem.DataBaseManager;
 import Exceptions.ProjectException;
 import GameFiles.Questions.AQuestion;
 
 public abstract class AScene {
-    public AScene(){
+    public AScene() throws ClassNotFoundException, SQLException{
+        if (dbm == null){
+            dbm = new DataBaseManager("ok", "graxime");
+            System.out.println("Connected");
+        }
     }
 
     public abstract void Update() throws SQLException;
@@ -23,6 +28,8 @@ public abstract class AScene {
         bChangeScene = false;
         return out;
     }
+    
+    protected static DataBaseManager dbm;
 
     protected static List<AQuestion> questions = new ArrayList<AQuestion>();
     protected static boolean bChangeScene = false;

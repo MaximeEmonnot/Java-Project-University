@@ -3,7 +3,6 @@ package GameFiles;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -12,15 +11,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Exceptions.ProjectException;
 import GameFiles.Scenes.*;
-import GraphicsEngine.GraphicsSystem;
 
 public class Game {
     public Game() throws Exceptions.ProjectException, Exception{
-        //Graphics initialization (MUST BE FIRST)
-        GraphicsEngine.GraphicsSystem.GetInstance();
-
+        scenes.add(new ConnectionScene());
         scenes.add(new SearchScene());
         scenes.add(new QuizzScene());
+        scenes.add(new TeacherScene());
+        scenes.add(new AdminScene());
     }
 
     public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException, SQLException{

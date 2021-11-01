@@ -14,16 +14,13 @@ import MenuSystem.Button;
 import java.awt.*;
 import java.sql.SQLException;
 
-import DataBaseSystem.DataBaseManager;
 import Exceptions.ProjectException;
 import GameFiles.Questions.*;
 
 public class SearchScene extends AScene {
     public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
         super();
-        nextSceneIndex = 1;
-        dbm = new DataBaseManager("ok", "graxime");
-        System.out.println("Connected");
+        nextSceneIndex = 2;
         ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
@@ -33,7 +30,7 @@ public class SearchScene extends AScene {
                 categories.put(rs.getString("domaine"), new HashSet<String>());
             }
             categories.get(rs.getString("domaine")).add(rs.getString("categorie"));
-            ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, 12, () -> {
+            ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                 bChangeScene = true;
                 try {
                     questions.clear();
@@ -153,7 +150,7 @@ public class SearchScene extends AScene {
                 }
             }));
         }
-       refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", 22, () -> {
+       refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", () -> {
            ddcArray.clear();
            domains.clear();
            categories.clear();
@@ -168,7 +165,7 @@ public class SearchScene extends AScene {
                         categories.put(rSet.getString("domaine"), new HashSet<String>());
                     }
                     categories.get(rSet.getString("domaine")).add(rSet.getString("categorie"));
-                    ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, 12, () -> {
+                    ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                         bChangeScene = true;
                         try {
                             questions.clear();
@@ -327,14 +324,12 @@ public class SearchScene extends AScene {
     @Override
     public void Draw() throws ProjectException{
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter ID", new Point(30, 480), Color.BLACK, 5);
+
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 70), new Point(800, 70), Color. BLACK);
         searchId.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter Domain", new Point(190, 480), Color.BLACK, 5);
-        searchDomain.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter Category", new Point(350, 480), Color.BLACK, 5);
-        searchCategory.Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("Enter Level", new Point(510, 480), Color.BLACK, 5);
-        searchDifficulty.Draw();
+        searchDomain.Draw(5);
+        searchCategory.Draw(5);
+        searchDifficulty.Draw(5);
         if (refreshButton.IsClicked()){
             refreshButton.Draw(Color.DARK_GRAY);
         }
@@ -348,7 +343,7 @@ public class SearchScene extends AScene {
         while(itr.hasNext()){
             Button btn = itr.next();
             if (btn.GetText().startsWith(searchId.GetText()) && btn.GetText().contains(searchDomain.GetText()) && btn.GetText().contains(searchCategory.GetText()) && btn.GetText().contains(searchDifficulty.GetText())){
-                btn.Draw(Color.LIGHT_GRAY, new Rectangle(50 + 375 * (int)(j / 8), 10 + 50 * (j % 8), 345, 45));
+                btn.Draw(Color.LIGHT_GRAY, new Rectangle(25 + 380 * (int)(j / 8), 85 + 50 * (j % 8), 350, 45));
                 j++;
             }
             else {
@@ -357,12 +352,10 @@ public class SearchScene extends AScene {
         }
     }
     
-    private DataBaseManager dbm;
-
-    private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50)); 
-    private ChoiceBox searchDomain = new ChoiceBox(new Rectangle(175, 500, 150, 50)); 
-    private ChoiceBox searchCategory = new ChoiceBox(new Rectangle(335, 500, 150, 50)); 
-    private ChoiceBox searchDifficulty = new ChoiceBox(new Rectangle(495, 500, 150, 50)); 
+    private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50), "Enter ID..."); 
+    private ChoiceBox searchDomain = new ChoiceBox(new Rectangle(175, 500, 150, 50), "Select domain..."); 
+    private ChoiceBox searchCategory = new ChoiceBox(new Rectangle(335, 500, 150, 50), "Select category..."); 
+    private ChoiceBox searchDifficulty = new ChoiceBox(new Rectangle(495, 500, 150, 50), "Select level..."); 
 
 
     private Set<String> domains = new HashSet<String>();

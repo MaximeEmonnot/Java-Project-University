@@ -14,39 +14,39 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
         
         switch (_type){
         case ANSWER_A:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), true);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), false);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), false);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), true);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), false);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), false);
             break;
         case ANSWER_B:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), false);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), true);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), false);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), false);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), true);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), false);
             break;
         case ANSWER_C:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), false);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), false);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), true);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), false);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), false);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), true);
             break;
         case ANSWER_AB:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), true);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), true);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), false);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), true);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), true);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), false);
             break;
         case ANSWER_AC:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), true);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), false);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), true);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), true);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), false);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), true);
             break;
         case ANSWER_BC:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), false);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), true);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), true);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), false);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), true);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), true);
             break;
         case ANSWER_ABC:
-            eggA = new Egg(new Rectangle(100, 150, 78, 78), new Rectangle(100, 150, 78, 78), true);
-            eggB = new Egg(new Rectangle(250, 150, 78, 78), new Rectangle(250, 150, 78, 78), true);
-            eggC = new Egg(new Rectangle(400, 150, 78, 78), new Rectangle(400, 150, 78, 78), true);
+            eggA = new Egg(new Rectangle(140, 150, 78, 78), new Rectangle(140, 150, 78, 78), true);
+            eggB = new Egg(new Rectangle(360, 150, 78, 78), new Rectangle(360, 150, 78, 78), true);
+            eggC = new Egg(new Rectangle(580, 150, 78, 78), new Rectangle(580, 150, 78, 78), true);
             break;
         default:
             break;
@@ -72,9 +72,15 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
     public void Draw() throws ProjectException {
         super.Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);
+        //Drawing eggs
         eggA.Draw();
         eggB.Draw();
         eggC.Draw();
+
+        //Drawing text
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A", new Point(175, 120), Color.BLACK);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B", new Point(395, 120), Color.BLACK);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("C", new Point(612, 120), Color.BLACK);
     }
 
     private Egg eggA;

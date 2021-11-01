@@ -9,11 +9,10 @@ import java.awt.Point;
 
 public class Button {
 
-    public Button(Rectangle _rect, String _text, int _textSize, Lambda _func)
+    public Button(Rectangle _rect, String _text, Lambda _func)
     {
         rect = _rect;
         text = _text;
-        textSize = _textSize;
         func = _func;
     }
 
@@ -34,13 +33,18 @@ public class Button {
     
     
     public void Draw(Color c) throws ProjectException{
-        Draw(c, rect);
+        Draw(c, 0);
     }
-    
+    public void Draw(Color c, int priority) throws ProjectException{
+        Draw(c, rect, priority);
+    }
     public void Draw(Color c, Rectangle _rect) throws ProjectException{
+        Draw(c, _rect, 0);
+    }
+    public void Draw(Color c, Rectangle _rect, int priority) throws ProjectException{
         rect = _rect;
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(_rect, c, 10);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(_rect.x + _rect.width / 10, _rect.y + _rect.height / 3), Color.BLACK, 11);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(_rect, c, priority);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(_rect.x + _rect.width / 10, _rect.y + _rect.height / 3), Color.BLACK, priority + 1);
     }
 
     public boolean IsClicked(){
@@ -69,6 +73,5 @@ public class Button {
     private boolean bIsClicked = false;
     private Rectangle rect;
     private final String text;
-    private final int textSize;
     private Lambda func;
 }
