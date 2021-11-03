@@ -26,10 +26,11 @@ public class ConnectionScene extends AScene {
         super();
         connectionType.add("Eleve");
         connectionType.add("Professeur");
-        connectionType.add("Admin");
-
-        choiceConnection.SetChoices(connectionType);
+        
         choiceRegister.SetChoices(connectionType);
+
+        connectionType.add("Admin");
+        choiceConnection.SetChoices(connectionType);
 
         //logo = new Sprite("Images/quizzGameLogo.png");
 
@@ -85,7 +86,25 @@ public class ConnectionScene extends AScene {
                         }
                         break;
                     case "Admin":
-                        nextSceneIndex = 4;
+                        try {
+                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.admin WHERE id_admin = '" + emailConnection.GetText() + "';");
+                            if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                                nextSceneIndex = 4;
+                            }
+                            else{
+                                System.out.println("Wrong password");
+                            }
+                        } catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        
                         break;
                     default :
                         break;
@@ -134,8 +153,6 @@ public class ConnectionScene extends AScene {
                      e.printStackTrace();
                     }
                 break;
-                case "Admin":
-                    break;
                 default:
                     System.out.println("Can't add account");
                 break;

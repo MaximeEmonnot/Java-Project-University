@@ -36,11 +36,7 @@ create table `professeur`(
 /*Creation de la table administrateur*/
 
 create table admin(
-	id_admin int auto_increment unique,
-    nom varchar(30),
-    prenom varchar(30),
-    tel varchar(20) unique,
-    mail varchar(20) unique,
+    id_admin varchar(20) unique,
     password varchar(512),
     constraint pk_admin primary key (id_admin)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 
@@ -51,7 +47,7 @@ create table `statistique`(
     `id_statistique` int not null,
     `score` float,
     `id_subject` int not null,
-    constraint fk_stats_utilisateur foreign key (id_statistique) references etudiant (id_etudiant) 
+    constraint pk_stats_utilisateur primary key (id_statistique)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -85,6 +81,10 @@ VALUES ('Student', 'Student', 'student@student.com', '0101010101', '2286db74888e
 /*Ajout Prof*/
 INSERT INTO professeur(nom, prenom, email, telephone, password, adresse)
 VALUES ('Prof', 'Prof', 'prof@prof.com', '0202020202', 'b820e9862fa829c9af2ba64a64801097f4542590945b0ea539906e826950c5ba642a9b7d8a432b12f80aad8ad6428f6e7fe035d3e7f5ec5ce5564f5aa0d981ed', '1 rue des professeurs');
+
+/*Ajout admin*/
+INSERT INTO admin(id_admin, password)
+VALUES ('admin', '5a38afb1a18d408e6cd367f9db91e2ab9bce834cdad3da24183cc174956c20ce35dd39c2bd36aae907111ae3d6ada353f7697a5f1a8fc567aae9e4ca41a9d19d');
 
 /*Remplissage table sujets*/
 INSERT INTO sujets(domaine, categorie, niveau)
