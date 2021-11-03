@@ -12,30 +12,47 @@ import MenuSystem.*;
 import MenuSystem.Button;
 
 import java.awt.*;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import Exceptions.ProjectException;
 import GameFiles.Questions.*;
 
 public class SearchScene extends AScene {
+    private enum SceneStage{
+        SEARCHING,
+        PROFILE,
+        STATISTICS,
+        CHANGE_PASSWORD
+    }
+
     public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
         super();
         nextSceneIndex = 2;
-        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
+        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject =  ok.sujets.id");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
             domains.add(rs.getString("domaine"));
-            difficulty.add(rs.getString("niveau"));
             if (!categories.containsKey(rs.getString("domaine"))){
                 categories.put(rs.getString("domaine"), new HashSet<String>());
             }
             categories.get(rs.getString("domaine")).add(rs.getString("categorie"));
+            if (!difficulty.containsKey(rs.getString("domaine"))){
+                difficulty.put(rs.getString("domaine"), new HashMap<String, HashSet<String>>());
+                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
+            }
+            else if (!difficulty.get(rs.getString("domaine")).containsKey(rs.getString("categorie"))){
+                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
+            }
+            difficulty.get(rs.getString("domaine")).get(rs.getString("categorie")).add(rs.getString("niveau"));
             ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                 bChangeScene = true;
+                currentQuizz = name;
                 try {
                     questions.clear();
                     String[] args = name.split(" - ");
-                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions WHERE (id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
+                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE (ok.questions.id_subject = ok.sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                     while(questionSet.next()){
                         if (questionSet.getString("reponseD").length() != 0){
                             AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -156,21 +173,29 @@ public class SearchScene extends AScene {
            categories.clear();
            difficulty.clear();
            try {
-                ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions");
+                ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject = ok.sujets.id");
                 while(rSet.next()){
                     String name = String.valueOf(rSet.getLong("id_prof"))  + " - " + rSet.getString("domaine") + "  - " + rSet.getString("categorie") + " - " + rSet.getString("niveau");
                     domains.add(rSet.getString("domaine"));
-                    difficulty.add(rSet.getString("niveau"));
                     if (!categories.containsKey(rSet.getString("domaine"))){
                         categories.put(rSet.getString("domaine"), new HashSet<String>());
                     }
                     categories.get(rSet.getString("domaine")).add(rSet.getString("categorie"));
+                    if (!difficulty.containsKey(rSet.getString("domaine"))){
+                        difficulty.put(rSet.getString("domaine"), new HashMap<String, HashSet<String>>());
+                        difficulty.get(rSet.getString("domaine")).put(rSet.getString("categorie"), new HashSet<String>());
+                    }
+                    else if (!difficulty.get(rSet.getString("domaine")).containsKey(rs.getString("categorie"))){
+                        difficulty.get(rSet.getString("domaine")).put(rSet.getString("categorie"), new HashSet<String>());
+                    }
+                    difficulty.get(rSet.getString("domaine")).get(rSet.getString("categorie")).add(rSet.getString("niveau"));
                     ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                         bChangeScene = true;
+                        currentQuizz = name;
                         try {
                             questions.clear();
                             String[] args = name.split(" - ");
-                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions WHERE (id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
+                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE (ok.questions.id_subject = ok.sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                             while(questionSet.next()){
                                 if (questionSet.getString("reponseD").length() != 0){
                                     AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -290,77 +315,261 @@ public class SearchScene extends AScene {
                 e.printStackTrace();
             }
        });
+    
+       profileButton = new Button(new Rectangle(25, 10, 350, 50), "View profile", () -> {
+           currentStage = SceneStage.PROFILE;
+       });
+       statisticsButton = new Button(new Rectangle(400, 10, 350, 50), "View statistics", () -> {
+        statsArray.clear();
+        try {
+            ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau, score FROM ok.etudiant, ok.statistique, ok.sujets WHERE email = '" + user.GetMail() + "' AND id_etudiant = id_statistique AND ok.sujets.id = ok.statistique.id_subject;");
+            while(rSet.next()){
+                statsArray.add(new TextBox(rSet.getString("domaine") + " - " + rSet.getString("categorie") + " - " + rSet.getString("niveau") + " - Score : " + rSet.getFloat("score") + "%"));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+           currentStage = SceneStage.STATISTICS;
+       });
+       backButton = new Button(new Rectangle(650, 500, 100, 50), "Back", () -> {
+           currentStage = SceneStage.SEARCHING;
+       });
+       changePasswordButton = new Button(new Rectangle(100, 500, 200, 50), "Change password", () -> {
+            currentStage = SceneStage.CHANGE_PASSWORD;
+       });
+       cancelButton = new Button(new Rectangle(500, 500, 200, 50), "Cancel", () -> {
+            currentStage = SceneStage.PROFILE;
+       });
+       confirmPasswordButton = new Button(new Rectangle(100, 500, 200, 50), "Confirm password", () -> {
+           if (oldPassword.GetText().length() != 0
+            && newPassword.GetText().length() != 0
+            && confirmNewPassword.GetText().length() != 0
+            && newPassword.GetText().equals(confirmNewPassword.GetText())){
+                try {
+                    ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT password FROM ok.etudiant WHERE email = '" + user.GetMail() + "';");
+                    if(rSet.next() && rSet.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(oldPassword.GetText()))){
+                        dbm.SendSDLRequest("UPDATE ok.etudiant SET password = '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(newPassword.GetText()) + "' WHERE email = '" + user.GetMail() + "';");
+                        System.out.println("New password set !");
+                        currentStage = SceneStage.PROFILE;
+                    }
+                    else{
+                        System.out.println("Wrong old password");
+                    }
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+           }
+           else{
+               System.out.println("Passwords are different");
+           }
+       });
+       
+       oldPassword.SetPasswordMode(true);
+       newPassword.SetPasswordMode(true);
+       confirmNewPassword.SetPasswordMode(true);
     }
     
     @Override
     public void Update() throws SQLException {
         CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
-        searchDomain.SetChoices(domains);
-        if (categories.containsKey(searchDomain.GetText())){
-            searchCategory.SetChoices(categories.get(searchDomain.GetText()));
-        }
-        searchDifficulty.SetChoices(difficulty);
-
-        lives = 3;
-        iCurQuestion = 0;
-
-        if (!searchDomain.IsExpanding() && !searchCategory.IsExpanding() && !searchDifficulty.IsExpanding()){
-            if (refreshButton.OnClick(e)){
-                refreshButton.ComputeFunction();
-            }
-            
-            ddcArray.forEach((btn) -> {
-                if (btn.OnClick(e)){
-                    btn.ComputeFunction();
+        switch(currentStage){
+            case SEARCHING:
+                searchDomain.SetChoices(domains);
+                if (categories.containsKey(searchDomain.GetText())){
+                    searchCategory.SetChoices(categories.get(searchDomain.GetText()));
+                    if (difficulty.get(searchDomain.GetText()).containsKey(searchCategory.GetText())){
+                        searchDifficulty.SetChoices(difficulty.get(searchDomain.GetText()).get(searchCategory.GetText()));
+                    }
                 }
-            });
+
+                lives = 3;
+                iCurQuestion = 0;
+
+                if (!searchDomain.IsExpanding() && !searchCategory.IsExpanding() && !searchDifficulty.IsExpanding()){
+                    if (refreshButton.OnClick(e)){
+                        refreshButton.ComputeFunction();
+                    }
+                    if (profileButton.OnClick(e)){
+                        profileButton.ComputeFunction(); 
+                    }
+                    if (statisticsButton.OnClick(e)){
+                        statisticsButton.ComputeFunction();
+                    }
+
+                    ddcArray.forEach((btn) -> {
+                        if (btn.OnClick(e)){
+                            btn.ComputeFunction();
+                        }
+                    });
+                }
+                searchDomain.Update(e);
+                searchCategory.Update(e);
+                searchDifficulty.Update(e);
+                searchId.Update();
+                break;
+            case PROFILE:
+                if (backButton.OnClick(e)){
+                    backButton.ComputeFunction();
+                }
+                if (changePasswordButton.OnClick(e)){
+                    changePasswordButton.ComputeFunction();
+                }
+                break;
+            case STATISTICS: 
+                if (backButton.OnClick(e)){
+                    backButton.ComputeFunction();
+                }
+                break;
+            case CHANGE_PASSWORD:
+                oldPassword.Update();
+                newPassword.Update();
+                confirmNewPassword.Update();
+                if (confirmPasswordButton.OnClick(e)){
+                    confirmPasswordButton.ComputeFunction();
+                }
+                if (cancelButton.OnClick(e)){
+                    cancelButton.ComputeFunction();
+                }
+                break;
+            default:
+                break;
         }
-        searchDomain.Update(e);
-        searchCategory.Update(e);
-        searchDifficulty.Update(e);
-        searchId.Update();
     }
     
     @Override
     public void Draw() throws ProjectException{
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
 
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 70), new Point(800, 70), Color. BLACK);
-        searchId.Draw();
-        searchDomain.Draw(5);
-        searchCategory.Draw(5);
-        searchDifficulty.Draw(5);
-        if (refreshButton.IsClicked()){
-            refreshButton.Draw(Color.DARK_GRAY);
-        }
-        else{
-            refreshButton.Draw(Color.LIGHT_GRAY);
-        }
-
-        Iterator<Button> itr = ddcArray.iterator();
-
-        int j = 0;
-        while(itr.hasNext()){
-            Button btn = itr.next();
-            if (btn.GetText().startsWith(searchId.GetText()) && btn.GetText().contains(searchDomain.GetText()) && btn.GetText().contains(searchCategory.GetText()) && btn.GetText().contains(searchDifficulty.GetText())){
-                btn.Draw(Color.LIGHT_GRAY, new Rectangle(25 + 380 * (int)(j / 8), 85 + 50 * (j % 8), 350, 45));
-                j++;
-            }
-            else {
-                btn.Draw(Color.BLACK, new Rectangle(-100, -100, 0, 0));
-            }
-        }
+        switch(currentStage){
+            case SEARCHING: 
+                GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 70), new Point(800, 70), Color. BLACK);
+                searchId.Draw();
+                searchDomain.Draw(5);
+                searchCategory.Draw(5);
+                searchDifficulty.Draw(5);
+                if (refreshButton.IsClicked()){
+                    refreshButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    refreshButton.Draw(Color.LIGHT_GRAY);
+                }
+                if (profileButton.IsClicked()){
+                    profileButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    profileButton.Draw(Color.LIGHT_GRAY);
+                }
+                if (statisticsButton.IsClicked()){
+                    statisticsButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    statisticsButton.Draw(Color.LIGHT_GRAY);
+                }
+            
+                Iterator<Button> itr = ddcArray.iterator();
+            
+                int j = 0;
+                while(itr.hasNext()){
+                    Button btn = itr.next();
+                    if (btn.GetText().startsWith(searchId.GetText()) && btn.GetText().contains(searchDomain.GetText()) && btn.GetText().contains(searchCategory.GetText()) && btn.GetText().contains(searchDifficulty.GetText())){
+                        btn.Draw(Color.LIGHT_GRAY, new Rectangle(25 + 380 * (int)(j / 8), 85 + 50 * (j % 8), 350, 45));
+                        j++;
+                    }
+                    else {
+                        btn.Draw(Color.BLACK, new Rectangle(-100, -100, 0, 0));
+                    }
+                }
+            break;
+            case PROFILE: 
+                firstNameBox.Draw("First Name : " + user.GetFirstName(), Color.BLACK, Color.GRAY, Color.WHITE);
+                lastNameBox.Draw("Last Name : " + user.GetLastName(), Color.BLACK, Color.GRAY, Color.WHITE);
+                emailBox.Draw("Email : " + user.GetMail(), Color.BLACK, Color.GRAY, Color.WHITE);
+                phoneBox.Draw("Phone : " + user.GetPhoneNumber(), Color.BLACK, Color.GRAY, Color.WHITE);
+                addressBox.Draw("Address : " + user.GetAdress(), Color.BLACK, Color.GRAY, Color.WHITE);
+                if (backButton.IsClicked()){
+                    backButton.Draw(Color.DARK_GRAY);
+                }
+                else {
+                    backButton.Draw(Color.LIGHT_GRAY);
+                }
+                if (changePasswordButton.IsClicked()){
+                    changePasswordButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    changePasswordButton.Draw(Color.LIGHT_GRAY);
+                }
+                break;
+            case STATISTICS:
+                if (backButton.IsClicked()){
+                    backButton.Draw(Color.DARK_GRAY);
+                }
+                else {
+                    backButton.Draw(Color.LIGHT_GRAY);
+                }
+                Iterator<TextBox> itrTB = statsArray.iterator();
+                int k = 0;
+                while (itrTB.hasNext()){
+                    TextBox tb = itrTB.next();
+                    tb.Draw(new Rectangle(100, 50 + k * 75, 600, 50), Color.BLACK, Color.GRAY, Color.WHITE);
+                }
+                break;          
+            case CHANGE_PASSWORD:
+                oldPassword.Draw();
+                newPassword.Draw();
+                confirmNewPassword.Draw();
+                if (confirmPasswordButton.IsClicked()){
+                    confirmPasswordButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    confirmPasswordButton.Draw(Color.LIGHT_GRAY);
+                }
+                if (cancelButton.IsClicked()){
+                    cancelButton.Draw(Color.DARK_GRAY);
+                }
+                else {
+                    cancelButton.Draw(Color.LIGHT_GRAY);
+                }
+                break;
+            default:
+            break;
+        } 
     }
-    
+        
+    private SceneStage currentStage = SceneStage.SEARCHING;
+
+    private Button profileButton;
+    private Button statisticsButton;
+    private Button backButton;
+    private Button changePasswordButton;
+    private Button confirmPasswordButton;
+    private Button cancelButton;
+
+    //Change password menu
+    private TypingBox oldPassword = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter old password...");
+    private TypingBox newPassword = new TypingBox(new Rectangle(100, 250, 600, 50), "Enter new password...");
+    private TypingBox confirmNewPassword = new TypingBox(new Rectangle(100, 350, 600, 50), "Confirm new password...");
+
+    //Profile menu
+    private TextBox firstNameBox = new TextBox(new Rectangle(100, 150, 275, 50));
+    private TextBox lastNameBox = new TextBox(new Rectangle(400, 150, 275, 50));
+    private TextBox emailBox = new TextBox(new Rectangle(100, 250, 275, 50));
+    private TextBox phoneBox = new TextBox(new Rectangle(400, 250, 275, 50));
+    private TextBox addressBox = new TextBox(new Rectangle(100, 350, 600, 50));
+
+    //Statistics menu
+    private Set<TextBox> statsArray = new HashSet<TextBox>();
+
+    //Searching menu
     private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50), "Enter ID..."); 
     private ChoiceBox searchDomain = new ChoiceBox(new Rectangle(175, 500, 150, 50), "Select domain..."); 
     private ChoiceBox searchCategory = new ChoiceBox(new Rectangle(335, 500, 150, 50), "Select category..."); 
     private ChoiceBox searchDifficulty = new ChoiceBox(new Rectangle(495, 500, 150, 50), "Select level..."); 
 
-
     private Set<String> domains = new HashSet<String>();
     private Map<String, HashSet<String>> categories = new HashMap<String, HashSet<String>>();
-    private Set<String> difficulty = new HashSet<String>();
+    private Map<String, HashMap<String, HashSet<String>>> difficulty = new HashMap<String, HashMap<String, HashSet<String>>>();
     private Button refreshButton;
     private Set<Button> ddcArray = new HashSet<Button>();
 }

@@ -29,6 +29,10 @@ public class CheckBox {
         }
     }
 
+    public void Clear(){
+        bIsChecked = false;
+    }
+
     public boolean IsChecked(){
         return bIsChecked;
     }

@@ -79,6 +79,10 @@ public class ChoiceBox {
         }
     }
 
+    public void AddChoice(String choice){
+        choices.add(choice);
+    }
+
     public void SetChoices(Set<String> newChoices){
         choices.clear();
         choices.addAll(newChoices);

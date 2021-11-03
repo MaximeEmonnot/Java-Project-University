@@ -2,8 +2,6 @@ package GameFiles.Scenes;
 
 import java.awt.*;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import Exceptions.ProjectException;
-//import GraphicsEngine.Sprite;
+import GameFiles.User.*;
+import GraphicsEngine.Sprite;
 import MenuSystem.*;
 import MenuSystem.Button;
 
@@ -32,6 +31,8 @@ public class ConnectionScene extends AScene {
         choiceConnection.SetChoices(connectionType);
         choiceRegister.SetChoices(connectionType);
 
+        //logo = new Sprite("Images/quizzGameLogo.png");
+
         connectButton = new Button(new Rectangle(200, 400, 400, 50), "Log in", () -> { currentStage = ConnectionStep.LOGIN;});
         createAccountButton = new Button(new Rectangle(200, 475, 400, 50), "Register", () -> { currentStage = ConnectionStep.REGISTER;});
         backButton = new Button(new Rectangle(550, 500, 200, 50), "Back", () -> { currentStage = ConnectionStep.INTRO;});
@@ -43,8 +44,9 @@ public class ConnectionScene extends AScene {
                 switch(choiceConnection.GetText()){
                     case "Eleve":
                         try {
-                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT password FROM ok.etudiant WHERE email = '" + emailConnection.GetText() + "';");
-                            if (rs.next() && rs.getString("password").equals(GetCryptedPasswordFrom(passwordConnection.GetText()))){
+                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.etudiant WHERE email = '" + emailConnection.GetText() + "';");
+                            if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                                user = new Student(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
                                 nextSceneIndex = 1;
                             }
                             else{
@@ -63,8 +65,9 @@ public class ConnectionScene extends AScene {
                         break;
                     case "Professeur":
                         try {
-                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT password FROM ok.professeur WHERE email = '" + emailConnection.GetText() + "';");
-                            if (rs.next() && rs.getString("password").equals(GetCryptedPasswordFrom(passwordConnection.GetText()))){
+                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.professeur WHERE email = '" + emailConnection.GetText() + "';");
+                            if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                                user = new Teacher(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
                                 nextSceneIndex = 3;
                             }
                             else{
@@ -94,14 +97,14 @@ public class ConnectionScene extends AScene {
             &&  lastNameRegister.GetText().length() != 0
             &&  emailRegister.GetText().length() != 0
             &&  phoneRegister.GetText().length() != 0
-            &&  adressRegister.GetText().length() != 0
+            &&  addressRegister.GetText().length() != 0
             &&  passwordRegister.GetText().length() != 0
             &&  passwordConfirmationRegister.GetText().equals(passwordRegister.GetText()))
             currentStage = ConnectionStep.INTRO;
             switch(choiceRegister.GetText()){
                 case "Eleve":
                     try {
-                        dbm.SendSDLRequest("INSERT INTO ok.etudiant (code_etudiant, nom, prenom, email, telephone, password, adresse) VALUES ('1', '" + firstNameRegister.GetText() +"', '" + lastNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + GetCryptedPasswordFrom(passwordRegister.GetText()) + "', '" + adressRegister.GetText() + "');");
+                        dbm.SendSDLRequest("INSERT INTO ok.etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
                         System.out.println("Student added !");
                     } 
                     catch (SQLException e) {
@@ -117,7 +120,7 @@ public class ConnectionScene extends AScene {
                 break;
                 case "Professeur":
                     try {
-                        dbm.SendSDLRequest("INSERT INTO ok.professeur (code_professeur, nom, prenom, email, telephone, password, adresse) VALUES ('1', '" + firstNameRegister.GetText() +"', '" + lastNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + GetCryptedPasswordFrom(passwordRegister.GetText()) + "', '" + adressRegister.GetText() + "');");
+                        dbm.SendSDLRequest("INSERT INTO ok.professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
                         System.out.println("Teacher added !");
                     } 
                     catch (SQLException e) {
@@ -184,7 +187,7 @@ public class ConnectionScene extends AScene {
                     lastNameRegister.Update();
                     emailRegister.Update();
                     phoneRegister.Update();
-                    adressRegister.Update();
+                    addressRegister.Update();
                     passwordRegister.Update();
                     passwordConfirmationRegister.Update();
                 }
@@ -201,6 +204,7 @@ public class ConnectionScene extends AScene {
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
         switch(currentStage){
             case INTRO:
+                //GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(logo, new Rectangle(169, 50, 463, 250));
                 if(connectButton.IsClicked()){
                     connectButton.Draw(Color.GREEN);
                 }
@@ -237,7 +241,7 @@ public class ConnectionScene extends AScene {
                 lastNameRegister.Draw();
                 emailRegister.Draw();
                 phoneRegister.Draw();
-                adressRegister.Draw();
+                addressRegister.Draw();
                 passwordRegister.Draw();
                 passwordConfirmationRegister.Draw();
                 choiceRegister.Draw(5);
@@ -270,19 +274,10 @@ public class ConnectionScene extends AScene {
         lastNameRegister.Clear();
         emailRegister.Clear();
         phoneRegister.Clear();
-        adressRegister.Clear();
+        addressRegister.Clear();
         passwordRegister.Clear();
         passwordConfirmationRegister.Clear();
         choiceRegister.Reset();
-    }
-
-    private String GetCryptedPasswordFrom(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException{
-        String cryptedPassword = "";
-        MessageDigest digest = MessageDigest.getInstance("SHA3-512");
-        digest.reset();
-        digest.update(password.getBytes("utf8"));
-        cryptedPassword = String.format("%040x", new BigInteger(1, digest.digest()));
-        return cryptedPassword;
     }
 
     //Intro menu
@@ -301,7 +296,7 @@ public class ConnectionScene extends AScene {
     private TypingBox lastNameRegister = new TypingBox(new Rectangle(425, 30, 275, 50), "Enter your last name...");
     private TypingBox emailRegister = new TypingBox(new Rectangle(100, 110, 275, 50), "Enter your email...");
     private TypingBox phoneRegister = new TypingBox(new Rectangle(425, 110, 275, 50), "Enter your phone number...");
-    private TypingBox adressRegister = new TypingBox(new Rectangle(100, 180, 600, 50), "Enter your adress...");
+    private TypingBox addressRegister = new TypingBox(new Rectangle(100, 180, 600, 50), "Enter your address...");
     private TypingBox passwordRegister = new TypingBox(new Rectangle(100, 260, 600, 50), "Enter your password...");
     private TypingBox passwordConfirmationRegister = new TypingBox(new Rectangle(100, 340, 600, 50), "Confirmation password...");
     private ChoiceBox choiceRegister = new ChoiceBox(new Rectangle(100, 420, 600, 50), "Select user type...");

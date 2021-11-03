@@ -7,6 +7,7 @@ import java.util.List;
 import DataBaseSystem.DataBaseManager;
 import Exceptions.ProjectException;
 import GameFiles.Questions.AQuestion;
+import GameFiles.User.AUser;
 
 public abstract class AScene {
     public AScene() throws ClassNotFoundException, SQLException{
@@ -30,6 +31,8 @@ public abstract class AScene {
     }
     
     protected static DataBaseManager dbm;
+    protected static AUser user;
+    protected static String currentQuizz;
 
     protected static List<AQuestion> questions = new ArrayList<AQuestion>();
     protected static boolean bChangeScene = false;
