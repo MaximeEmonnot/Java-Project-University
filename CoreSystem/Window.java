@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 public class Window {
     private Window() throws Exceptions.ProjectException{
-        frame = new JFrame("Project frame");
+        frame = new JFrame("Quiz Game");
         if (frame == null)
             throw new Exceptions.ProjectException("Error during Swing Window creation.");
         frame.setVisible(true);

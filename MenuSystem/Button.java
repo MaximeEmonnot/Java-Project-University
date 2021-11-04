@@ -16,9 +16,9 @@ public class Button {
         func = _func;
     }
 
-    public boolean OnClick(){
+    public boolean OnClick(CoreSystem.Mouse.EventType e){
         bIsClicked = false;
-        if (rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos()) && CoreSystem.Mouse.GetInstance().LeftIsPressed()){
+        if (rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos()) && e == CoreSystem.Mouse.EventType.LPress){
             bIsClicked = true;
         }
         return bIsClicked;
@@ -30,10 +30,21 @@ public class Button {
     public void ComputeFunction(){
         func.func();
     }
-
+    
+    
     public void Draw(Color c) throws ProjectException{
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, c, 10);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 10, rect.y + rect.height / 3), Color.BLACK, 11);
+        Draw(c, 0);
+    }
+    public void Draw(Color c, int priority) throws ProjectException{
+        Draw(c, rect, priority);
+    }
+    public void Draw(Color c, Rectangle _rect) throws ProjectException{
+        Draw(c, _rect, 0);
+    }
+    public void Draw(Color c, Rectangle _rect, int priority) throws ProjectException{
+        rect = _rect;
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(_rect, c, priority);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(_rect.x + _rect.width / 10, _rect.y + _rect.height / 3), Color.BLACK, priority + 1);
     }
 
     public boolean IsClicked(){
@@ -42,8 +53,25 @@ public class Button {
         return out;
     }
 
+    public String GetText(){
+        return text;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof Button){
+            return text.equals(((Button)o).text);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return text.hashCode();
+    }
+
     private boolean bIsClicked = false;
-    private final Rectangle rect;
+    private Rectangle rect;
     private final String text;
     private Lambda func;
 }

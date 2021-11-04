@@ -68,8 +68,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
 
         switch(e.getButton()){
         case MouseEvent.BUTTON1:
@@ -90,8 +90,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
 
         switch(e.getButton()){
         case MouseEvent.BUTTON1:
@@ -115,8 +115,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
 
         switch(e.getButton()){
         case MouseEvent.BUTTON1:
@@ -140,8 +140,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
 
         buffer.add(EventType.Move);
         TrimBuffer();
@@ -154,8 +154,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
         if (e.getWheelRotation() < 0){
             buffer.add(EventType.WheelUp);
         }
@@ -168,8 +168,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mouseDragged(MouseEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
         buffer.add(EventType.Move);
         TrimBuffer();
     }
@@ -177,8 +177,8 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
-        x = e.getX();
-        y = e.getY();
+        x = e.getX() - 10;
+        y = e.getY() - 30;
         buffer.add(EventType.Move);
         TrimBuffer();
     }

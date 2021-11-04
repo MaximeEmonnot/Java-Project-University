@@ -11,20 +11,53 @@ public class TextBox {
     public TextBox(Rectangle _rect){
         rect = _rect;
     }
+    public TextBox(String _text){
+        text = _text;
+    }
     public TextBox(Rectangle _rect, String _text){
         rect = _rect;
         text = _text;
     }
-
+    
     public void Draw(Color textColor, Color boxColor, Color backgroundColor) throws ProjectException{
-        Draw(text, textColor, boxColor, backgroundColor);
+        Draw(textColor, boxColor, backgroundColor, 0);
     }
-    public void Draw(String _text, Color textColor, Color boxColor, Color backgroundColor) throws ProjectException{
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, backgroundColor, 10);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(rect, boxColor, 11);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(_text, new Point(rect.x + rect.width / 5, rect.y + rect.height / 3), textColor, 12);
+    public void Draw(Color textColor, Color boxColor, Color backgroundColor, int priority) throws ProjectException{
+        Draw(text, rect, textColor, boxColor, backgroundColor, priority);
+    }  
+    public void Draw(Rectangle _rect, Color textColor, Color boxColor, Color backgroundColor)throws ProjectException {
+        Draw(_rect, textColor, boxColor, backgroundColor, 0);
+    }
+    public void Draw(Rectangle _rect, Color textColor, Color boxColor, Color backgroundColor, int priority)throws ProjectException {
+        Draw(text, _rect, textColor, boxColor, backgroundColor, priority);
+    }
+    public void Draw(String _text, Color textColor, Color boxColor, Color backgroundColor) throws ProjectException {
+        Draw(_text, textColor, boxColor, backgroundColor, 0);
+    }
+    public void Draw(String _text, Color textColor, Color boxColor, Color backgroundColor, int priority) throws ProjectException {
+        Draw(_text, rect, textColor, boxColor, backgroundColor, priority);
+    }
+    public void Draw(String _text, Rectangle _rect, Color textColor, Color boxColor, Color backgroundColor) throws ProjectException{
+        Draw(_text, _rect, textColor, boxColor, backgroundColor, 0);
+    }
+    public void Draw(String _text, Rectangle _rect, Color textColor, Color boxColor, Color backgroundColor, int priority) throws ProjectException{
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(_rect, backgroundColor, priority);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(_rect, boxColor, priority + 1);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(_text, new Point(_rect.x + (int)((_rect.width - _text.length() * 8) / 2), _rect.y + _rect.height / 2), textColor, priority + 2);
     }
 
-    private final Rectangle rect;
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof TextBox){
+            return text.equals(((TextBox)o).text);
+        }
+        return false;
+    }
+    @Override
+    public int hashCode(){
+        return text.hashCode();
+    }
+
+    private Rectangle rect;
     private String text;
 }

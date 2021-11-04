@@ -28,17 +28,28 @@ public class GraphicsSystem extends JPanel {
         
         synchronized(renderMap){
             super.paintComponent(g);
-            setBackground(Color.BLACK);
-
+            setBackground(backgroundColor);
+            
             renderMap.forEach((e) -> e.getValue().func(g));
+            renderMap.clear();
+            }
         }
-        renderMap.clear();
-    }
-    
+        
     public void Render(){
-        renderMap.sort((e0, e1) -> e0.getKey() - e1.getKey());
-        repaint();
+        synchronized(renderMap){
+            renderMap.sort((e0, e1) -> e0.getKey() - e1.getKey());
+            repaint();
+        }
     } 
+
+    public void SetBackgroundColor(Color c){
+        synchronized (renderMap){
+            renderMap.add(Map.entry(0, (Graphics g) -> {
+                g.setColor(c);
+                g.fillRect(0, 0, 800, 600);
+            }));
+        }
+    }
 
     public void DrawPixel(Point p, Color c){
         DrawPixel(p.x, p.y, c);
@@ -88,7 +99,7 @@ public class GraphicsSystem extends JPanel {
             g.setColor(c);
             g.drawRect(x, y, w, h);
         }));
-    }
+        }
     }
 
     public void DrawFilledRect(Rectangle r, Color c){
@@ -124,7 +135,7 @@ public class GraphicsSystem extends JPanel {
             g.setColor(c);
             g.drawRoundRect(x, y, w, h, aw, ah);
         }));
-    }
+        }
     }
 
     public void DrawFilledRoundRect(Rectangle r, int aw, int ah, Color c){
@@ -146,17 +157,30 @@ public class GraphicsSystem extends JPanel {
     }
 
     public void DrawText(String text, Point p, Color c){
-        DrawText(text, p, c, 0);
+        DrawText(text, p, new Font("Arial Bold", Font.PLAIN, 16), c);
+    }
+    public void DrawText(String text, Point p, Font f, Color c){
+        DrawText(text, p, f, c, 0);
     }
     public void DrawText(String text, Point p, Color c, int priority){
-        DrawText(text, p.x, p.y, c, priority);
+        DrawText(text, p, new Font("Arial Bold", Font.PLAIN, 16), c, priority);
+    }
+    public void DrawText(String text, Point p, Font f, Color c, int priority){
+        DrawText(text, p.x, p.y, f, c, priority);
     }
     public void DrawText(String text, int x, int y, Color c){
-        DrawText(text, x, y, c, 0);
+        DrawText(text, x, y, new Font("Arial Bold", Font.PLAIN, 16), c);
+    }
+    public void DrawText(String text, int x, int y, Font f, Color c){
+        DrawText(text, x, y, f, c, 0);
     }
     public void DrawText(String text, int x, int y, Color c, int priority){
+        DrawText(text, x, y, new Font("Arial Bold", Font.PLAIN, 16), c, priority);
+    }
+    public void DrawText(String text, int x, int y, Font f, Color c, int priority){
         synchronized (renderMap){
             renderMap.add(Map.entry(priority,(Graphics g) -> {
+                g.setFont(f);
                 g.setColor(c);
                 g.drawString(text, x, y);
             }));
@@ -204,5 +228,6 @@ public class GraphicsSystem extends JPanel {
 
     private static GraphicsSystem INSTANCE = null;
 
+    private Color backgroundColor = Color.BLACK;
     private ArrayList<Map.Entry<Integer, Lambda>> renderMap = new ArrayList<Map.Entry<Integer, Lambda>>();    
 }
