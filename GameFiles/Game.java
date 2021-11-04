@@ -15,7 +15,7 @@ import GameFiles.Scenes.*;
 public class Game {
     public Game() throws Exceptions.ProjectException, Exception{
         scenes.add(new ConnectionScene());
-        //scenes.add(new SearchScene());
+        scenes.add(new SearchScene());
         scenes.add(new QuizzScene());
         scenes.add(new TeacherScene());
         scenes.add(new AdminScene());
