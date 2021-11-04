@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import Exceptions.ProjectException;
 import GameFiles.Questions.*;
 
-public class SearchScene extends AScene {
+public class SearchScene extends AScene{
     private enum SceneStage{
         SEARCHING,
         PROFILE,
