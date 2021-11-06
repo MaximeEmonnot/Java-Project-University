@@ -11,10 +11,6 @@ import GameFiles.User.AUser;
 
 public abstract class AScene {
     public AScene() throws ClassNotFoundException, SQLException{
-        /*if (dbm == null){
-            dbm = new DataBaseManager("ok", "graxime");
-            System.out.println("Connected");
-        }*/
     }
 
     public abstract void Update() throws SQLException;
