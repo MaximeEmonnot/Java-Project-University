@@ -48,7 +48,7 @@ public class ConnectionScene extends AScene {
                             ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.etudiant WHERE email = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
                                 user = new Student(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
-                                nextSceneIndex = 1;
+                                nextSceneIndex = 2;
                             }
                             else{
                                 System.out.println("Wrong password");
@@ -69,7 +69,7 @@ public class ConnectionScene extends AScene {
                             ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.professeur WHERE email = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
                                 user = new Teacher(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
-                                nextSceneIndex = 3;
+                                nextSceneIndex = 4;
                             }
                             else{
                                 System.out.println("Wrong password");
@@ -89,7 +89,7 @@ public class ConnectionScene extends AScene {
                         try {
                             ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.admin WHERE id_admin = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
-                                nextSceneIndex = 4;
+                                nextSceneIndex = 5;
                             }
                             else{
                                 System.out.println("Wrong password");

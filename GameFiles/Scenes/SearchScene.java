@@ -29,7 +29,7 @@ public class SearchScene extends AScene{
 
     public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
         super();
-        nextSceneIndex = 2;
+        nextSceneIndex = 3;
         ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject =  ok.sujets.id");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");

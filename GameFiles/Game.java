@@ -14,11 +14,18 @@ import GameFiles.Scenes.*;
 
 public class Game {
     public Game() throws Exceptions.ProjectException, Exception{
-        scenes.add(new ConnectionScene());
-        scenes.add(new SearchScene());
-        scenes.add(new QuizzScene());
-        scenes.add(new TeacherScene());
-        scenes.add(new AdminScene());
+        scenes.add(new DatabaseConnectionScene(() -> {
+            try {
+                scenes.add(new ConnectionScene());
+                scenes.add(new SearchScene());
+                scenes.add(new QuizzScene());
+                scenes.add(new TeacherScene());
+                scenes.add(new AdminScene());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }));
     }
 
     public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException, SQLException{

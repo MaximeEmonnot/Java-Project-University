@@ -9,7 +9,7 @@ public class QuizzScene extends AScene {
 
     public QuizzScene() throws Exception{
         super();
-        nextSceneIndex = 1;
+        nextSceneIndex = 2;
     }
 
     @Override
