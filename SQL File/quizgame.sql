@@ -6,6 +6,8 @@ drop table if exists `statistique`;
 drop table if exists `etudiant`;
 drop table if exists `questions`;
 drop table if exists `sujets`;
+drop table if exists `forumQuestion`;
+drop table if exists `forumProposition`;
 
 /* Création de la table utilisateur*/
 
@@ -72,6 +74,21 @@ create table questions(
     reponseB varchar(150) not null,
     reponseC varchar(150) not null,
     reponseD varchar(150) not null
+);
+
+/*Creation de la table forumQuestion */
+
+create table forumQuestion(
+    id int auto_increment primary key,
+    question varchar(150) not null,
+    answer varchar(150)
+);
+
+/*Creation de la table forumProposition */
+
+create table forumProposition(
+    id_question int not null,
+    proposition varchar(150) not null
 );
 
 /*Ajout Student*/

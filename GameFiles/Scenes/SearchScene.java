@@ -29,7 +29,6 @@ public class SearchScene extends AScene{
 
     public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
         super();
-        nextSceneIndex = 3;
         ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject =  ok.sujets.id");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
@@ -48,6 +47,7 @@ public class SearchScene extends AScene{
             difficulty.get(rs.getString("domaine")).get(rs.getString("categorie")).add(rs.getString("niveau"));
             ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                 bChangeScene = true;
+                nextSceneIndex = 3;
                 currentQuizz = name;
                 try {
                     questions.clear();
@@ -191,6 +191,7 @@ public class SearchScene extends AScene{
                     difficulty.get(rSet.getString("domaine")).get(rSet.getString("categorie")).add(rSet.getString("niveau"));
                     ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                         bChangeScene = true;
+                        nextSceneIndex = 3;
                         currentQuizz = name;
                         try {
                             questions.clear();
@@ -316,10 +317,10 @@ public class SearchScene extends AScene{
             }
        });
     
-       profileButton = new Button(new Rectangle(25, 10, 350, 50), "View profile", () -> {
+       profileButton = new Button(new Rectangle(25, 10, 200, 50), "View profile", () -> {
            currentStage = SceneStage.PROFILE;
        });
-       statisticsButton = new Button(new Rectangle(400, 10, 350, 50), "View statistics", () -> {
+       statisticsButton = new Button(new Rectangle(250, 10, 200, 50), "View statistics", () -> {
         statsArray.clear();
         try {
             ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau, score FROM ok.etudiant, ok.statistique, ok.sujets WHERE email = '" + user.GetMail() + "' AND id_etudiant = id_statistique AND ok.sujets.id = ok.statistique.id_subject;");
@@ -331,6 +332,10 @@ public class SearchScene extends AScene{
             e.printStackTrace();
         }
            currentStage = SceneStage.STATISTICS;
+       });
+       forumButton = new Button(new Rectangle(475, 10, 200, 50), "Go to forum", () ->{
+            bChangeScene = true;
+            nextSceneIndex = 6;
        });
        backButton = new Button(new Rectangle(650, 500, 100, 50), "Back", () -> {
            currentStage = SceneStage.SEARCHING;
@@ -396,6 +401,9 @@ public class SearchScene extends AScene{
                     }
                     if (statisticsButton.OnClick(e)){
                         statisticsButton.ComputeFunction();
+                    }
+                    if (forumButton.OnClick(e)){
+                        forumButton.ComputeFunction();
                     }
 
                     ddcArray.forEach((btn) -> {
@@ -466,6 +474,12 @@ public class SearchScene extends AScene{
                 }
                 else{
                     statisticsButton.Draw(Color.LIGHT_GRAY);
+                }
+                if (forumButton.IsClicked()){
+                    forumButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    forumButton.Draw(Color.LIGHT_GRAY);
                 }
             
                 Iterator<Button> itr = ddcArray.iterator();
@@ -539,8 +553,11 @@ public class SearchScene extends AScene{
         
     private SceneStage currentStage = SceneStage.SEARCHING;
 
+    //Searching buttons
     private Button profileButton;
     private Button statisticsButton;
+    private Button forumButton;
+
     private Button backButton;
     private Button changePasswordButton;
     private Button confirmPasswordButton;

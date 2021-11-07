@@ -21,6 +21,7 @@ public class Game {
                 scenes.add(new QuizzScene());
                 scenes.add(new TeacherScene());
                 scenes.add(new AdminScene());
+                scenes.add(new ForumScene());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

@@ -116,6 +116,11 @@ public class TeacherScene extends AScene {
             }
             currentStage = SceneStage.QUESTION_LIST;
         });
+        
+        forumButton = new Button(new Rectangle(100, 450, 600, 50), "Go to forum", () -> {
+            bChangeScene = true;
+            nextSceneIndex = 6;
+        });
         backButton = new Button(new Rectangle(600, 500, 100, 50), "Back", () -> {
             currentStage = SceneStage.SELECTION;
         });
@@ -142,6 +147,9 @@ public class TeacherScene extends AScene {
                 }
                 if (editQuestionListButton.OnClick(e)){
                     editQuestionListButton.ComputeFunction();
+                }
+                if (forumButton.OnClick(e)){
+                    forumButton.ComputeFunction();
                 }
                 break;
             case ADD_DOMAIN:
@@ -234,6 +242,12 @@ public class TeacherScene extends AScene {
                 }
                 else{
                     editQuestionListButton.Draw(Color.GRAY);
+                }
+                if (forumButton.IsClicked()){
+                    forumButton.Draw(Color.GREEN);
+                }
+                else{
+                    forumButton.Draw(Color.GRAY);
                 }
                 break;
             case ADD_DOMAIN:
@@ -361,6 +375,7 @@ public class TeacherScene extends AScene {
     private Button addDomainButton;
     private Button addQuestionButton;
     private Button editQuestionListButton;
+    private Button forumButton;
 
     //Add domain menu
     private TypingBox domain = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter domain...");
