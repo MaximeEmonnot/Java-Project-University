@@ -45,7 +45,7 @@ public class ConnectionScene extends AScene {
                 switch(choiceConnection.GetText()){
                     case "Eleve":
                         try {
-                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.etudiant WHERE email = '" + emailConnection.GetText() + "';");
+                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
                                 user = new Student(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
                                 nextSceneIndex = 2;
@@ -66,7 +66,7 @@ public class ConnectionScene extends AScene {
                         break;
                     case "Professeur":
                         try {
-                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.professeur WHERE email = '" + emailConnection.GetText() + "';");
+                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".professeur WHERE email = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
                                 user = new Teacher(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
                                 nextSceneIndex = 4;
@@ -87,7 +87,7 @@ public class ConnectionScene extends AScene {
                         break;
                     case "Admin":
                         try {
-                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.admin WHERE id_admin = '" + emailConnection.GetText() + "';");
+                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".admin WHERE id_admin = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
                                 nextSceneIndex = 5;
                             }
@@ -123,7 +123,7 @@ public class ConnectionScene extends AScene {
             switch(choiceRegister.GetText()){
                 case "Eleve":
                     try {
-                        dbm.SendSDLRequest("INSERT INTO ok.etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
+                        dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
                         System.out.println("Student added !");
                     } 
                     catch (SQLException e) {
@@ -139,7 +139,7 @@ public class ConnectionScene extends AScene {
                 break;
                 case "Professeur":
                     try {
-                        dbm.SendSDLRequest("INSERT INTO ok.professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
+                        dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
                         System.out.println("Teacher added !");
                     } 
                     catch (SQLException e) {

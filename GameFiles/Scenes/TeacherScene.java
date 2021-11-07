@@ -26,7 +26,7 @@ public class TeacherScene extends AScene {
         super();
         addQButton = new Button(new Rectangle(25, 500, 100, 50), "Add", () -> {
             try {
-                ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject = ok.sujets.id AND domaine = '" + domainChoice.GetText() + "' AND categorie = '" + categoryChoice.GetText() + "' AND niveau = '" + levelChoice.GetText() + "' AND question = '" + question.GetText() + "' AND reponseA = '" + answerA.GetText() + "' AND reponseB = '" + answerB.GetText() + "' AND reponseC = '" + answerC.GetText() + "' AND reponseD = '" + answerD.GetText() + "';");
+                ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND domaine = '" + domainChoice.GetText() + "' AND categorie = '" + categoryChoice.GetText() + "' AND niveau = '" + levelChoice.GetText() + "' AND question = '" + question.GetText() + "' AND reponseA = '" + answerA.GetText() + "' AND reponseB = '" + answerB.GetText() + "' AND reponseC = '" + answerC.GetText() + "' AND reponseD = '" + answerD.GetText() + "';");
                 if (questionSet.next()){
                     System.out.println("Question already added !");             
                 }
@@ -42,12 +42,12 @@ public class TeacherScene extends AScene {
                     if (answerD.GetText().length() != 0){
                         answerCode += Integer.toString(codeD);
                     }
-                    ResultSet domainSet = dbm.GetResultFromSQLRequest("SELECT id FROM ok.sujets WHERE domaine = '" + domainChoice.GetText() + "' AND categorie = '" + categoryChoice.GetText() + "' AND niveau = '" + levelChoice.GetText() + "';");
+                    ResultSet domainSet = dbm.GetResultFromSQLRequest("SELECT id FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + domainChoice.GetText() + "' AND categorie = '" + categoryChoice.GetText() + "' AND niveau = '" + levelChoice.GetText() + "';");
                     if (domainSet.next()){
                         int subjectId = domainSet.getInt("id");
-                        ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur FROM ok.professeur WHERE email = '" + user.GetMail() + "';");
+                        ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur FROM " + dbm.GetDatabaseName() + ".professeur WHERE email = '" + user.GetMail() + "';");
                         if (teacherSet.next()){
-                            dbm.SendSDLRequest("INSERT INTO ok.questions (id_prof, id_subject, difficulte, question, code_reponses, reponseA, reponseB, reponseC, reponseD)" +
+                            dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".questions (id_prof, id_subject, difficulte, question, code_reponses, reponseA, reponseB, reponseC, reponseD)" +
                                                "VALUES (" + teacherSet.getInt("id_professeur") + ", " + subjectId + ", 'Facile' , '" + question.GetText() + "', '" + answerCode + "', '" + answerA.GetText() + "', '" + answerB.GetText() + "', '" + answerC.GetText() + "', '" + answerD.GetText() + "');");
                             System.out.println("Question added ! ");
                         }
@@ -61,12 +61,12 @@ public class TeacherScene extends AScene {
     
         addDButton = new Button(new Rectangle(25, 500, 100, 50), "Add", () -> {
             try {
-                ResultSet domainSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.sujets WHERE domaine = '" + domain.GetText() + "' AND categorie = '" + category.GetText() + "' AND niveau = '" + levelSelection.GetText() + "';");
+                ResultSet domainSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + domain.GetText() + "' AND categorie = '" + category.GetText() + "' AND niveau = '" + levelSelection.GetText() + "';");
                 if (domainSet.next()){
                     System.out.println("Domain already added !");
                 }
                 else{
-                    dbm.SendSDLRequest("INSERT INTO ok.sujets (domaine, categorie, niveau) VALUES ('" + domain.GetText() + "', '" + category.GetText() + "', '" + levelSelection.GetText() + "');");
+                    dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".sujets (domaine, categorie, niveau) VALUES ('" + domain.GetText() + "', '" + category.GetText() + "', '" + levelSelection.GetText() + "');");
                     System.out.println("Domain added !");
                 }
             } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class TeacherScene extends AScene {
             
             ResultSet rSet;
             try {
-                rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau FROM ok.sujets");
+                rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau FROM " + dbm.GetDatabaseName() + ".sujets");
                 while(rSet.next()){
                     domains.add(rSet.getString("domaine"));
                     if (!categories.containsKey(rSet.getString("domaine"))){
@@ -348,13 +348,13 @@ public class TeacherScene extends AScene {
 
     private void ResetQuestionList() throws SQLException{
         questionList.clear();
-        ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT id, question FROM ok.questions, ok.professeur WHERE ok.questions.id_prof = ok.professeur.id_professeur AND ok.professeur.email = '" + user.GetMail() + "';");
+        ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT id, question FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".professeur WHERE " + dbm.GetDatabaseName() + ".questions.id_prof = " + dbm.GetDatabaseName() + ".professeur.id_professeur AND " + dbm.GetDatabaseName() + ".professeur.email = '" + user.GetMail() + "';");
         int i = 0;
         while(questionSet.next() && i < 5){
             int id = questionSet.getInt("id");
             questionList.put(new TextBox(new Rectangle(100, 50 + 75 * i, 400, 50), questionSet.getInt("id") + " - " + questionSet.getString("question")), new Button(new Rectangle(550, 50 + i * 75, 150, 50), "Delete", () -> {
                 try {
-                    dbm.SendSDLRequest("DELETE FROM ok.questions WHERE id = " + id + ";");
+                    dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".questions WHERE id = " + id + ";");
                     ResetQuestionList();
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block

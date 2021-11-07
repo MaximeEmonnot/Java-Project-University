@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DataBaseManager {
-    public DataBaseManager(String databaseName, String password) throws ClassNotFoundException, SQLException{
+    public DataBaseManager(String _databaseName, String password) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
-
-        String url = "jdbc:mysql://localhost:3306/" + databaseName + "?useUnicode=true&characterEncoding=utf8&useSSL=false"; //&serverTimezone=CTT";
+        databaseName = _databaseName;
+        String url = "jdbc:mysql://localhost:3306/" + _databaseName + "?useUnicode=true&characterEncoding=utf8&useSSL=false"; //&serverTimezone=CTT";
         con = DriverManager.getConnection(url, "root", password);
         stmt = con.createStatement();
     }
@@ -20,7 +20,7 @@ public class DataBaseManager {
         return stmt.executeQuery(request);
     }
 
-    public void SendSDLRequest(String request) throws SQLException{
+    public void SendSQLRequest(String request) throws SQLException{
         stmt.executeUpdate(request);
     }
 
@@ -44,6 +44,11 @@ public class DataBaseManager {
         return out;
     }
 
+    public String GetDatabaseName(){
+        return databaseName;
+    }
+
+    private String databaseName;
     private Statement stmt;
     private Connection con;
 }

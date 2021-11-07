@@ -29,7 +29,7 @@ public class SearchScene extends AScene{
 
     public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
         super();
-        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject =  ok.sujets.id");
+        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject =  " + dbm.GetDatabaseName() + ".sujets.id");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
             domains.add(rs.getString("domaine"));
@@ -52,7 +52,7 @@ public class SearchScene extends AScene{
                 try {
                     questions.clear();
                     String[] args = name.split(" - ");
-                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE (ok.questions.id_subject = ok.sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
+                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                     while(questionSet.next()){
                         if (questionSet.getString("reponseD").length() != 0){
                             AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -173,7 +173,7 @@ public class SearchScene extends AScene{
            categories.clear();
            difficulty.clear();
            try {
-                ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE ok.questions.id_subject = ok.sujets.id");
+                ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id");
                 while(rSet.next()){
                     String name = String.valueOf(rSet.getLong("id_prof"))  + " - " + rSet.getString("domaine") + "  - " + rSet.getString("categorie") + " - " + rSet.getString("niveau");
                     domains.add(rSet.getString("domaine"));
@@ -196,7 +196,7 @@ public class SearchScene extends AScene{
                         try {
                             questions.clear();
                             String[] args = name.split(" - ");
-                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.questions, ok.sujets WHERE (ok.questions.id_subject = ok.sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
+                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                             while(questionSet.next()){
                                 if (questionSet.getString("reponseD").length() != 0){
                                     AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -323,7 +323,7 @@ public class SearchScene extends AScene{
        statisticsButton = new Button(new Rectangle(250, 10, 200, 50), "View statistics", () -> {
         statsArray.clear();
         try {
-            ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau, score FROM ok.etudiant, ok.statistique, ok.sujets WHERE email = '" + user.GetMail() + "' AND id_etudiant = id_statistique AND ok.sujets.id = ok.statistique.id_subject;");
+            ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau, score FROM " + dbm.GetDatabaseName() + ".etudiant, " + dbm.GetDatabaseName() + ".statistique, " + dbm.GetDatabaseName() + ".sujets WHERE email = '" + user.GetMail() + "' AND id_etudiant = id_statistique AND " + dbm.GetDatabaseName() + ".sujets.id = " + dbm.GetDatabaseName() + ".statistique.id_subject;");
             while(rSet.next()){
                 statsArray.add(new TextBox(rSet.getString("domaine") + " - " + rSet.getString("categorie") + " - " + rSet.getString("niveau") + " - Score : " + rSet.getFloat("score") + "%"));
             }
@@ -352,9 +352,9 @@ public class SearchScene extends AScene{
             && confirmNewPassword.GetText().length() != 0
             && newPassword.GetText().equals(confirmNewPassword.GetText())){
                 try {
-                    ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT password FROM ok.etudiant WHERE email = '" + user.GetMail() + "';");
+                    ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT password FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + user.GetMail() + "';");
                     if(rSet.next() && rSet.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(oldPassword.GetText()))){
-                        dbm.SendSDLRequest("UPDATE ok.etudiant SET password = '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(newPassword.GetText()) + "' WHERE email = '" + user.GetMail() + "';");
+                        dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".etudiant SET password = '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(newPassword.GetText()) + "' WHERE email = '" + user.GetMail() + "';");
                         System.out.println("New password set !");
                         currentStage = SceneStage.PROFILE;
                     }

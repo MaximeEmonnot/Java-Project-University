@@ -51,22 +51,22 @@ public class QuizzScene extends AScene {
     
     private void SendStatistics(){
         try{
-            ResultSet studentSet = dbm.GetResultFromSQLRequest("SELECT id_etudiant FROM ok.etudiant WHERE email = '" + user.GetMail() + "';");
+            ResultSet studentSet = dbm.GetResultFromSQLRequest("SELECT id_etudiant FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + user.GetMail() + "';");
             if (studentSet.next()){
                 String[] statsArgs = currentQuizz.split(" - ");
                 int studentId = studentSet.getInt("id_etudiant");
-                ResultSet subjectSet = dbm.GetResultFromSQLRequest("SELECT id FROM ok.sujets WHERE domaine = '" + statsArgs[1] + "' AND categorie = '" + statsArgs[2] + "' AND niveau = '" + statsArgs[3] + "';");
+                ResultSet subjectSet = dbm.GetResultFromSQLRequest("SELECT id FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + statsArgs[1] + "' AND categorie = '" + statsArgs[2] + "' AND niveau = '" + statsArgs[3] + "';");
                 if (subjectSet.next()) {
                     int subjectId = subjectSet.getInt("id");
                     float currentScore = (float)rightAnswers / (float)questions.size() * 100;
-                    ResultSet testStatSet = dbm.GetResultFromSQLRequest("SELECT * FROM ok.statistique WHERE id_statistique = " + studentId + ";");
+                    ResultSet testStatSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".statistique WHERE id_statistique = " + studentId + ";");
                     if (testStatSet.next()){
                         if (testStatSet.getFloat("score") < currentScore){
-                            dbm.SendSDLRequest("UPDATE ok.statistique SET score = " + currentScore + " WHERE id_subject = " + subjectId + ";");
+                            dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".statistique SET score = " + currentScore + " WHERE id_subject = " + subjectId + ";");
                         }
                     }
                     else{
-                        dbm.SendSDLRequest("INSERT INTO ok.statistique (id_statistique, score, id_subject) VALUES (" + studentId + ", " + currentScore + ", " + subjectId + ");");
+                        dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".statistique (id_statistique, score, id_subject) VALUES (" + studentId + ", " + currentScore + ", " + subjectId + ");");
                     }
                 }
             }

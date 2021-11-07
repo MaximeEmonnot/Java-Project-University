@@ -155,13 +155,13 @@ public class AdminScene extends AScene{
     
     private void ResetStudentList() throws SQLException{
         studentList.clear();
-        ResultSet studentSet = dbm.GetResultFromSQLRequest("SELECT id_etudiant, nom, prenom FROM ok.etudiant");
+        ResultSet studentSet = dbm.GetResultFromSQLRequest("SELECT id_etudiant, nom, prenom FROM " + dbm.GetDatabaseName() + ".etudiant");
         int i = 0;
         while(studentSet.next()){
             int id = studentSet.getInt("id_etudiant");
             studentList.put(new TextBox(new Rectangle(100, 50 + i * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(500,     50 + i * 75, 200, 50), "Delete", () -> {
               try {
-                dbm.SendSDLRequest("DELETE FROM ok.etudiant WHERE id_etudiant = " + id + ";");
+                dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".etudiant WHERE id_etudiant = " + id + ";");
                 System.out.println("Student deleted !");
                 ResetStudentList();
               }
@@ -175,13 +175,13 @@ public class AdminScene extends AScene{
 
       private void ResetTeacherList() throws SQLException{
         teacherList.clear();
-        ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur, nom, prenom FROM ok.professeur");
+        ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur, nom, prenom FROM " + dbm.GetDatabaseName() + ".professeur");
         int i = 0;
         while(teacherSet.next()){
             int id = teacherSet.getInt("id_professeur");
             teacherList.put(new TextBox(new Rectangle(100, 50 + i * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(500,     50 + i * 75, 200, 50), "Delete", () -> {
               try {
-                dbm.SendSDLRequest("DELETE FROM ok.professeur WHERE id_professeur = " + id + ";");
+                dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".professeur WHERE id_professeur = " + id + ";");
                 System.out.println("Teacher deleted !");
                 ResetTeacherList();
               }

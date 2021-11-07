@@ -81,6 +81,7 @@ create table questions(
 create table forumQuestion(
     id int auto_increment primary key,
     question varchar(150) not null,
+    id_student int not null,
     answer varchar(150)
 );
 
