@@ -112,6 +112,7 @@ public class ForumScene extends AScene {
                     ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT question FROM " + dbm.GetDatabaseName() + ".forumQuestion WHERE question = '" + question.GetText() + "';");
                     if (questionSet.next()){
                         System.out.println("Question already asked !");
+                        studentQuestionMessage.SetMessage("Question already asked !", Color.RED, 5.0f);
                     }
                     else{
                         //Récupération de l'id du l'utilisateur
@@ -120,11 +121,13 @@ public class ForumScene extends AScene {
                             //Insertion de la nouvelle question
                             int id = uid.getInt("id_etudiant");
                             dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".forumQuestion(question, id_student, answer) VALUES('" + question.GetText() + "'," + id + ", '');");
+                            studentQuestionMessage.SetMessage("Question added !", Color.GREEN, 5.0f);
                             System.out.println("Question added !");
                         }
                     }
                 }
                 else {
+                    studentQuestionMessage.SetMessage("Please fill question field", Color.RED, 5.0f);
                     System.out.println("Question is empty !");
                 }
             } catch (SQLException e) {
@@ -140,9 +143,11 @@ public class ForumScene extends AScene {
                     //Insertion de la proposition de réponse, pas de vérification d'existence car les étudiants n'ont pas accès aux autres propositions
                     dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".forumProposition(id_question, proposition) VALUES(" + iChosenQuestion + ", '" + proposition.GetText() + "');");
                     System.out.println("Proposition added !");
+                    studentPropositionMessage.SetMessage("Proposition added !", Color.GREEN, 5.0f);
                 }
                 else{
                     System.out.println("Proposition is empty !");
+                    studentPropositionMessage.SetMessage("Please fill proposition field", Color.RED, 5.0f);
                 }
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
@@ -177,7 +182,7 @@ public class ForumScene extends AScene {
                 exitForumButton.ComputeFunction();
                 }
                 break;
-                case STUDENT_ASK:
+            case STUDENT_ASK:
                 question.Update();
                 if (addQuestionButton.OnClick(e)){
                     addQuestionButton.ComputeFunction();
@@ -185,6 +190,7 @@ public class ForumScene extends AScene {
                 if (backButton.OnClick(e)){
                     backButton.ComputeFunction();
                 }
+                studentQuestionMessage.Update();
                 break;
             case STUDENT_QUESTION_LIST:
             Iterator<Map.Entry<TextBox, Button>> itrQuestion = questionArray.entrySet().iterator();
@@ -198,7 +204,7 @@ public class ForumScene extends AScene {
                     backButton.ComputeFunction();
                 }
                 break;
-                case STUDENT_PROPOSE:
+            case STUDENT_PROPOSE:
                 proposition.Update();
                 if (addPropositionButton.OnClick(e)){
                     addPropositionButton.ComputeFunction();
@@ -206,8 +212,9 @@ public class ForumScene extends AScene {
                 if (exitPropositionButton.OnClick(e)){
                     exitPropositionButton.ComputeFunction();
                 }
+                studentPropositionMessage.Update();
                 break;
-                case STUDENT_MANAGE_QUESTION:
+            case STUDENT_MANAGE_QUESTION:
                 Iterator<Map.Entry<TextBox, Button>> itrQuestionDelete = questionDeleteArray.entrySet().iterator();
                 while(itrQuestionDelete.hasNext()){
                     Button btn = itrQuestionDelete.next().getValue();
@@ -218,6 +225,7 @@ public class ForumScene extends AScene {
                 if (backButton.OnClick(e)){
                     backButton.ComputeFunction();
                 }
+                studentDeletionMessage.Update();
                 break;
                 default:
                 break;
@@ -280,6 +288,7 @@ public class ForumScene extends AScene {
             else{
                 backButton.Draw(Color.GRAY);
             }
+            studentQuestionMessage.Draw();
             break;
         case STUDENT_QUESTION_LIST:
         
@@ -316,6 +325,7 @@ public class ForumScene extends AScene {
             else{
                 exitPropositionButton.Draw(Color.GRAY);
             }
+            studentPropositionMessage.Draw();
             break;
         case STUDENT_MANAGE_QUESTION:
         
@@ -337,6 +347,7 @@ public class ForumScene extends AScene {
             else{
                 backButton.Draw(Color.GRAY);
             }
+            studentDeletionMessage.Draw();
             break;
             default:
             break;
@@ -390,7 +401,7 @@ public class ForumScene extends AScene {
                     //On supprime toutes les propositions à la quesiton, puis on supprime la question. Enfin, on fait un reset la liste des boutons
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".forumProposition WHERE id_question = " + currentId + ";");
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".forumQuestion WHERE id = " + currentId + ";");
-                    System.out.println("Question deleted !");
+                    studentDeletionMessage.SetMessage("Question deleted !", Color.GREEN, 5.0f);
                     ResetStudentQuestionDeleteList();
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
@@ -412,6 +423,7 @@ public class ForumScene extends AScene {
     
     //Menu poser question Etudiant
     private TypingBox question = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your question...");
+    private UserMessage studentQuestionMessage = new UserMessage(new Point(100, 225));
     private Button addQuestionButton;
     
     //Menu liste questions Etudiant
@@ -420,12 +432,14 @@ public class ForumScene extends AScene {
     
     //Menu proposition Etudiant
     private TypingBox proposition = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your proposition...");
+    private UserMessage studentPropositionMessage = new UserMessage(new Point(100, 225));
     private Button addPropositionButton;
     private Button exitPropositionButton;
     
     //Menu gestion questions Etudiant
     private Map<TextBox, Button> questionDeleteArray = new HashMap<TextBox, Button>();
-    
+    private UserMessage studentDeletionMessage = new UserMessage(new Point(100, 500));
+
     //Back button
     private Button backButton;
     //*** FIN ELEMENTS STUDENT ***//

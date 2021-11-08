@@ -41,17 +41,17 @@ public class ConnectionScene extends AScene {
             if (emailConnection.GetText().length() != 0
             &&  passwordConnection.GetText().length() != 0
             &&  choiceConnection.GetText().length() != 0){
-                bChangeScene = true;
                 switch(choiceConnection.GetText()){
                     case "Eleve":
-                        try {
-                            ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + emailConnection.GetText() + "';");
-                            if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                    try {
+                        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + emailConnection.GetText() + "';");
+                        if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                                bChangeScene = true;
                                 user = new Student(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
                                 nextSceneIndex = 2;
                             }
                             else{
-                                System.out.println("Wrong password");
+                                loginMessage.SetMessage("Wrong informations", Color.RED, 5.0f);
                             }
                         } catch (SQLException e) {
                             // TODO Auto-generated catch block
@@ -64,15 +64,16 @@ public class ConnectionScene extends AScene {
                             e.printStackTrace();
                         }
                         break;
-                    case "Professeur":
+                        case "Professeur":
                         try {
                             ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".professeur WHERE email = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                                bChangeScene = true;
                                 user = new Teacher(rs.getString("prenom"), rs.getString("nom"), rs.getString("email"), rs.getString("telephone"), rs.getString("adresse"));
                                 nextSceneIndex = 4;
                             }
                             else{
-                                System.out.println("Wrong password");
+                                loginMessage.SetMessage("Wrong informations", Color.RED, 5.0f);
                             }
                         } catch (SQLException e) {
                             // TODO Auto-generated catch block
@@ -85,14 +86,15 @@ public class ConnectionScene extends AScene {
                             e.printStackTrace();
                         }
                         break;
-                    case "Admin":
+                        case "Admin":
                         try {
                             ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".admin WHERE id_admin = '" + emailConnection.GetText() + "';");
                             if (rs.next() && rs.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordConnection.GetText()))){
+                                bChangeScene = true;
                                 nextSceneIndex = 5;
                             }
                             else{
-                                System.out.println("Wrong password");
+                                loginMessage.SetMessage("Wrong informations", Color.RED, 5.0f);
                             }
                         } catch (SQLException e) {
                             // TODO Auto-generated catch block
@@ -110,6 +112,9 @@ public class ConnectionScene extends AScene {
                         break;
                 }
             }
+            else{
+                loginMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
+            }
         });
         registerButton = new Button(new Rectangle(150, 500, 200, 50), "Register", () -> {
             if (firstNameRegister.GetText().length() != 0
@@ -117,45 +122,54 @@ public class ConnectionScene extends AScene {
             &&  emailRegister.GetText().length() != 0
             &&  phoneRegister.GetText().length() != 0
             &&  addressRegister.GetText().length() != 0
-            &&  passwordRegister.GetText().length() != 0
-            &&  passwordConfirmationRegister.GetText().equals(passwordRegister.GetText()))
-            currentStage = ConnectionStep.INTRO;
-            switch(choiceRegister.GetText()){
-                case "Eleve":
-                    try {
-                        dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
-                        System.out.println("Student added !");
-                    } 
-                    catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (UnsupportedEncodingException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (NoSuchAlgorithmException e) {
-                    // TODO Auto-generated catch block
-                     e.printStackTrace();
+            &&  passwordRegister.GetText().length() != 0){
+                if (passwordConfirmationRegister.GetText().equals(passwordRegister.GetText())){
+                    switch(choiceRegister.GetText()){
+                        case "Eleve":
+                        try {
+                            dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
+                            System.out.println("Student added !");
+                            currentStage = ConnectionStep.INTRO;
+                        } 
+                        catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        break;
+                        case "Professeur":
+                        try {
+                            dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
+                            System.out.println("Teacher added !");
+                            currentStage = ConnectionStep.INTRO;
+                        } 
+                        catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (UnsupportedEncodingException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (NoSuchAlgorithmException e) {
+                            // TODO Auto-generated catch block
+                             e.printStackTrace();
+                            }
+                        break;
+                        default:
+                            registerMessage.SetMessage("Please select a user type", Color.RED, 5.0f);
+                        break;
                     }
-                break;
-                case "Professeur":
-                    try {
-                        dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
-                        System.out.println("Teacher added !");
-                    } 
-                    catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (UnsupportedEncodingException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (NoSuchAlgorithmException e) {
-                    // TODO Auto-generated catch block
-                     e.printStackTrace();
-                    }
-                break;
-                default:
-                    System.out.println("Can't add account");
-                break;
+                }
+                else{
+                    registerMessage.SetMessage("Passwords are not the same", Color.RED, 5.0f);
+                }
+            }
+            else {
+                registerMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
             }
         });
 
@@ -191,6 +205,7 @@ public class ConnectionScene extends AScene {
                     passwordConnection.Update();
                 }
                 choiceConnection.Update(e);
+                loginMessage.Update();
                 break;
             case REGISTER:
                 if (backButton.OnClick(e)){
@@ -209,6 +224,7 @@ public class ConnectionScene extends AScene {
                     passwordConfirmationRegister.Update();
                 }
                 choiceRegister.Update(e);
+                registerMessage.Update();
                 break;
             default:
                 break;
@@ -252,6 +268,7 @@ public class ConnectionScene extends AScene {
                 else{
                     loginButton.Draw(Color.GRAY);
                 }
+                loginMessage.Draw();
                 break;
             case REGISTER:
                 firstNameRegister.Draw();
@@ -274,6 +291,7 @@ public class ConnectionScene extends AScene {
                 else{
                     registerButton.Draw(Color.GRAY);
                 }
+                registerMessage.Draw();
                 break;
             default:
                 break;
@@ -306,17 +324,19 @@ public class ConnectionScene extends AScene {
     private TypingBox emailConnection = new TypingBox(new Rectangle(100, 200, 600, 50), "Enter your email...");
     private TypingBox passwordConnection = new TypingBox(new Rectangle(100, 300, 600, 50), "Enter your password...");
     private ChoiceBox choiceConnection = new ChoiceBox(new Rectangle(100, 400, 600, 50), "Select user type...");
+    private UserMessage loginMessage = new UserMessage(new Point(100, 475));
     private Button loginButton;
 
     //Register menui
     private TypingBox firstNameRegister = new TypingBox(new Rectangle(100, 30, 275, 50), "Enter your first name...");
     private TypingBox lastNameRegister = new TypingBox(new Rectangle(425, 30, 275, 50), "Enter your last name...");
-    private TypingBox emailRegister = new TypingBox(new Rectangle(100, 110, 275, 50), "Enter your email...");
-    private TypingBox phoneRegister = new TypingBox(new Rectangle(425, 110, 275, 50), "Enter your phone number...");
-    private TypingBox addressRegister = new TypingBox(new Rectangle(100, 180, 600, 50), "Enter your address...");
-    private TypingBox passwordRegister = new TypingBox(new Rectangle(100, 260, 600, 50), "Enter your password...");
-    private TypingBox passwordConfirmationRegister = new TypingBox(new Rectangle(100, 340, 600, 50), "Confirmation password...");
-    private ChoiceBox choiceRegister = new ChoiceBox(new Rectangle(100, 420, 600, 50), "Select user type...");
+    private TypingBox emailRegister = new TypingBox(new Rectangle(100, 95, 275, 50), "Enter your email...");
+    private TypingBox phoneRegister = new TypingBox(new Rectangle(425, 95, 275, 50), "Enter your phone number...");
+    private TypingBox addressRegister = new TypingBox(new Rectangle(100, 165, 600, 50), "Enter your address...");
+    private TypingBox passwordRegister = new TypingBox(new Rectangle(100, 245, 600, 50), "Enter your password...");
+    private TypingBox passwordConfirmationRegister = new TypingBox(new Rectangle(100, 325, 600, 50), "Confirmation password...");
+    private ChoiceBox choiceRegister = new ChoiceBox(new Rectangle(100, 405, 600, 50), "Select user type...");
+    private UserMessage registerMessage = new UserMessage(new Point(100, 475));
     private Button registerButton;
 
     private Button backButton;

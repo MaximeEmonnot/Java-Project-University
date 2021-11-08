@@ -349,26 +349,30 @@ public class SearchScene extends AScene{
        confirmPasswordButton = new Button(new Rectangle(100, 500, 200, 50), "Confirm password", () -> {
            if (oldPassword.GetText().length() != 0
             && newPassword.GetText().length() != 0
-            && confirmNewPassword.GetText().length() != 0
-            && newPassword.GetText().equals(confirmNewPassword.GetText())){
-                try {
-                    ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT password FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + user.GetMail() + "';");
-                    if(rSet.next() && rSet.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(oldPassword.GetText()))){
-                        dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".etudiant SET password = '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(newPassword.GetText()) + "' WHERE email = '" + user.GetMail() + "';");
-                        System.out.println("New password set !");
-                        currentStage = SceneStage.PROFILE;
+            && confirmNewPassword.GetText().length() != 0){
+                if(newPassword.GetText().equals(confirmNewPassword.GetText())){
+                    try {
+                        ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT password FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + user.GetMail() + "';");
+                        if(rSet.next() && rSet.getString("password").equals(CoreSystem.Encrypter.GetEncryptedPasswordFrom(oldPassword.GetText()))){
+                            dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".etudiant SET password = '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(newPassword.GetText()) + "' WHERE email = '" + user.GetMail() + "';");
+                            System.out.println("New password set !");
+                            currentStage = SceneStage.PROFILE;
+                        }
+                        else{
+                           passwordMessage.SetMessage("Wrong old password", Color.RED, 5.0f);
+                        }
+                    } catch (UnsupportedEncodingException | NoSuchAlgorithmException | SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
-                    else{
-                        System.out.println("Wrong old password");
-                    }
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException | SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 }
-           }
-           else{
-               System.out.println("Passwords are different");
-           }
+                else{
+                   passwordMessage.SetMessage("Passwords are not the same", Color.RED, 5.0f);
+                }
+            }
+            else{
+                passwordMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
+            }
        });
        
        oldPassword.SetPasswordMode(true);
@@ -440,6 +444,7 @@ public class SearchScene extends AScene{
                 if (cancelButton.OnClick(e)){
                     cancelButton.ComputeFunction();
                 }
+                passwordMessage.Update();
                 break;
             default:
                 break;
@@ -545,6 +550,7 @@ public class SearchScene extends AScene{
                 else {
                     cancelButton.Draw(Color.LIGHT_GRAY);
                 }
+                passwordMessage.Draw();
                 break;
             default:
             break;
@@ -567,6 +573,7 @@ public class SearchScene extends AScene{
     private TypingBox oldPassword = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter old password...");
     private TypingBox newPassword = new TypingBox(new Rectangle(100, 250, 600, 50), "Enter new password...");
     private TypingBox confirmNewPassword = new TypingBox(new Rectangle(100, 350, 600, 50), "Confirm new password...");
+    private UserMessage passwordMessage = new UserMessage(new Point(100, 425));
 
     //Profile menu
     private TextBox firstNameBox = new TextBox(new Rectangle(100, 150, 275, 50));

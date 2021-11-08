@@ -71,6 +71,7 @@ public class AdminScene extends AScene{
             if (backButton.OnClick(e)){
               backButton.ComputeFunction();
             }
+            deletionMessage.Update();
             break;
           case TEACHER_LIST:
             Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.entrySet().iterator();
@@ -84,6 +85,7 @@ public class AdminScene extends AScene{
             if (backButton.OnClick(e)){
               backButton.ComputeFunction();
             }
+            deletionMessage.Update();
             break;
           default:
             break;
@@ -128,8 +130,9 @@ public class AdminScene extends AScene{
                 else{
                     backButton.Draw(Color.GRAY);
                 }
+                deletionMessage.Draw();
                 break;
-            case TEACHER_LIST:
+              case TEACHER_LIST:
                 Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.entrySet().iterator();
                 while(itrTeacher.hasNext()){
                   Map.Entry<TextBox, Button> currentPair = itrTeacher.next();
@@ -142,11 +145,12 @@ public class AdminScene extends AScene{
                   }
                 }
                 if (backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                  backButton.Draw(Color.GREEN);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                  backButton.Draw(Color.GRAY);
                 }
+                deletionMessage.Draw();
                 break;
             default:
                 break;
@@ -159,10 +163,11 @@ public class AdminScene extends AScene{
         int i = 0;
         while(studentSet.next()){
             int id = studentSet.getInt("id_etudiant");
+            String name = studentSet.getString("nom") + " " + studentSet.getString("prenom");
             studentList.put(new TextBox(new Rectangle(100, 50 + i * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(500,     50 + i * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".etudiant WHERE id_etudiant = " + id + ";");
-                System.out.println("Student deleted !");
+                deletionMessage.SetMessage("Student " + name + " deleted !", Color.GREEN, 5.0f);
                 ResetStudentList();
               }
               catch(SQLException e){
@@ -179,10 +184,11 @@ public class AdminScene extends AScene{
         int i = 0;
         while(teacherSet.next()){
             int id = teacherSet.getInt("id_professeur");
+            String name = teacherSet.getString("nom") + " " + teacherSet.getString("prenom");
             teacherList.put(new TextBox(new Rectangle(100, 50 + i * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(500,     50 + i * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".professeur WHERE id_professeur = " + id + ";");
-                System.out.println("Teacher deleted !");
+                deletionMessage.SetMessage("Teacher " + name + " deleted !", Color.GREEN, 5.0f);
                 ResetTeacherList();
               }
               catch(SQLException e){
@@ -203,6 +209,7 @@ public class AdminScene extends AScene{
      //Teacher List menu
      private Map<TextBox, Button> teacherList = new HashMap<TextBox, Button>();
     
+     private UserMessage deletionMessage = new UserMessage(new Point(100, 500));
      private Button backButton;
      private SceneStage currentStage = SceneStage.SELECTION;
 }

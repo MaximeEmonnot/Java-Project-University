@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import DataBaseSystem.DataBaseManager;
 import Exceptions.ProjectException;
 import MenuSystem.Button;
-import MenuSystem.Lambda;
-import MenuSystem.TypingBox;
+import MenuSystem.*;
 
 public class DatabaseConnectionScene extends AScene {
 
@@ -25,10 +24,11 @@ public class DatabaseConnectionScene extends AScene {
                 } catch (ClassNotFoundException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    connectionMessage.SetMessage("Wrong informations", Color.RED, 5.0f);
                 }
             }
             else{
-                System.out.println("Please complete all the fields!");
+                connectionMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
             }
         } );
 
@@ -45,6 +45,7 @@ public class DatabaseConnectionScene extends AScene {
         if (connectionButton.OnClick(e)){
             connectionButton.ComputeFunction();
         }
+        connectionMessage.Update();
     }
 
     @Override
@@ -60,10 +61,12 @@ public class DatabaseConnectionScene extends AScene {
         else{
             connectionButton.Draw(Color.GRAY);
         }
+        connectionMessage.Draw();
     }
     
 
     private TypingBox databaseName = new TypingBox(new Rectangle(100, 250, 600, 50), "Enter database name...");
     private TypingBox databasePassword = new TypingBox(new Rectangle(100, 350, 600, 50), "Enter database password...");
+    private UserMessage connectionMessage = new UserMessage(new Point(100, 425));
     private Button connectionButton;
 }
