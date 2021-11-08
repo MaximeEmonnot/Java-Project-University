@@ -45,13 +45,13 @@ public class TypingBox {
                     password += "*";
                 }
             }
-            GraphicsEngine.GraphicsSystem.GetInstance().DrawText(password, new Point(rect.x + rect.width / 10, rect.y + rect.height / 3), Color.BLACK, priority + 2);
+            GraphicsEngine.GraphicsSystem.GetInstance().DrawText(password, new Point(rect.x + rect.width / 10, rect.y + rect.height / 2), Color.BLACK, priority + 2);
         }
         else{
-            GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 10, rect.y + rect.height / 3), Color.BLACK, priority + 2);
+            GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(rect.x + rect.width / 10, rect.y + rect.height / 2), Color.BLACK, priority + 2);
         }   
         if (text.replace("|", "").length() == 0){
-            GraphicsEngine.GraphicsSystem.GetInstance().DrawText(description, new Point(rect.x + rect.width / 10 + 2, rect.y + rect.height / 3), new Font("Arial Bold", Font.ITALIC, 16), Color.GRAY, priority + 2);
+            GraphicsEngine.GraphicsSystem.GetInstance().DrawText(description, new Point(rect.x + rect.width / 10 + 2, rect.y + rect.height / 2), new Font("Arial Bold", Font.ITALIC, 16), Color.GRAY, priority + 2);
         }
     }
 

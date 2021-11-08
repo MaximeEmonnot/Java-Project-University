@@ -296,43 +296,43 @@ public class ForumScene extends AScene {
         switch(currentStage){
         case SELECTION:
             if (askQuestionButton.IsClicked()){
-                askQuestionButton.Draw(Color.GREEN);
+                askQuestionButton.Draw(Color.DARK_GRAY);
             }
             else{
-                askQuestionButton.Draw(Color.GRAY);
+                askQuestionButton.Draw(Color.LIGHT_GRAY);
             }
             if (questionListButton.IsClicked()){
-                questionListButton.Draw(Color.GREEN);
+                questionListButton.Draw(Color.DARK_GRAY);
             }
             else{
-                questionListButton.Draw(Color.GRAY);
+                questionListButton.Draw(Color.LIGHT_GRAY);
             }
             if (editQuestionsButton.IsClicked()){
-                editQuestionsButton.Draw(Color.GREEN);
+                editQuestionsButton.Draw(Color.DARK_GRAY);
             }
             else{
-                editQuestionsButton.Draw(Color.GRAY);
+                editQuestionsButton.Draw(Color.LIGHT_GRAY);
             }
             if (exitForumButton.IsClicked()){
-                exitForumButton.Draw(Color.GREEN);
+                exitForumButton.Draw(Color.DARK_GRAY);
             }
             else{
-                exitForumButton.Draw(Color.GRAY);
+                exitForumButton.Draw(Color.LIGHT_GRAY);
             }
             break;
         case STUDENT_ASK:
             question.Draw();
             if (addQuestionButton.IsClicked()){
-                addQuestionButton.Draw(Color.GREEN);
+                addQuestionButton.Draw(Color.DARK_GRAY);
             }
             else{
-                addQuestionButton.Draw(Color.GRAY);
+                addQuestionButton.Draw(Color.LIGHT_GRAY);
             }
             if (backButton.IsClicked()){
-                backButton.Draw(Color.GREEN);
+                backButton.Draw(Color.DARK_GRAY);
             }
             else{
-                backButton.Draw(Color.GRAY);
+                backButton.Draw(Color.LIGHT_GRAY);
             }
             studentQuestionMessage.Draw();
             break;
@@ -343,53 +343,53 @@ public class ForumScene extends AScene {
                     Map.Entry<TextBox, Button> currentPair = itrQuestion.next();
                     currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
                     if (currentPair.getValue().IsClicked()){
-                        currentPair.getValue().Draw(Color.GREEN);
+                        currentPair.getValue().Draw(Color.DARK_GRAY);
                     }
                     else{
-                        currentPair.getValue().Draw(Color.GRAY);
+                        currentPair.getValue().Draw(Color.LIGHT_GRAY);
                     }
                 }
             }
             
             if (questionArray.containsKey(iCurQuestionPage - 1)){
                 if (lastQuestionPage.IsClicked()){
-                    lastQuestionPage.Draw(Color.GREEN);
+                    lastQuestionPage.Draw(Color.DARK_GRAY);
                 }
                 else {
-                    lastQuestionPage.Draw(Color.GRAY);
+                    lastQuestionPage.Draw(Color.LIGHT_GRAY);
                 }
             }
             if (questionArray.containsKey(iCurQuestionPage + 1)){
                 if (nextQuestionPage.IsClicked()){
-                    nextQuestionPage.Draw(Color.GREEN);
+                    nextQuestionPage.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    nextQuestionPage.Draw(Color.GRAY);
+                    nextQuestionPage.Draw(Color.LIGHT_GRAY);
                 }
             }
 
             questionSearch.Draw();
 
             if (backButton.IsClicked()){
-                backButton.Draw(Color.GREEN);
+                backButton.Draw(Color.DARK_GRAY);
             }
             else{
-                backButton.Draw(Color.GRAY);
+                backButton.Draw(Color.LIGHT_GRAY);
             }
             break;
         case STUDENT_PROPOSE:
             proposition.Draw();
             if (addPropositionButton.IsClicked()){
-                addPropositionButton.Draw(Color.GREEN);
+                addPropositionButton.Draw(Color.DARK_GRAY);
             }
             else{
-                addPropositionButton.Draw(Color.GRAY);
+                addPropositionButton.Draw(Color.LIGHT_GRAY);
             }
             if (exitPropositionButton.IsClicked()){
-                exitPropositionButton.Draw(Color.GREEN);
+                exitPropositionButton.Draw(Color.DARK_GRAY);
             }
             else{
-                exitPropositionButton.Draw(Color.GRAY);
+                exitPropositionButton.Draw(Color.LIGHT_GRAY);
             }
             studentPropositionMessage.Draw();
             break;
@@ -400,35 +400,35 @@ public class ForumScene extends AScene {
                     Map.Entry<TextBox, Button> currentPair = itrQuestionDelete.next();
                     currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
                     if (currentPair.getValue().IsClicked()){
-                        currentPair.getValue().Draw(Color.GREEN);
+                        currentPair.getValue().Draw(Color.DARK_GRAY);
                     }
                     else{
-                        currentPair.getValue().Draw(Color.GRAY);
+                        currentPair.getValue().Draw(Color.LIGHT_GRAY);
                     }
                 }
             }
             if (questionDeleteArray.containsKey(iCurDeletePage - 1 )){
                 if (lastDeletePage.IsClicked()){
-                    lastDeletePage.Draw(Color.GREEN);
+                    lastDeletePage.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    lastDeletePage.Draw(Color.GRAY);
+                    lastDeletePage.Draw(Color.LIGHT_GRAY);
                 }
             }
             if (questionDeleteArray.containsKey(iCurDeletePage + 1)){
                 if (nextDeletePage.IsClicked()){
-                    nextDeletePage.Draw(Color.GREEN);
+                    nextDeletePage.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    nextDeletePage.Draw(Color.GRAY);
+                    nextDeletePage.Draw(Color.LIGHT_GRAY);
                 }
             }
 
             if (backButton.IsClicked()){
-                backButton.Draw(Color.GREEN);
+                backButton.Draw(Color.DARK_GRAY);
             }
             else{
-                backButton.Draw(Color.GRAY);
+                backButton.Draw(Color.LIGHT_GRAY);
             }
             studentDeletionMessage.Draw();
         break;

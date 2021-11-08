@@ -56,10 +56,10 @@ public class DatabaseConnectionScene extends AScene {
         databaseName.Draw();
         databasePassword.Draw();
         if (connectionButton.IsClicked()){
-            connectionButton.Draw(Color.GREEN);
+            connectionButton.Draw(Color.DARK_GRAY);
         }
         else{
-            connectionButton.Draw(Color.GRAY);
+            connectionButton.Draw(Color.LIGHT_GRAY);
         }
         connectionMessage.Draw();
     }

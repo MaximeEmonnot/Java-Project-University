@@ -250,28 +250,28 @@ public class TeacherScene extends AScene {
         switch(currentStage){
             case SELECTION:
                 if(addDomainButton.IsClicked()){
-                    addDomainButton.Draw(Color.GREEN);
+                    addDomainButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    addDomainButton.Draw(Color.GRAY);
+                    addDomainButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (addQuestionButton.IsClicked()){
-                    addQuestionButton.Draw(Color.GREEN);
+                    addQuestionButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    addQuestionButton.Draw(Color.GRAY);
+                    addQuestionButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (editQuestionListButton.IsClicked()){
-                    editQuestionListButton.Draw(Color.GREEN);
+                    editQuestionListButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    editQuestionListButton.Draw(Color.GRAY);
+                    editQuestionListButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (forumButton.IsClicked()){
-                    forumButton.Draw(Color.GREEN);
+                    forumButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    forumButton.Draw(Color.GRAY);
+                    forumButton.Draw(Color.LIGHT_GRAY);
                 }
                 break;
             case ADD_DOMAIN:
@@ -279,16 +279,16 @@ public class TeacherScene extends AScene {
                 category.Draw();
                 levelSelection.Draw(5);
                 if (addDButton.IsClicked()){
-                    addDButton.Draw(Color.GREEN);
+                    addDButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    addDButton.Draw(Color.GRAY);
+                    addDButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                    backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                    backButton.Draw(Color.LIGHT_GRAY);
                 }
                 domainMessage.Draw();
                 break;
@@ -313,16 +313,16 @@ public class TeacherScene extends AScene {
                 
                 //Drawing button
                 if (addQButton.IsClicked()){
-                    addQButton.Draw(Color.GREEN);
+                    addQButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                   addQButton.Draw(Color.GRAY);
+                   addQButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                    backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                    backButton.Draw(Color.LIGHT_GRAY);
                 }
                 questionMessage.Draw();
                 break;
@@ -333,34 +333,34 @@ public class TeacherScene extends AScene {
                         Map.Entry<TextBox, Button> currentPair = itr.next();
                         currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
                         if (currentPair.getValue().IsClicked()){
-                            currentPair.getValue().Draw(Color.GREEN);
+                            currentPair.getValue().Draw(Color.DARK_GRAY);
                         }
                         else{
-                            currentPair.getValue().Draw(Color.GRAY);
+                            currentPair.getValue().Draw(Color.LIGHT_GRAY);
                         }
                     }
                 }   
                 if (backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                    backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                    backButton.Draw(Color.LIGHT_GRAY);
                 }
 
                 if (questionList.containsKey(iCurPage - 1)){
                     if (lastPage.IsClicked()){
-                        lastPage.Draw(Color.GREEN);
+                        lastPage.Draw(Color.DARK_GRAY);
                     }
                     else{
-                        lastPage.Draw(Color.GRAY);
+                        lastPage.Draw(Color.LIGHT_GRAY);
                     }
                 } 
                 if (questionList.containsKey(iCurPage + 1)){
                     if (nextPage.IsClicked()){
-                        nextPage.Draw(Color.GREEN);
+                        nextPage.Draw(Color.DARK_GRAY);
                     }
                     else{
-                        nextPage.Draw(Color.GRAY);
+                        nextPage.Draw(Color.LIGHT_GRAY);
                     }
                 }
 

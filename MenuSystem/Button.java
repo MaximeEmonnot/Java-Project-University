@@ -43,8 +43,9 @@ public class Button {
     }
     public void Draw(Color c, Rectangle _rect, int priority) throws ProjectException{
         rect = _rect;
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(_rect, c, priority);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(_rect.x + _rect.width / 10, _rect.y + _rect.height / 3), Color.BLACK, priority + 1);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRoundRect(_rect, 10, 10, c, priority);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRoundRect(_rect, 10, 10, Color.BLACK, priority + 1);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(text, new Point(_rect.x + (int)((_rect.width - text.length() * 8) / 2), _rect.y + 3 *_rect.height / 5), Color.BLACK, priority + 2);
     }
 
     public boolean IsClicked(){

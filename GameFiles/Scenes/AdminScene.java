@@ -131,16 +131,16 @@ public class AdminScene extends AScene{
         switch(currentStage){
             case SELECTION:
                 if (studentListButton.IsClicked()){
-                    studentListButton.Draw(Color.GREEN);
+                    studentListButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    studentListButton.Draw(Color.GRAY);
+                    studentListButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (teacherListButton.IsClicked()){
-                    teacherListButton.Draw(Color.GREEN);
+                    teacherListButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    teacherListButton.Draw(Color.GRAY);
+                    teacherListButton.Draw(Color.LIGHT_GRAY);
                 }
                 break;
             case STUDENT_LIST:
@@ -150,34 +150,34 @@ public class AdminScene extends AScene{
                       Map.Entry<TextBox, Button> currentPair = itrStudent.next();
                       currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
                       if (currentPair.getValue().IsClicked()){
-                        currentPair.getValue().Draw(Color.GREEN);
+                        currentPair.getValue().Draw(Color.DARK_GRAY);
                       }
                       else{
-                        currentPair.getValue().Draw(Color.GRAY);
+                        currentPair.getValue().Draw(Color.LIGHT_GRAY);
                       }
                   }
                 }
                 if (studentList.containsKey(iCurPageStudentList - 1)){
                   if (lastStudentPage.IsClicked()){
-                    lastStudentPage.Draw(Color.GREEN);
+                    lastStudentPage.Draw(Color.DARK_GRAY);
                   }
                   else{
-                    lastStudentPage.Draw(Color.GRAY);
+                    lastStudentPage.Draw(Color.LIGHT_GRAY);
                   }
                 }
                 if (studentList.containsKey(iCurPageStudentList + 1)){
                   if (nextStudentPage.IsClicked()){
-                    nextStudentPage.Draw(Color.GREEN);
+                    nextStudentPage.Draw(Color.DARK_GRAY);
                   }
                   else{
-                    nextStudentPage.Draw(Color.GRAY);
+                    nextStudentPage.Draw(Color.LIGHT_GRAY);
                   }
                 }
                 if (backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                    backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                    backButton.Draw(Color.LIGHT_GRAY);
                 }
                 deletionMessage.Draw();
                 break;
@@ -188,36 +188,36 @@ public class AdminScene extends AScene{
                     Map.Entry<TextBox, Button> currentPair = itrTeacher.next();
                     currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
                     if (currentPair.getValue().IsClicked()){
-                      currentPair.getValue().Draw(Color.GREEN);
+                      currentPair.getValue().Draw(Color.DARK_GRAY);
                     }
                     else{
-                      currentPair.getValue().Draw(Color.GRAY);
+                      currentPair.getValue().Draw(Color.LIGHT_GRAY);
                     }
                   }
                 }
 
                 if (teacherList.containsKey(iCurPageTeacherList - 1)){
                   if (lastTeacherPage.IsClicked()){
-                    lastTeacherPage.Draw(Color.GREEN);
+                    lastTeacherPage.Draw(Color.DARK_GRAY);
                   }
                   else{
-                    lastTeacherPage.Draw(Color.GRAY);
+                    lastTeacherPage.Draw(Color.LIGHT_GRAY);
                   }
                 }
                 if (teacherList.containsKey(iCurPageTeacherList + 1)){
                   if (nextTeacherPage.IsClicked()){
-                    nextTeacherPage.Draw(Color.GREEN);
+                    nextTeacherPage.Draw(Color.DARK_GRAY);
                   }
                   else{
-                    nextTeacherPage.Draw(Color.GRAY);
+                    nextTeacherPage.Draw(Color.LIGHT_GRAY);
                   }
                 }
 
                 if (backButton.IsClicked()){
-                  backButton.Draw(Color.GREEN);
+                  backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                  backButton.Draw(Color.GRAY);
+                  backButton.Draw(Color.LIGHT_GRAY);
                 }
                 deletionMessage.Draw();
                 break;

@@ -255,17 +255,17 @@ public class ConnectionScene extends AScene {
             case INTRO:
                 //GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(logo, new Rectangle(169, 50, 463, 250));
                 if(connectButton.IsClicked()){
-                    connectButton.Draw(Color.GREEN);
+                    connectButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    connectButton.Draw(Color.GRAY);
+                    connectButton.Draw(Color.LIGHT_GRAY);
                 }
                 
                 if(createAccountButton.IsClicked()){
-                    createAccountButton.Draw(Color.GREEN);
+                    createAccountButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    createAccountButton.Draw(Color.GRAY);
+                    createAccountButton.Draw(Color.LIGHT_GRAY);
                 }
                 break;
             case LOGIN:
@@ -273,16 +273,16 @@ public class ConnectionScene extends AScene {
                 passwordConnection.Draw();
                 choiceConnection.Draw(5);
                 if(backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                    backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                    backButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (loginButton.IsClicked()){
-                    loginButton.Draw(Color.GREEN);
+                    loginButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    loginButton.Draw(Color.GRAY);
+                    loginButton.Draw(Color.LIGHT_GRAY);
                 }
                 loginMessage.Draw();
                 break;
@@ -296,16 +296,16 @@ public class ConnectionScene extends AScene {
                 passwordConfirmationRegister.Draw();
                 choiceRegister.Draw(5);
                 if(backButton.IsClicked()){
-                    backButton.Draw(Color.GREEN);
+                    backButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    backButton.Draw(Color.GRAY);
+                    backButton.Draw(Color.LIGHT_GRAY);
                 }
                 if (registerButton.IsClicked()){
-                    registerButton.Draw(Color.GREEN);
+                    registerButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    registerButton.Draw(Color.GRAY);
+                    registerButton.Draw(Color.LIGHT_GRAY);
                 }
                 registerMessage.Draw();
                 break;

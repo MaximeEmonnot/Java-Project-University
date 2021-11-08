@@ -29,288 +29,10 @@ public class SearchScene extends AScene{
 
     public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
         super();
-        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject =  " + dbm.GetDatabaseName() + ".sujets.id");
-        while(rs.next()){
-            String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
-            domains.add(rs.getString("domaine"));
-            if (!categories.containsKey(rs.getString("domaine"))){
-                categories.put(rs.getString("domaine"), new HashSet<String>());
-            }
-            categories.get(rs.getString("domaine")).add(rs.getString("categorie"));
-            if (!difficulty.containsKey(rs.getString("domaine"))){
-                difficulty.put(rs.getString("domaine"), new HashMap<String, HashSet<String>>());
-                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
-            }
-            else if (!difficulty.get(rs.getString("domaine")).containsKey(rs.getString("categorie"))){
-                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
-            }
-            difficulty.get(rs.getString("domaine")).get(rs.getString("categorie")).add(rs.getString("niveau"));
-            ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
-                bChangeScene = true;
-                nextSceneIndex = 3;
-                currentQuizz = name;
-                try {
-                    questions.clear();
-                    String[] args = name.split(" - ");
-                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
-                    while(questionSet.next()){
-                        if (questionSet.getString("reponseD").length() != 0){
-                            AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
-                            switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
-                                case 1:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_D;
-                                    break;
-                                case 2: 
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_C;
-                                    break;
-                                case 3:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_CD;
-                                    break;
-                                case 4:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_B;
-                                    break;
-                                case 5:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BD;
-                                    break;
-                                case 6:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BC;
-                                    break;
-                                case 7:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BCD;
-                                    break;
-                                case 8:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_A;
-                                    break;
-                                case 9:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AD;
-                                    break;
-                                case 10:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AC;
-                                    break;
-                                case 11:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ACD;
-                                    break;
-                                case 12:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AB;
-                                    break;
-                                case 13:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABD;
-                                    break;
-                                case 14:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABC;
-                                    break;
-                                case 15:
-                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABCD;
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
-                        }
-                        else if (questionSet.getString("reponseC").length() != 0) {
-                            ATripleAnswerQuestion.AnswerType type = ATripleAnswerQuestion.AnswerType.NONE;
-                            switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
-                            case 1:
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_C;
-                                break;
-                            case 2:
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_B;
-                                break;
-                            case 3:
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_BC;
-                                break;
-                            case 4:
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_A;
-                                break;
-                            case 5:
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_AC;
-                                break;
-                            case 6 :
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_AB;
-                                break;
-                            case 7:
-                                type = ATripleAnswerQuestion.AnswerType.ANSWER_ABC;
-                                break;
-                            default :
-                                break;
-                            }
-
-                            questions.add(new ConcreteTripleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
-                        }
-                        else{
-                            ADoubleAnswerQuestion.AnswerType type = ADoubleAnswerQuestion.AnswerType.NONE;
-                            switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
-                            case 1:
-                                type = ADoubleAnswerQuestion.AnswerType.ANSWER_B;
-                                break;
-                            case 2:
-                                type = ADoubleAnswerQuestion.AnswerType.ANSWER_A;
-                                break;
-                            case 3:
-                                type = ADoubleAnswerQuestion.AnswerType.BOTH;
-                                break;
-                            default:
-                                break;
-                            }
-                           
-                            questions.add(new ConcreteDoubleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
-                        }
-                    }
-                    Collections.shuffle(questions);
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }));
-        }
-       refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", () -> {
-           ddcArray.clear();
-           domains.clear();
-           categories.clear();
-           difficulty.clear();
+        ResetQuestionList();
+        refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", () -> {
            try {
-                ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id");
-                while(rSet.next()){
-                    String name = String.valueOf(rSet.getLong("id_prof"))  + " - " + rSet.getString("domaine") + "  - " + rSet.getString("categorie") + " - " + rSet.getString("niveau");
-                    domains.add(rSet.getString("domaine"));
-                    if (!categories.containsKey(rSet.getString("domaine"))){
-                        categories.put(rSet.getString("domaine"), new HashSet<String>());
-                    }
-                    categories.get(rSet.getString("domaine")).add(rSet.getString("categorie"));
-                    if (!difficulty.containsKey(rSet.getString("domaine"))){
-                        difficulty.put(rSet.getString("domaine"), new HashMap<String, HashSet<String>>());
-                        difficulty.get(rSet.getString("domaine")).put(rSet.getString("categorie"), new HashSet<String>());
-                    }
-                    else if (!difficulty.get(rSet.getString("domaine")).containsKey(rs.getString("categorie"))){
-                        difficulty.get(rSet.getString("domaine")).put(rSet.getString("categorie"), new HashSet<String>());
-                    }
-                    difficulty.get(rSet.getString("domaine")).get(rSet.getString("categorie")).add(rSet.getString("niveau"));
-                    ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
-                        bChangeScene = true;
-                        nextSceneIndex = 3;
-                        currentQuizz = name;
-                        try {
-                            questions.clear();
-                            String[] args = name.split(" - ");
-                            ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
-                            while(questionSet.next()){
-                                if (questionSet.getString("reponseD").length() != 0){
-                                    AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
-                                    switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
-                                        case 1:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_D;
-                                            break;
-                                        case 2: 
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_C;
-                                            break;
-                                        case 3:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_CD;
-                                            break;
-                                        case 4:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_B;
-                                            break;
-                                        case 5:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BD;
-                                            break;
-                                        case 6:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BC;
-                                            break;
-                                        case 7:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BCD;
-                                            break;
-                                        case 8:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_A;
-                                            break;
-                                        case 9:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AD;
-                                            break;
-                                        case 10:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AC;
-                                            break;
-                                        case 11:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ACD;
-                                            break;
-                                        case 12:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AB;
-                                            break;
-                                        case 13:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABD;
-                                            break;
-                                        case 14:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABC;
-                                            break;
-                                        case 15:
-                                            type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABCD;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-        
-                                    questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
-                                }
-                                else if (questionSet.getString("reponseC").length() != 0) {
-                                    ATripleAnswerQuestion.AnswerType type = ATripleAnswerQuestion.AnswerType.NONE;
-                                    switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
-                                    case 1:
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_C;
-                                        break;
-                                    case 2:
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_B;
-                                        break;
-                                    case 3:
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_BC;
-                                        break;
-                                    case 4:
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_A;
-                                        break;
-                                    case 5:
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_AC;
-                                        break;
-                                    case 6 :
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_AB;
-                                        break;
-                                    case 7:
-                                        type = ATripleAnswerQuestion.AnswerType.ANSWER_ABC;
-                                        break;
-                                    default :
-                                        break;
-                                    }
-        
-                                    questions.add(new ConcreteTripleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
-                                }
-                                else{
-                                    ADoubleAnswerQuestion.AnswerType type = ADoubleAnswerQuestion.AnswerType.NONE;
-                                    switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
-                                    case 1:
-                                        type = ADoubleAnswerQuestion.AnswerType.ANSWER_B;
-                                        break;
-                                    case 2:
-                                        type = ADoubleAnswerQuestion.AnswerType.ANSWER_A;
-                                        break;
-                                    case 3:
-                                        type = ADoubleAnswerQuestion.AnswerType.BOTH;
-                                        break;
-                                    default:
-                                        break;
-                                    }
-                                   
-                                    questions.add(new ConcreteDoubleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
-                                }
-                            }
-                            Collections.shuffle(questions);
-                        } catch (SQLException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }));
-                }
+                ResetQuestionList();
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -556,18 +278,18 @@ public class SearchScene extends AScene{
                 }
                 if (statsArray.containsKey(iCurPage - 1)){
                     if (lastStatPage.IsClicked()){
-                        lastStatPage.Draw(Color.GREEN);
+                        lastStatPage.Draw(Color.DARK_GRAY);
                     }
                     else{
-                        lastStatPage.Draw(Color.GRAY);
+                        lastStatPage.Draw(Color.LIGHT_GRAY);
                     }
                 }
                 if (statsArray.containsKey(iCurPage + 1)){
                     if (nextStatPage.IsClicked()){
-                        nextStatPage.Draw(Color.GREEN);
+                        nextStatPage.Draw(Color.DARK_GRAY);
                     }
                     else{
-                        nextStatPage.Draw(Color.GRAY);
+                        nextStatPage.Draw(Color.LIGHT_GRAY);
                     }
                 }
                 break;          
@@ -593,7 +315,152 @@ public class SearchScene extends AScene{
             break;
         } 
     }
-        
+     
+    private void ResetQuestionList() throws SQLException{
+           ddcArray.clear();
+           domains.clear();
+           categories.clear();
+           difficulty.clear();
+        ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject =  " + dbm.GetDatabaseName() + ".sujets.id");
+        while(rs.next()){
+            String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + "  - " + rs.getString("categorie") + " - " + rs.getString("niveau");
+            domains.add(rs.getString("domaine"));
+            if (!categories.containsKey(rs.getString("domaine"))){
+                categories.put(rs.getString("domaine"), new HashSet<String>());
+            }
+            categories.get(rs.getString("domaine")).add(rs.getString("categorie"));
+            if (!difficulty.containsKey(rs.getString("domaine"))){
+                difficulty.put(rs.getString("domaine"), new HashMap<String, HashSet<String>>());
+                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
+            }
+            else if (!difficulty.get(rs.getString("domaine")).containsKey(rs.getString("categorie"))){
+                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
+            }
+            difficulty.get(rs.getString("domaine")).get(rs.getString("categorie")).add(rs.getString("niveau"));
+            ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
+                bChangeScene = true;
+                nextSceneIndex = 3;
+                currentQuizz = name;
+                try {
+                    questions.clear();
+                    String[] args = name.split(" - ");
+                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
+                    while(questionSet.next()){
+                        if (questionSet.getString("reponseD").length() != 0){
+                            AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
+                            switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
+                                case 1:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_D;
+                                    break;
+                                case 2: 
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_C;
+                                    break;
+                                case 3:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_CD;
+                                    break;
+                                case 4:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_B;
+                                    break;
+                                case 5:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BD;
+                                    break;
+                                case 6:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BC;
+                                    break;
+                                case 7:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_BCD;
+                                    break;
+                                case 8:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_A;
+                                    break;
+                                case 9:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AD;
+                                    break;
+                                case 10:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AC;
+                                    break;
+                                case 11:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ACD;
+                                    break;
+                                case 12:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_AB;
+                                    break;
+                                case 13:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABD;
+                                    break;
+                                case 14:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABC;
+                                    break;
+                                case 15:
+                                    type = AQuadrupleAnswerQuestion.AnswerType.ANSWER_ABCD;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                        }
+                        else if (questionSet.getString("reponseC").length() != 0) {
+                            ATripleAnswerQuestion.AnswerType type = ATripleAnswerQuestion.AnswerType.NONE;
+                            switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
+                            case 1:
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_C;
+                                break;
+                            case 2:
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_B;
+                                break;
+                            case 3:
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_BC;
+                                break;
+                            case 4:
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_A;
+                                break;
+                            case 5:
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_AC;
+                                break;
+                            case 6 :
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_AB;
+                                break;
+                            case 7:
+                                type = ATripleAnswerQuestion.AnswerType.ANSWER_ABC;
+                                break;
+                            default :
+                                break;
+                            }
+
+                            questions.add(new ConcreteTripleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                        }
+                        else{
+                            ADoubleAnswerQuestion.AnswerType type = ADoubleAnswerQuestion.AnswerType.NONE;
+                            switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
+                            case 1:
+                                type = ADoubleAnswerQuestion.AnswerType.ANSWER_B;
+                                break;
+                            case 2:
+                                type = ADoubleAnswerQuestion.AnswerType.ANSWER_A;
+                                break;
+                            case 3:
+                                type = ADoubleAnswerQuestion.AnswerType.BOTH;
+                                break;
+                            default:
+                                break;
+                            }
+                           
+                            questions.add(new ConcreteDoubleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                        }
+                    }
+                    Collections.shuffle(questions);
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }));
+        }
+    }
+
     private SceneStage currentStage = SceneStage.SEARCHING;
 
     //Searching buttons
