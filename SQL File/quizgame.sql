@@ -48,8 +48,7 @@ create table admin(
 create table `statistique`(
     `id_statistique` int not null,
     `score` float,
-    `id_subject` int not null,
-    constraint pk_stats_utilisateur primary key (id_statistique)
+    `id_subject` int not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

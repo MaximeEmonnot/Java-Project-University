@@ -59,7 +59,7 @@ public class QuizzScene extends AScene {
                 if (subjectSet.next()) {
                     int subjectId = subjectSet.getInt("id");
                     float currentScore = (float)rightAnswers / (float)questions.size() * 100;
-                    ResultSet testStatSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".statistique WHERE id_statistique = " + studentId + ";");
+                    ResultSet testStatSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".statistique WHERE id_statistique = " + studentId + " AND id_subject = " + subjectId + ";");
                     if (testStatSet.next()){
                         if (testStatSet.getFloat("score") < currentScore){
                             dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".statistique SET score = " + currentScore + " WHERE id_subject = " + subjectId + ";");

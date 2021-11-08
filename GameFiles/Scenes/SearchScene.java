@@ -324,8 +324,13 @@ public class SearchScene extends AScene{
         statsArray.clear();
         try {
             ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau, score FROM " + dbm.GetDatabaseName() + ".etudiant, " + dbm.GetDatabaseName() + ".statistique, " + dbm.GetDatabaseName() + ".sujets WHERE email = '" + user.GetMail() + "' AND id_etudiant = id_statistique AND " + dbm.GetDatabaseName() + ".sujets.id = " + dbm.GetDatabaseName() + ".statistique.id_subject;");
+            int i = 0;
             while(rSet.next()){
-                statsArray.add(new TextBox(rSet.getString("domaine") + " - " + rSet.getString("categorie") + " - " + rSet.getString("niveau") + " - Score : " + rSet.getFloat("score") + "%"));
+                if (!statsArray.containsKey(i/5)){
+                    statsArray.put(i/5, new HashSet<TextBox>());
+                }
+                statsArray.get(i/5).add(new TextBox(new Rectangle(100, 50 + 75 * (i%5), 600, 50), rSet.getString("domaine") + " - " + rSet.getString("categorie") + " - " + rSet.getString("niveau") + " - Score : " + rSet.getFloat("score") + "%"));
+                i++;
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -333,6 +338,10 @@ public class SearchScene extends AScene{
         }
            currentStage = SceneStage.STATISTICS;
        });
+
+       lastStatPage = new Button(new Rectangle(100, 500, 25, 25), "<", () -> { iCurPage--;});
+       nextStatPage = new Button(new Rectangle(400, 500, 25, 25), ">", () -> { iCurPage++;});
+
        forumButton = new Button(new Rectangle(475, 10, 200, 50), "Go to forum", () ->{
             bChangeScene = true;
             nextSceneIndex = 6;
@@ -433,6 +442,16 @@ public class SearchScene extends AScene{
                 if (backButton.OnClick(e)){
                     backButton.ComputeFunction();
                 }
+                if (statsArray.containsKey(iCurPage - 1)){
+                    if (lastStatPage.OnClick(e)){
+                        lastStatPage.ComputeFunction();
+                    }
+                }
+                if (statsArray.containsKey(iCurPage + 1)){
+                    if (nextStatPage.OnClick(e)){
+                        nextStatPage.ComputeFunction();
+                    }
+                }
                 break;
             case CHANGE_PASSWORD:
                 oldPassword.Update();
@@ -527,11 +546,29 @@ public class SearchScene extends AScene{
                 else {
                     backButton.Draw(Color.LIGHT_GRAY);
                 }
-                Iterator<TextBox> itrTB = statsArray.iterator();
-                int k = 0;
-                while (itrTB.hasNext()){
-                    TextBox tb = itrTB.next();
-                    tb.Draw(new Rectangle(100, 50 + k * 75, 600, 50), Color.BLACK, Color.GRAY, Color.WHITE);
+
+                if (statsArray.containsKey(iCurPage)){
+                    Iterator<TextBox> itrTB = statsArray.get(iCurPage).iterator();
+                    while (itrTB.hasNext()){
+                        TextBox tb = itrTB.next();
+                        tb.Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                    }
+                }
+                if (statsArray.containsKey(iCurPage - 1)){
+                    if (lastStatPage.IsClicked()){
+                        lastStatPage.Draw(Color.GREEN);
+                    }
+                    else{
+                        lastStatPage.Draw(Color.GRAY);
+                    }
+                }
+                if (statsArray.containsKey(iCurPage + 1)){
+                    if (nextStatPage.IsClicked()){
+                        nextStatPage.Draw(Color.GREEN);
+                    }
+                    else{
+                        nextStatPage.Draw(Color.GRAY);
+                    }
                 }
                 break;          
             case CHANGE_PASSWORD:
@@ -583,7 +620,10 @@ public class SearchScene extends AScene{
     private TextBox addressBox = new TextBox(new Rectangle(100, 350, 600, 50));
 
     //Statistics menu
-    private Set<TextBox> statsArray = new HashSet<TextBox>();
+    private Map<Integer, HashSet<TextBox>> statsArray = new HashMap<Integer, HashSet<TextBox>>(); 
+    private int iCurPage = 0;
+    private Button nextStatPage;
+    private Button lastStatPage;
 
     //Searching menu
     private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50), "Enter ID..."); 

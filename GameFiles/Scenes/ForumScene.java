@@ -2,6 +2,8 @@ package GameFiles.Scenes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -80,20 +82,31 @@ public class ForumScene extends AScene {
      */
 
     private void InitStudent(){
+        //Question words initialization
+        questionWords.add("comment");
+        questionWords.add("pourquoi");
+        questionWords.add("quoi");
+        questionWords.add("quel");
+        questionWords.add("quels");
+        questionWords.add("quelle");
+        questionWords.add("quelle");
+        questionWords.add("lesquelles");
+        questionWords.add("laquelle");
+        questionWords.add("lesquels");
+        questionWords.add("lequel");
+        questionWords.add("quand");
+
         //Selection menu initialization
         askQuestionButton = new Button(new Rectangle(100, 150, 600, 50), "Ask question", () -> {
             question.Clear();
             currentStage = SceneStage.STUDENT_ASK;
         });
         questionListButton = new Button(new Rectangle(100, 250, 600, 50), "View question list", () -> {
-            try {
-                ResetStudentQuestionList();
-                currentStage = SceneStage.STUDENT_QUESTION_LIST;
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            currentStage = SceneStage.STUDENT_QUESTION_LIST;
         });
+        lastQuestionPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> { iCurQuestionPage--;});
+        nextQuestionPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> { iCurQuestionPage++;});
+
         editQuestionsButton = new Button(new Rectangle(100, 350, 600, 50), "Manage questions", () -> {
             try {
                 ResetStudentQuestionDeleteList();
@@ -103,6 +116,8 @@ public class ForumScene extends AScene {
                 e.printStackTrace();
             }
         });
+        lastDeletePage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> { iCurDeletePage--;});
+        nextDeletePage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> { iCurDeletePage++;});
 
         //Ajout question menu 
         addQuestionButton = new Button(new Rectangle(250, 500, 100, 50), "Add question", () -> {
@@ -165,8 +180,10 @@ public class ForumScene extends AScene {
         
     }
 
-    private void UpdateStudent(CoreSystem.Mouse.EventType e) {
+    private void UpdateStudent(CoreSystem.Mouse.EventType e) throws SQLException {
         //Ici, l'Update dépend de l'écran en cours dans la scène. Il n'y a pas grand chose à part les Update de base des menus
+        ResetStudentQuestionList();
+
         switch(currentStage){
             case SELECTION:
             if (askQuestionButton.OnClick(e)){
@@ -193,16 +210,31 @@ public class ForumScene extends AScene {
                 studentQuestionMessage.Update();
                 break;
             case STUDENT_QUESTION_LIST:
-            Iterator<Map.Entry<TextBox, Button>> itrQuestion = questionArray.entrySet().iterator();
-                while (itrQuestion.hasNext()){
-                    Button btn = itrQuestion.next().getValue();
-                    if (btn.OnClick(e)){
-                        btn.ComputeFunction();
+                if (questionArray.containsKey(iCurQuestionPage)){
+                    Iterator<Map.Entry<TextBox, Button>> itrQuestion = questionArray.get(iCurQuestionPage).entrySet().iterator();
+                    while (itrQuestion.hasNext()){
+                        Button btn = itrQuestion.next().getValue();
+                        if (btn.OnClick(e)){
+                            btn.ComputeFunction();
+                        }
                     }
                 }
+
+                if (questionArray.containsKey(iCurQuestionPage - 1)){
+                    if (lastQuestionPage.OnClick(e)){
+                        lastQuestionPage.ComputeFunction();
+                    }
+                }
+                if (questionArray.containsKey(iCurQuestionPage + 1)){
+                    if (nextQuestionPage.OnClick(e)){
+                        nextQuestionPage.ComputeFunction();
+                    }
+                }
+
                 if (backButton.OnClick(e)){
                     backButton.ComputeFunction();
                 }
+                questionSearch.Update();
                 break;
             case STUDENT_PROPOSE:
                 proposition.Update();
@@ -215,13 +247,27 @@ public class ForumScene extends AScene {
                 studentPropositionMessage.Update();
                 break;
             case STUDENT_MANAGE_QUESTION:
-                Iterator<Map.Entry<TextBox, Button>> itrQuestionDelete = questionDeleteArray.entrySet().iterator();
-                while(itrQuestionDelete.hasNext()){
-                    Button btn = itrQuestionDelete.next().getValue();
-                    if (btn.OnClick(e)){
-                        btn.ComputeFunction();
+                if (questionDeleteArray.containsKey(iCurDeletePage)){
+                    Iterator<Map.Entry<TextBox, Button>> itrQuestionDelete = questionDeleteArray.get(iCurDeletePage).entrySet().iterator();
+                    while(itrQuestionDelete.hasNext()){
+                        Button btn = itrQuestionDelete.next().getValue();
+                        if (btn.OnClick(e)){
+                            btn.ComputeFunction();
+                            break;
+                        }
                     }
                 }
+                if (questionDeleteArray.containsKey(iCurDeletePage - 1 )){
+                    if (lastDeletePage.OnClick(e)){
+                        lastDeletePage.ComputeFunction();
+                    }
+                }
+                if (questionDeleteArray.containsKey(iCurDeletePage + 1)){
+                    if (nextDeletePage.OnClick(e)){
+                        nextDeletePage.ComputeFunction();
+                    }
+                }
+
                 if (backButton.OnClick(e)){
                     backButton.ComputeFunction();
                 }
@@ -248,7 +294,7 @@ public class ForumScene extends AScene {
         
     private void DrawStudent() throws ProjectException {
         switch(currentStage){
-            case SELECTION:
+        case SELECTION:
             if (askQuestionButton.IsClicked()){
                 askQuestionButton.Draw(Color.GREEN);
             }
@@ -274,7 +320,7 @@ public class ForumScene extends AScene {
                 exitForumButton.Draw(Color.GRAY);
             }
             break;
-            case STUDENT_ASK:
+        case STUDENT_ASK:
             question.Draw();
             if (addQuestionButton.IsClicked()){
                 addQuestionButton.Draw(Color.GREEN);
@@ -291,19 +337,39 @@ public class ForumScene extends AScene {
             studentQuestionMessage.Draw();
             break;
         case STUDENT_QUESTION_LIST:
-        
-        Iterator<Map.Entry<TextBox, Button>> itrQuestion = questionArray.entrySet().iterator();
-        while(itrQuestion.hasNext()){
-            Map.Entry<TextBox, Button> currentPair = itrQuestion.next();
-            currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
-            if (currentPair.getValue().IsClicked()){
-                currentPair.getValue().Draw(Color.GREEN);
-                }
-                else{
-                    currentPair.getValue().Draw(Color.GRAY);
+            if (questionArray.containsKey(iCurQuestionPage)){
+                Iterator<Map.Entry<TextBox, Button>> itrQuestion = questionArray.get(iCurQuestionPage).entrySet().iterator();
+                while(itrQuestion.hasNext()){
+                    Map.Entry<TextBox, Button> currentPair = itrQuestion.next();
+                    currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                    if (currentPair.getValue().IsClicked()){
+                        currentPair.getValue().Draw(Color.GREEN);
+                    }
+                    else{
+                        currentPair.getValue().Draw(Color.GRAY);
+                    }
                 }
             }
             
+            if (questionArray.containsKey(iCurQuestionPage - 1)){
+                if (lastQuestionPage.IsClicked()){
+                    lastQuestionPage.Draw(Color.GREEN);
+                }
+                else {
+                    lastQuestionPage.Draw(Color.GRAY);
+                }
+            }
+            if (questionArray.containsKey(iCurQuestionPage + 1)){
+                if (nextQuestionPage.IsClicked()){
+                    nextQuestionPage.Draw(Color.GREEN);
+                }
+                else{
+                    nextQuestionPage.Draw(Color.GRAY);
+                }
+            }
+
+            questionSearch.Draw();
+
             if (backButton.IsClicked()){
                 backButton.Draw(Color.GREEN);
             }
@@ -311,7 +377,7 @@ public class ForumScene extends AScene {
                 backButton.Draw(Color.GRAY);
             }
             break;
-            case STUDENT_PROPOSE:
+        case STUDENT_PROPOSE:
             proposition.Draw();
             if (addPropositionButton.IsClicked()){
                 addPropositionButton.Draw(Color.GREEN);
@@ -327,20 +393,37 @@ public class ForumScene extends AScene {
             }
             studentPropositionMessage.Draw();
             break;
-        case STUDENT_MANAGE_QUESTION:
-        
-        Iterator<Map.Entry<TextBox, Button>> itrQuestionDelete = questionDeleteArray.entrySet().iterator();
-        while (itrQuestionDelete.hasNext()){
-            Map.Entry<TextBox, Button> currentPair = itrQuestionDelete.next();
-            currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
-            if (currentPair.getValue().IsClicked()){
-                currentPair.getValue().Draw(Color.GREEN);
-                }
-                else{
-                    currentPair.getValue().Draw(Color.GRAY);
+        case STUDENT_MANAGE_QUESTION: 
+            if (questionDeleteArray.containsKey(iCurDeletePage)){
+                Iterator<Map.Entry<TextBox, Button>> itrQuestionDelete = questionDeleteArray.get(iCurDeletePage).entrySet().iterator();
+                while (itrQuestionDelete.hasNext()){
+                    Map.Entry<TextBox, Button> currentPair = itrQuestionDelete.next();
+                    currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                    if (currentPair.getValue().IsClicked()){
+                        currentPair.getValue().Draw(Color.GREEN);
+                    }
+                    else{
+                        currentPair.getValue().Draw(Color.GRAY);
+                    }
                 }
             }
-            
+            if (questionDeleteArray.containsKey(iCurDeletePage - 1 )){
+                if (lastDeletePage.IsClicked()){
+                    lastDeletePage.Draw(Color.GREEN);
+                }
+                else{
+                    lastDeletePage.Draw(Color.GRAY);
+                }
+            }
+            if (questionDeleteArray.containsKey(iCurDeletePage + 1)){
+                if (nextDeletePage.IsClicked()){
+                    nextDeletePage.Draw(Color.GREEN);
+                }
+                else{
+                    nextDeletePage.Draw(Color.GRAY);
+                }
+            }
+
             if (backButton.IsClicked()){
                 backButton.Draw(Color.GREEN);
             }
@@ -348,9 +431,9 @@ public class ForumScene extends AScene {
                 backButton.Draw(Color.GRAY);
             }
             studentDeletionMessage.Draw();
-            break;
-            default:
-            break;
+        break;
+        default:
+        break;
         }
     }
     private void DrawTeacher() throws ProjectException {
@@ -374,17 +457,48 @@ public class ForumScene extends AScene {
     //Reset de la list des questions
     private void ResetStudentQuestionList() throws SQLException {
         questionArray.clear();
+        //Définition des mots clés
+        String searchQ = questionSearch.GetText();
+        searchQ = searchQ.toLowerCase();
+        String[] words = searchQ.split(" ");
+        List<String> keyWords = new ArrayList<String>();
+        for (int i = 0; i < words.length; i++){
+            if (words[i].length() > 4 && !questionWords.contains(words[i])){
+                keyWords.add(words[i]);
+            }
+        }
+
         ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " +  dbm.GetDatabaseName() + ".forumQuestion");
-        int i = 0;
-        while (questionSet.next() && i < 6){
+        ArrayList<Map.Entry<Integer, Map.Entry<String, Integer>>> priorityQuestion = new ArrayList<Map.Entry<Integer, Map.Entry<String, Integer>>>();
+
+        while (questionSet.next()){
             int id = questionSet.getInt("id");
-            //Ici on ajoute un nouveau couple de TextBox Button à partir des infos de la base de données. Chaque bouton permet d'accéder à l'ajout de proposition pour la question sélectionnée
-            questionArray.put(new TextBox(new Rectangle(50, 50 + i * 75, 400, 50), questionSet.getString("question")), new Button(new Rectangle(500, 50 + i * 75, 100, 50), "Add proposition", () -> { 
-                proposition.Clear();
-                currentStage = SceneStage.STUDENT_PROPOSE;
-                iChosenQuestion = id;
-            }));
-            i++;
+            String questionStr = questionSet.getString("question").toLowerCase();
+            
+            int nKeyW = 0;
+            for (String key : keyWords){
+                if (questionStr.contains(key)){
+                    nKeyW++;
+                }
+            }
+            priorityQuestion.add(Map.entry(nKeyW, Map.entry(questionStr, id)));
+        }
+
+        priorityQuestion.sort((e0, e1) -> e1.getKey() - e0.getKey());
+        int maxPriority = priorityQuestion.get(0).getKey();
+
+        for (int i = 0; i < priorityQuestion.size(); i++){
+            if (maxPriority == priorityQuestion.get(i).getKey()){
+                if (!questionArray.containsKey(i/5)){
+                    questionArray.put(i/5, new HashMap<TextBox, Button>());
+                }
+                int id = priorityQuestion.get(i).getValue().getValue();
+                questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
+                    proposition.Clear();
+                    currentStage = SceneStage.STUDENT_PROPOSE;
+                    iChosenQuestion = id;
+                }));
+            }
         }
     }
        
@@ -393,10 +507,13 @@ public class ForumScene extends AScene {
         questionDeleteArray.clear();
         ResultSet questionDeleteSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".forumQuestion, " + dbm.GetDatabaseName() + ".etudiant WHERE forumQuestion.id_student = etudiant.id_etudiant AND etudiant.email = '" + user.GetMail() + "';");
         int i = 0;
-        while (questionDeleteSet.next() && i < 6){
+        while (questionDeleteSet.next()){
             int currentId = questionDeleteSet.getInt("id");
+            if (!questionDeleteArray.containsKey(i / 5)){
+                questionDeleteArray.put(i/5, new HashMap<TextBox, Button>());
+            }
             //On ajoute tous les couples TextBox Button à partir de la base de données. Le bouton va enclencher la fonction en Lambda (suppression de la question).
-            questionDeleteArray.put(new TextBox(new Rectangle(50, 50 + i * 75, 400, 50), questionDeleteSet.getString("question")), new Button(new Rectangle(500, 50 + i * 75, 100, 50), "Delete", () -> {
+            questionDeleteArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), questionDeleteSet.getString("question")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Delete", () -> {
                 try {
                     //On supprime toutes les propositions à la quesiton, puis on supprime la question. Enfin, on fait un reset la liste des boutons
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".forumProposition WHERE id_question = " + currentId + ";");
@@ -427,8 +544,13 @@ public class ForumScene extends AScene {
     private Button addQuestionButton;
     
     //Menu liste questions Etudiant
-    private Map<TextBox, Button> questionArray = new HashMap<TextBox, Button>();
+    private Map<Integer, HashMap<TextBox, Button>> questionArray = new HashMap<Integer, HashMap<TextBox, Button>>();
+    private int iCurQuestionPage = 0;
+    private Button lastQuestionPage;
+    private Button nextQuestionPage;
+    private TypingBox questionSearch = new TypingBox(new Rectangle(100, 500, 600, 50), "Search question...");
     private int iChosenQuestion = 0;
+    private final List<String> questionWords = new ArrayList<String>();
     
     //Menu proposition Etudiant
     private TypingBox proposition = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your proposition...");
@@ -437,7 +559,11 @@ public class ForumScene extends AScene {
     private Button exitPropositionButton;
     
     //Menu gestion questions Etudiant
-    private Map<TextBox, Button> questionDeleteArray = new HashMap<TextBox, Button>();
+    private Map<Integer, HashMap<TextBox, Button>> questionDeleteArray = new HashMap<Integer, HashMap<TextBox, Button>>();
+    private int iCurDeletePage = 0;
+    private Button lastDeletePage;
+    private Button nextDeletePage;
+
     private UserMessage studentDeletionMessage = new UserMessage(new Point(100, 500));
 
     //Back button

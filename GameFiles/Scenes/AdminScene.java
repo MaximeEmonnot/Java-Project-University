@@ -34,6 +34,9 @@ public class AdminScene extends AScene{
             e.printStackTrace();
           }
         });
+        lastStudentPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageStudentList--;});
+        nextStudentPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageStudentList++;});
+        
         teacherListButton = new Button(new Rectangle(100, 250, 600, 50), "Edit teacher list", () -> {
           try{
             ResetTeacherList();
@@ -43,7 +46,10 @@ public class AdminScene extends AScene{
             e.printStackTrace();
           }
         });
-    }
+        lastTeacherPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageTeacherList--;});
+        nextTeacherPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageTeacherList++;});
+      
+      }
 
     @Override
     public void Update() throws SQLException {
@@ -60,26 +66,51 @@ public class AdminScene extends AScene{
             }
             break;
           case STUDENT_LIST:
-            Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.entrySet().iterator();
-            while (itrStudent.hasNext()){
-              Button btn = itrStudent.next().getValue();
-              if (btn.OnClick(e)){
-                btn.ComputeFunction();
-                break;
+            if(studentList.containsKey(iCurPageStudentList)){
+              Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.get(iCurPageStudentList).entrySet().iterator();
+              while (itrStudent.hasNext()){
+                Button btn = itrStudent.next().getValue();
+                if (btn.OnClick(e)){
+                  btn.ComputeFunction();
+                  break;
+                }
               }
             }
+            if (studentList.containsKey(iCurPageStudentList - 1)){
+              if (lastStudentPage.OnClick(e)){
+                lastStudentPage.ComputeFunction();
+              }
+            }
+            if (studentList.containsKey(iCurPageStudentList + 1)){
+              if (nextStudentPage.OnClick(e)){
+                nextStudentPage.ComputeFunction();
+              }
+            }
+
             if (backButton.OnClick(e)){
               backButton.ComputeFunction();
             }
             deletionMessage.Update();
             break;
           case TEACHER_LIST:
-            Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.entrySet().iterator();
-            while (itrTeacher.hasNext()){
-              Button btn = itrTeacher.next().getValue();
-              if (btn.OnClick(e)){
-                btn.ComputeFunction();
-                break;
+            if (teacherList.containsKey(iCurPageTeacherList)){
+              Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.get(iCurPageTeacherList).entrySet().iterator();
+              while (itrTeacher.hasNext()){
+                Button btn = itrTeacher.next().getValue();
+                if (btn.OnClick(e)){
+                  btn.ComputeFunction();
+                  break;
+                }
+              }
+            }
+            if (teacherList.containsKey(iCurPageTeacherList - 1)){
+              if (lastTeacherPage.OnClick(e)){
+                lastTeacherPage.ComputeFunction();
+              }
+            }
+            if (teacherList.containsKey(iCurPageTeacherList + 1)){
+              if (nextTeacherPage.OnClick(e)){
+                nextTeacherPage.ComputeFunction();
               }
             }
             if (backButton.OnClick(e)){
@@ -113,16 +144,34 @@ public class AdminScene extends AScene{
                 }
                 break;
             case STUDENT_LIST:
-                Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.entrySet().iterator();
-                while(itrStudent.hasNext()){
-                    Map.Entry<TextBox, Button> currentPair = itrStudent.next();
-                    currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
-                    if (currentPair.getValue().IsClicked()){
-                      currentPair.getValue().Draw(Color.GREEN);
-                    }
-                    else{
-                      currentPair.getValue().Draw(Color.GRAY);
-                    }
+                if (studentList.containsKey(iCurPageStudentList)){
+                  Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.get(iCurPageStudentList).entrySet().iterator();
+                  while(itrStudent.hasNext()){
+                      Map.Entry<TextBox, Button> currentPair = itrStudent.next();
+                      currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                      if (currentPair.getValue().IsClicked()){
+                        currentPair.getValue().Draw(Color.GREEN);
+                      }
+                      else{
+                        currentPair.getValue().Draw(Color.GRAY);
+                      }
+                  }
+                }
+                if (studentList.containsKey(iCurPageStudentList - 1)){
+                  if (lastStudentPage.IsClicked()){
+                    lastStudentPage.Draw(Color.GREEN);
+                  }
+                  else{
+                    lastStudentPage.Draw(Color.GRAY);
+                  }
+                }
+                if (studentList.containsKey(iCurPageStudentList + 1)){
+                  if (nextStudentPage.IsClicked()){
+                    nextStudentPage.Draw(Color.GREEN);
+                  }
+                  else{
+                    nextStudentPage.Draw(Color.GRAY);
+                  }
                 }
                 if (backButton.IsClicked()){
                     backButton.Draw(Color.GREEN);
@@ -133,17 +182,37 @@ public class AdminScene extends AScene{
                 deletionMessage.Draw();
                 break;
               case TEACHER_LIST:
-                Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.entrySet().iterator();
-                while(itrTeacher.hasNext()){
-                  Map.Entry<TextBox, Button> currentPair = itrTeacher.next();
-                  currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
-                  if (currentPair.getValue().IsClicked()){
-                    currentPair.getValue().Draw(Color.GREEN);
-                  }
-                  else{
-                    currentPair.getValue().Draw(Color.GRAY);
+                if (teacherList.containsKey(iCurPageTeacherList)){
+                  Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.get(iCurPageTeacherList).entrySet().iterator();
+                  while(itrTeacher.hasNext()){
+                    Map.Entry<TextBox, Button> currentPair = itrTeacher.next();
+                    currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                    if (currentPair.getValue().IsClicked()){
+                      currentPair.getValue().Draw(Color.GREEN);
+                    }
+                    else{
+                      currentPair.getValue().Draw(Color.GRAY);
+                    }
                   }
                 }
+
+                if (teacherList.containsKey(iCurPageTeacherList - 1)){
+                  if (lastTeacherPage.IsClicked()){
+                    lastTeacherPage.Draw(Color.GREEN);
+                  }
+                  else{
+                    lastTeacherPage.Draw(Color.GRAY);
+                  }
+                }
+                if (teacherList.containsKey(iCurPageTeacherList + 1)){
+                  if (nextTeacherPage.IsClicked()){
+                    nextTeacherPage.Draw(Color.GREEN);
+                  }
+                  else{
+                    nextTeacherPage.Draw(Color.GRAY);
+                  }
+                }
+
                 if (backButton.IsClicked()){
                   backButton.Draw(Color.GREEN);
                 }
@@ -164,7 +233,10 @@ public class AdminScene extends AScene{
         while(studentSet.next()){
             int id = studentSet.getInt("id_etudiant");
             String name = studentSet.getString("nom") + " " + studentSet.getString("prenom");
-            studentList.put(new TextBox(new Rectangle(100, 50 + i * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(500,     50 + i * 75, 200, 50), "Delete", () -> {
+            if (!studentList.containsKey(i/5)){
+              studentList.put(i/5, new HashMap<TextBox, Button>());
+            }
+            studentList.get(i/5).put(new TextBox(new Rectangle(100, 50 + (i % 5) * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".etudiant WHERE id_etudiant = " + id + ";");
                 deletionMessage.SetMessage("Student " + name + " deleted !", Color.GREEN, 5.0f);
@@ -185,7 +257,10 @@ public class AdminScene extends AScene{
         while(teacherSet.next()){
             int id = teacherSet.getInt("id_professeur");
             String name = teacherSet.getString("nom") + " " + teacherSet.getString("prenom");
-            teacherList.put(new TextBox(new Rectangle(100, 50 + i * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(500,     50 + i * 75, 200, 50), "Delete", () -> {
+            if (!teacherList.containsKey(i/5)){
+              teacherList.put(i/5, new HashMap<TextBox, Button>());
+            }
+            teacherList.get(i/5).put(new TextBox(new Rectangle(100, 50 + (i%5) * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".professeur WHERE id_professeur = " + id + ";");
                 deletionMessage.SetMessage("Teacher " + name + " deleted !", Color.GREEN, 5.0f);
@@ -194,8 +269,8 @@ public class AdminScene extends AScene{
               catch(SQLException e){
                 e.printStackTrace();
             }
-        }));
-        i++;
+          }));
+          i++;
         }
       }
 
@@ -204,10 +279,16 @@ public class AdminScene extends AScene{
      private Button teacherListButton;
     
      //Student List menu
-     private Map<TextBox, Button> studentList = new HashMap<TextBox, Button>();
+     private Map<Integer, HashMap<TextBox, Button>> studentList = new HashMap<Integer, HashMap<TextBox, Button>>();
+     private int iCurPageStudentList = 0;
+     private Button lastStudentPage;
+     private Button nextStudentPage;
     
      //Teacher List menu
-     private Map<TextBox, Button> teacherList = new HashMap<TextBox, Button>();
+     private Map<Integer, HashMap<TextBox, Button>> teacherList = new HashMap<Integer, HashMap<TextBox, Button>>();
+     private int iCurPageTeacherList = 0;
+     private Button lastTeacherPage;
+     private Button nextTeacherPage;
     
      private UserMessage deletionMessage = new UserMessage(new Point(100, 500));
      private Button backButton;

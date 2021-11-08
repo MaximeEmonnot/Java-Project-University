@@ -121,6 +121,9 @@ public class TeacherScene extends AScene {
             currentStage = SceneStage.QUESTION_LIST;
         });
         
+        lastPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPage--;} );
+        nextPage = new Button(new Rectangle(600, 450, 25, 25), ">", () -> {iCurPage++;} );
+        
         forumButton = new Button(new Rectangle(100, 450, 600, 50), "Go to forum", () -> {
             bChangeScene = true;
             nextSceneIndex = 6;
@@ -207,17 +210,31 @@ public class TeacherScene extends AScene {
                 questionMessage.Update();
                 break;
             case QUESTION_LIST:
-                Iterator<Map.Entry<TextBox, Button>> itr = questionList.entrySet().iterator();
-                while(itr.hasNext()){
-                    Button btn = itr.next().getValue();
-                    if (btn.OnClick(e)){
-                        btn.ComputeFunction();
-                        break;
+                if(questionList.containsKey(iCurPage)){
+                    Iterator<Map.Entry<TextBox, Button>> itr = questionList.get(iCurPage).entrySet().iterator();
+                    while(itr.hasNext()){
+                        Button btn = itr.next().getValue();
+                        if (btn.OnClick(e)){
+                            btn.ComputeFunction();
+                            break;
+                        }
                     }
                 }
                 if (backButton.OnClick(e)){
                     backButton.ComputeFunction();
                 }
+
+                if (questionList.containsKey(iCurPage - 1)){
+                    if (lastPage.OnClick(e)){
+                        lastPage.ComputeFunction();
+                    }
+                } 
+                if (questionList.containsKey(iCurPage + 1)){
+                    if (nextPage.OnClick(e)){
+                        nextPage.ComputeFunction();
+                    }
+                }
+
                 deletionMessage.Update();
                 break;
             default:
@@ -310,23 +327,43 @@ public class TeacherScene extends AScene {
                 questionMessage.Draw();
                 break;
             case QUESTION_LIST:
-                Iterator<Map.Entry<TextBox, Button>> itr = questionList.entrySet().iterator();
-                while (itr.hasNext()){
-                    Map.Entry<TextBox, Button> currentPair = itr.next();
-                    currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
-                    if (currentPair.getValue().IsClicked()){
-                        currentPair.getValue().Draw(Color.GREEN);
+                if (questionList.containsKey(iCurPage)){
+                    Iterator<Map.Entry<TextBox, Button>> itr = questionList.get(iCurPage).entrySet().iterator();
+                    while (itr.hasNext()){
+                        Map.Entry<TextBox, Button> currentPair = itr.next();
+                        currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                        if (currentPair.getValue().IsClicked()){
+                            currentPair.getValue().Draw(Color.GREEN);
+                        }
+                        else{
+                            currentPair.getValue().Draw(Color.GRAY);
+                        }
                     }
-                    else{
-                        currentPair.getValue().Draw(Color.GRAY);
-                    }
-                }
+                }   
                 if (backButton.IsClicked()){
                     backButton.Draw(Color.GREEN);
                 }
                 else{
                     backButton.Draw(Color.GRAY);
                 }
+
+                if (questionList.containsKey(iCurPage - 1)){
+                    if (lastPage.IsClicked()){
+                        lastPage.Draw(Color.GREEN);
+                    }
+                    else{
+                        lastPage.Draw(Color.GRAY);
+                    }
+                } 
+                if (questionList.containsKey(iCurPage + 1)){
+                    if (nextPage.IsClicked()){
+                        nextPage.Draw(Color.GREEN);
+                    }
+                    else{
+                        nextPage.Draw(Color.GRAY);
+                    }
+                }
+
                 deletionMessage.Draw();
                 break;
             default:
@@ -359,10 +396,13 @@ public class TeacherScene extends AScene {
         questionList.clear();
         ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT id, question FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".professeur WHERE " + dbm.GetDatabaseName() + ".questions.id_prof = " + dbm.GetDatabaseName() + ".professeur.id_professeur AND " + dbm.GetDatabaseName() + ".professeur.email = '" + user.GetMail() + "';");
         int i = 0;
-        while(questionSet.next() && i < 5){
+        while(questionSet.next()){
             int id = questionSet.getInt("id");
             String name = questionSet.getString("question");
-            questionList.put(new TextBox(new Rectangle(100, 50 + 75 * i, 400, 50), questionSet.getInt("id") + " - " + questionSet.getString("question")), new Button(new Rectangle(550, 50 + i * 75, 150, 50), "Delete", () -> {
+            if (!questionList.containsKey(i / 5)){
+                questionList.put(i/5, new HashMap<TextBox, Button>());
+            }
+            questionList.get(i/5).put(new TextBox(new Rectangle(100, 50 + 75 * (i % 5), 400, 50), questionSet.getInt("id") + " - " + questionSet.getString("question")), new Button(new Rectangle(550, 50 + 75 * (i % 5), 150, 50), "Delete", () -> {
                 try {
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".questions WHERE id = " + id + ";");
                     deletionMessage.SetMessage("Question '" + name + "' deleted !", Color.GREEN, 5.0f);
@@ -412,7 +452,11 @@ public class TeacherScene extends AScene {
     private Button addQButton;
 
     //Edit question list menu
-    private Map<TextBox, Button> questionList = new HashMap<TextBox, Button>();
+
+    private Map<Integer, HashMap<TextBox, Button>> questionList = new HashMap<Integer, HashMap<TextBox, Button>>();
+    private int iCurPage = 0;
+    private Button lastPage;
+    private Button nextPage;
     private UserMessage deletionMessage = new UserMessage(new Point(100, 500));
 
     private SceneStage currentStage = SceneStage.SELECTION;
