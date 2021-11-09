@@ -127,7 +127,7 @@ public class ForumScene extends AScene {
                     ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT question FROM " + dbm.GetDatabaseName() + ".forumQuestion WHERE question = '" + question.GetText() + "';");
                     if (questionSet.next()){
                         System.out.println("Question already asked !");
-                        studentQuestionMessage.SetMessage("Question already asked !", Color.RED, 5.0f);
+                        studentQuestionMessage.SetMessage("Question already asked !", Color.RED, 2.0f);
                     }
                     else{
                         //Récupération de l'id du l'utilisateur
@@ -136,13 +136,13 @@ public class ForumScene extends AScene {
                             //Insertion de la nouvelle question
                             int id = uid.getInt("id_etudiant");
                             dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".forumQuestion(question, id_student, answer) VALUES('" + question.GetText() + "'," + id + ", '');");
-                            studentQuestionMessage.SetMessage("Question added !", Color.GREEN, 5.0f);
+                            studentQuestionMessage.SetMessage("Question added !", Color.GREEN, 2.0f);
                             System.out.println("Question added !");
                         }
                     }
                 }
                 else {
-                    studentQuestionMessage.SetMessage("Please fill question field", Color.RED, 5.0f);
+                    studentQuestionMessage.SetMessage("Please fill question field", Color.RED, 2.0f);
                     System.out.println("Question is empty !");
                 }
             } catch (SQLException e) {
@@ -158,11 +158,11 @@ public class ForumScene extends AScene {
                     //Insertion de la proposition de réponse, pas de vérification d'existence car les étudiants n'ont pas accès aux autres propositions
                     dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".forumProposition(id_question, proposition) VALUES(" + iChosenQuestion + ", '" + proposition.GetText() + "');");
                     System.out.println("Proposition added !");
-                    studentPropositionMessage.SetMessage("Proposition added !", Color.GREEN, 5.0f);
+                    studentPropositionMessage.SetMessage("Proposition added !", Color.GREEN, 2.0f);
                 }
                 else{
                     System.out.println("Proposition is empty !");
-                    studentPropositionMessage.SetMessage("Please fill proposition field", Color.RED, 5.0f);
+                    studentPropositionMessage.SetMessage("Please fill proposition field", Color.RED, 2.0f);
                 }
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
@@ -518,7 +518,7 @@ public class ForumScene extends AScene {
                     //On supprime toutes les propositions à la quesiton, puis on supprime la question. Enfin, on fait un reset la liste des boutons
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".forumProposition WHERE id_question = " + currentId + ";");
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".forumQuestion WHERE id = " + currentId + ";");
-                    studentDeletionMessage.SetMessage("Question deleted !", Color.GREEN, 5.0f);
+                    studentDeletionMessage.SetMessage("Question deleted !", Color.GREEN, 2.0f);
                     ResetStudentQuestionDeleteList();
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block

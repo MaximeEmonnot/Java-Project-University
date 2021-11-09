@@ -128,64 +128,75 @@ public class ConnectionScene extends AScene {
                 String[] mailParts = emailRegister.GetText().split("@");
                 if (mailParts.length == 2){
                     if (!mailParts[1].contains(".")){
-                        registerMessage.SetMessage("Invalid mail address", Color.RED, 5.0f);
+                        registerMessage.SetMessage("Invalid mail address", Color.RED, 2.0f);
                     }
                     else {
-                        //Password verification
-                        if (passwordConfirmationRegister.GetText().equals(passwordRegister.GetText())){
-                            switch(choiceRegister.GetText()){
-                                case "Eleve":
-                                try {
-                                    dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
-                                    System.out.println("Student added !");
-                                    currentStage = ConnectionStep.INTRO;
-                                } 
-                                catch (SQLException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                } catch (UnsupportedEncodingException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                } catch (NoSuchAlgorithmException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                                break;
-                                case "Professeur":
-                                try {
-                                    dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + phoneRegister.GetText() + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
-                                    System.out.println("Teacher added !");
-                                    currentStage = ConnectionStep.INTRO;
-                                } 
-                                catch (SQLException e) {
-                                    // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    } catch (UnsupportedEncodingException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    } catch (NoSuchAlgorithmException e) {
-                                    // TODO Auto-generated catch block
-                                     e.printStackTrace();
+                        //Phone number verification
+                        try{
+                            if (phoneRegister.GetText().length() == 10){
+                                int num = Integer.parseInt(phoneRegister.GetText());
+                                //Password verification
+                                if (passwordConfirmationRegister.GetText().equals(passwordRegister.GetText())){
+                                    switch(choiceRegister.GetText()){
+                                        case "Eleve":
+                                        try {
+                                            dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".etudiant (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + num + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
+                                            System.out.println("Student added !");
+                                            currentStage = ConnectionStep.INTRO;
+                                        } 
+                                        catch (SQLException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        } catch (UnsupportedEncodingException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        } catch (NoSuchAlgorithmException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                        break;
+                                        case "Professeur":
+                                        try {
+                                            dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".professeur (nom, prenom, email, telephone, password, adresse) VALUES ('" + lastNameRegister.GetText() +"', '" + firstNameRegister.GetText() +  "', '" + emailRegister.GetText() + "', '" + num + "', '" + CoreSystem.Encrypter.GetEncryptedPasswordFrom(passwordRegister.GetText()) + "', '" + addressRegister.GetText() + "');");
+                                            System.out.println("Teacher added !");
+                                            currentStage = ConnectionStep.INTRO;
+                                        } 
+                                        catch (SQLException e) {
+                                            // TODO Auto-generated catch block
+                                                e.printStackTrace();
+                                            } catch (UnsupportedEncodingException e) {
+                                                // TODO Auto-generated catch block
+                                                e.printStackTrace();
+                                            } catch (NoSuchAlgorithmException e) {
+                                            // TODO Auto-generated catch block
+                                             e.printStackTrace();
+                                            }
+                                        break;
+                                        default:
+                                            registerMessage.SetMessage("Please select a user type", Color.RED, 2.0f);
+                                        break;
                                     }
-                                break;
-                                default:
-                                    registerMessage.SetMessage("Please select a user type", Color.RED, 5.0f);
-                                break;
+                                }
+                                else{
+                                    registerMessage.SetMessage("Passwords are not the same", Color.RED, 2.0f);
+                                }
                             }
-                        }
-                        else{
-                            registerMessage.SetMessage("Passwords are not the same", Color.RED, 5.0f);
+                            else{
+                                registerMessage.SetMessage("Invalid phone number", Color.RED, 2.0f);
+                            }
+                        } catch(NumberFormatException e){
+                            registerMessage.SetMessage("Invalid phone number", Color.RED, 2.0f);
                         }
 
                     }
                 }
                 else{
-                    registerMessage.SetMessage("Invalid mail address", Color.RED, 5.0f);
+                    registerMessage.SetMessage("Invalid mail address", Color.RED, 2.0f);
                 }
 
             }
             else {
-                registerMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
+                registerMessage.SetMessage("Please fill all blank spaces", Color.RED, 2.0f);
             }
         });
 

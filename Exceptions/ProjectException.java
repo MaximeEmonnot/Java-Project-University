@@ -15,10 +15,14 @@ public class ProjectException extends Exception{
     }
 
     public static void showMessageBox(Exception e, String title){
+        
         String message = "Message : " + e.getMessage() + "\n\n" + 
-        "[Method name] : " + e.getStackTrace()[0].getMethodName() + 
-        "\n[File] : " + e.getStackTrace()[0].getFileName() + 
-        "\n[Line] : " + e.getStackTrace()[0].getLineNumber();
+        "[Method name] : " + e.getStackTrace()[0].getMethodName();
+        for (int i = 0; i < e.getStackTrace().length; i++){
+            message +=
+            "\n[File] : " + e.getStackTrace()[0].getFileName() + 
+            "\n[Line] : " + e.getStackTrace()[0].getLineNumber();
+        }
         JOptionPane.showMessageDialog(new JFrame(title), message, title, JOptionPane.ERROR_MESSAGE);
     }
 }

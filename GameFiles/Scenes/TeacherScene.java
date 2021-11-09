@@ -29,7 +29,7 @@ public class TeacherScene extends AScene {
             try {
                 ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND domaine = '" + domainChoice.GetText() + "' AND categorie = '" + categoryChoice.GetText() + "' AND niveau = '" + levelChoice.GetText() + "' AND question = '" + question.GetText() + "' AND reponseA = '" + answerA.GetText() + "' AND reponseB = '" + answerB.GetText() + "' AND reponseC = '" + answerC.GetText() + "' AND reponseD = '" + answerD.GetText() + "';");
                 if (questionSet.next()){
-                    questionMessage.SetMessage("Question already added !", Color.RED, 5.0f);
+                    questionMessage.SetMessage("Question already added !", Color.RED, 2.0f);
                     System.out.println("Question already added !");             
                 }
                 else{
@@ -51,7 +51,7 @@ public class TeacherScene extends AScene {
                         if (teacherSet.next()){
                             dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".questions (id_prof, id_subject, difficulte, question, code_reponses, reponseA, reponseB, reponseC, reponseD)" +
                                                "VALUES (" + teacherSet.getInt("id_professeur") + ", " + subjectId + ", 'Facile' , '" + question.GetText() + "', '" + answerCode + "', '" + answerA.GetText() + "', '" + answerB.GetText() + "', '" + answerC.GetText() + "', '" + answerD.GetText() + "');");
-                            questionMessage.SetMessage("Question added !", Color.GREEN, 5.0f);
+                            questionMessage.SetMessage("Question added !", Color.GREEN, 2.0f);
                         }
                     }
                 }
@@ -65,12 +65,12 @@ public class TeacherScene extends AScene {
             try {
                 ResultSet domainSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + domain.GetText() + "' AND categorie = '" + category.GetText() + "' AND niveau = '" + levelSelection.GetText() + "';");
                 if (domainSet.next()){
-                    domainMessage.SetMessage("Domain already added !", Color.RED, 5.0f);
+                    domainMessage.SetMessage("Domain already added !", Color.RED, 2.0f);
                     System.out.println("Domain already added !");
                 }
                 else{
                     dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".sujets (domaine, categorie, niveau) VALUES ('" + domain.GetText() + "', '" + category.GetText() + "', '" + levelSelection.GetText() + "');");
-                    domainMessage.SetMessage("Domain added !", Color.GREEN, 5.0f);
+                    domainMessage.SetMessage("Domain added !", Color.GREEN, 2.0f);
                     System.out.println("Domain added !");
                 }
             } catch (SQLException e) {
@@ -405,7 +405,7 @@ public class TeacherScene extends AScene {
             questionList.get(i/5).put(new TextBox(new Rectangle(100, 50 + 75 * (i % 5), 400, 50), questionSet.getInt("id") + " - " + questionSet.getString("question")), new Button(new Rectangle(550, 50 + 75 * (i % 5), 150, 50), "Delete", () -> {
                 try {
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".questions WHERE id = " + id + ";");
-                    deletionMessage.SetMessage("Question '" + name + "' deleted !", Color.GREEN, 5.0f);
+                    deletionMessage.SetMessage("Question '" + name + "' deleted !", Color.GREEN, 2.0f);
                     ResetQuestionList();
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block

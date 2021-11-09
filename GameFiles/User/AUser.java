@@ -1,7 +1,5 @@
 package GameFiles.User;
 
-import java.lang.ref.PhantomReference;
-
 public abstract class AUser {
     public AUser(String _firstName, String _lastName, String _mail, String _phoneNumber, String _adress){
         firstName = _firstName;

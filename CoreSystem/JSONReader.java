@@ -20,7 +20,7 @@ public class JSONReader {
     }  
 
     public TreeMap<String, JSONArray> GetObjectMember(String key){
-        Map<String, JSONArray> map = ((Map<String, JSONArray>)jo.get("animations"));
+        Map<String, JSONArray> map = ((Map<String, JSONArray>)jo.get(key));
         
         TreeMap<String, JSONArray> out = new TreeMap<String, JSONArray>();
         out.putAll(map);

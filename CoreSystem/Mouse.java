@@ -36,7 +36,7 @@ public class Mouse implements MouseListener, MouseWheelListener, MouseMotionList
 
     public EventType Read(){
         if (buffer.size() > 0){
-            return buffer.remove();
+            return buffer.poll();
         }
         return EventType.None;
     }

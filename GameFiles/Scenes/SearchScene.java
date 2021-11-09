@@ -90,7 +90,7 @@ public class SearchScene extends AScene{
                             currentStage = SceneStage.PROFILE;
                         }
                         else{
-                           passwordMessage.SetMessage("Wrong old password", Color.RED, 5.0f);
+                           passwordMessage.SetMessage("Wrong old password", Color.RED, 2.0f);
                         }
                     } catch (UnsupportedEncodingException | NoSuchAlgorithmException | SQLException e) {
                         // TODO Auto-generated catch block
@@ -98,11 +98,11 @@ public class SearchScene extends AScene{
                     }
                 }
                 else{
-                   passwordMessage.SetMessage("Passwords are not the same", Color.RED, 5.0f);
+                   passwordMessage.SetMessage("Passwords are not the same", Color.RED, 2.0f);
                 }
             }
             else{
-                passwordMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
+                passwordMessage.SetMessage("Please fill all blank spaces", Color.RED, 2.0f);
             }
        });
        

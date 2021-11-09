@@ -37,7 +37,7 @@ public class Keyboard implements KeyListener {
     }
     public Event ReadKey(){
         if (keyBuffer.size() > 0){
-            return keyBuffer.remove();
+            return keyBuffer.poll();
         }
         return new Event(0, Event.Type.None);
     }

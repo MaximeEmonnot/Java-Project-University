@@ -239,7 +239,7 @@ public class AdminScene extends AScene{
             studentList.get(i/5).put(new TextBox(new Rectangle(100, 50 + (i % 5) * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".etudiant WHERE id_etudiant = " + id + ";");
-                deletionMessage.SetMessage("Student " + name + " deleted !", Color.GREEN, 5.0f);
+                deletionMessage.SetMessage("Student " + name + " deleted !", Color.GREEN, 2.0f);
                 ResetStudentList();
               }
               catch(SQLException e){
@@ -250,7 +250,7 @@ public class AdminScene extends AScene{
         }
       }
 
-      private void ResetTeacherList() throws SQLException{
+    private void ResetTeacherList() throws SQLException{
         teacherList.clear();
         ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur, nom, prenom FROM " + dbm.GetDatabaseName() + ".professeur");
         int i = 0;
@@ -263,7 +263,7 @@ public class AdminScene extends AScene{
             teacherList.get(i/5).put(new TextBox(new Rectangle(100, 50 + (i%5) * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".professeur WHERE id_professeur = " + id + ";");
-                deletionMessage.SetMessage("Teacher " + name + " deleted !", Color.GREEN, 5.0f);
+                deletionMessage.SetMessage("Teacher " + name + " deleted !", Color.GREEN, 2.0f);
                 ResetTeacherList();
               }
               catch(SQLException e){

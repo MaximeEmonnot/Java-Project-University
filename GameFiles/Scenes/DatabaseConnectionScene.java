@@ -24,11 +24,11 @@ public class DatabaseConnectionScene extends AScene {
                 } catch (ClassNotFoundException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                    connectionMessage.SetMessage("Wrong informations", Color.RED, 5.0f);
+                    connectionMessage.SetMessage("Wrong informations", Color.RED, 2.0f);
                 }
             }
             else{
-                connectionMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
+                connectionMessage.SetMessage("Please fill all blank spaces", Color.RED, 2.0f);
             }
         } );
 
