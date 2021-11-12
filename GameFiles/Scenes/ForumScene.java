@@ -485,19 +485,21 @@ public class ForumScene extends AScene {
         }
 
         priorityQuestion.sort((e0, e1) -> e1.getKey() - e0.getKey());
-        int maxPriority = priorityQuestion.get(0).getKey();
-
-        for (int i = 0; i < priorityQuestion.size(); i++){
-            if (maxPriority == priorityQuestion.get(i).getKey()){
-                if (!questionArray.containsKey(i/5)){
-                    questionArray.put(i/5, new HashMap<TextBox, Button>());
+        if (priorityQuestion.size() != 0){
+            int maxPriority = priorityQuestion.get(0).getKey();
+            
+            for (int i = 0; i < priorityQuestion.size(); i++){
+                if (maxPriority == priorityQuestion.get(i).getKey()){
+                    if (!questionArray.containsKey(i/5)){
+                        questionArray.put(i/5, new HashMap<TextBox, Button>());
+                    }
+                    int id = priorityQuestion.get(i).getValue().getValue();
+                    questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
+                        proposition.Clear();
+                        currentStage = SceneStage.STUDENT_PROPOSE;
+                        iChosenQuestion = id;
+                    }));
                 }
-                int id = priorityQuestion.get(i).getValue().getValue();
-                questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
-                    proposition.Clear();
-                    currentStage = SceneStage.STUDENT_PROPOSE;
-                    iChosenQuestion = id;
-                }));
             }
         }
     }
