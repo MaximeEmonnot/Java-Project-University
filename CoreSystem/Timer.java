@@ -1,12 +1,13 @@
 package CoreSystem;
 
 /**
- * Permet de gérer un Timer. Singleton pour que ce Timer soit unique pour toute l'application
+ * Permet de gerer un timer. 
+ * Utilise le patron de conception Singleton pour que ce Timer soit unique pour toute l'application
  * @author Maxime Emonnot
  */
 public class Timer {
     /**
-     * Constructeur prive de Timer. Initalisation du Timer.
+     * Constructeur prive de Timer dans le cadre du Singleton. Initalisation du Timer.
      * @author Maxime Emonnot
      */
     private Timer(){ 
