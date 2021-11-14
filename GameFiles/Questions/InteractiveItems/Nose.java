@@ -5,8 +5,19 @@ import java.awt.*;
 
 import Exceptions.ProjectException;
 
+/**
+ * Nez utilise dans ConcreteDoubleQuestion
+ * Chaque narine correspon a une proposition de reponse
+ * @author Maxime Emonnot
+ */
 public class Nose {
     
+    /**
+     * Constructeur Nose
+     * Initialise la zone de repone selon un code de question donne
+     * @author Maxime Emonnot
+     * @param questionCode Code de question correspondant a la bonne repone
+     */
     public Nose(int questionCode){
         sprite = new Sprite("Images/nose.png");
         gold = new Sprite("Images/gold.png");
@@ -39,6 +50,10 @@ public class Nose {
         rightZone = new Rectangle(415, 58, 28, 28);
     }
 
+    /**
+     * Mise a jour de l'etat de succes et d'echec, ainsi que de l'animation de succes et d'echec
+     * @author Maxime Emonnot
+     */
     public void Update(){
 
         if (!bIsWon && !bIsLost){
@@ -60,6 +75,11 @@ public class Nose {
         }
     }
     
+    /**
+     * Affichage du nez, ainsi que du resultat (succes ou echec)
+     * @author Maxime Emonnot
+     * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+     */
     public void Draw() throws ProjectException{
         GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(355, 85, 85, 8), Color.BLACK);
         GraphicsSystem.GetInstance().DrawSprite(sprite, new Rectangle(348, 0, 104, 96), 2);
@@ -71,9 +91,17 @@ public class Nose {
         }
     }
 
+    /**
+     * Recuperation de l'etat de succes
+     * @return Vrai si la bonne reponse est selectionnee, Faux sinon
+     */
     public boolean HasWon(){
         return bIsWon;
     }
+    /**
+     * Recuperation de l'etat d'echec
+     * @return Vrai si la mauvaise reponse est selectionnee, Faux sinon
+     */
     public boolean HasLost(){
         return bIsLost;
     }

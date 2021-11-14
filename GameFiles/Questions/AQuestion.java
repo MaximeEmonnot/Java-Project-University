@@ -4,11 +4,27 @@ import java.awt.*;
 
 import Exceptions.ProjectException;
 
+/**
+ * Classe abstraite.
+ * Contient toutes les initialisation de base d'une question, ainsi que les calculs et l'affichage de base
+ * @author Maxime Emonnot
+ */
 public abstract class AQuestion {
+    /**
+     * Constructeur AQuestion
+     * Initialisattion a partir d'une question donnee
+     * @author Maxime Emonnot
+     * @param _question Intitule de la question
+     */
     public AQuestion(String _question){
         question = _question;
     }
 
+    /**
+     * Calculs de base d'une question.
+     * Gestion du timer pour la question en cours
+     * @author Maxime Emonnot
+     */
     public void Update(){
         if (!bIsWon && !bIsLost){
             timer -= CoreSystem.Timer.GetInstance().DeltaTime();
@@ -17,6 +33,12 @@ public abstract class AQuestion {
             }
         }
     }
+    /**
+     * Affichage de base d'une question
+     * Affichage de la question, du timer et du message de victoire/defaite
+     * @author Maxime Emonnot
+     * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+     */
     public void Draw() throws ProjectException
     {
         GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(0, 480, 800, 105), Color.WHITE, 15);
@@ -34,9 +56,19 @@ public abstract class AQuestion {
 
     }
 
+    /**
+     * Recuperation de l'etat d'echec
+     * @author Maxime Emonnot
+     * @return Vrai si la question est echouee, Faux sinon
+     */
     public boolean IsLost(){
         return bIsLost;
     }
+    /**
+     * Recuperation de l'etat de reussite
+     * @author Maxime Emonnot
+     * @return Vrai si la question est reussie, Faux sinon
+     */
     public boolean IsWon(){
         return bIsWon;
     }

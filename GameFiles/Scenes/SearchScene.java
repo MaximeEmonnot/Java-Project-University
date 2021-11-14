@@ -19,7 +19,18 @@ import java.sql.SQLException;
 import Exceptions.ProjectException;
 import GameFiles.Questions.*;
 
+/**
+ * Scene principale de l'etudiant
+ * Permet de rechercher un domaine de quiz a realiser
+ * Permet egalement d'acceder a ses statistiques, a son profil, et de modifier son mot de passe
+ * Possibilite de lien vers la scene de Forum
+ * @author Maxime Emonnot
+ */
 public class SearchScene extends AScene{
+    /**
+     * Differentes etapes de la scene
+     * @author Maxime Emonnot
+     */
     private enum SceneStage{
         SEARCHING,
         PROFILE,
@@ -27,8 +38,14 @@ public class SearchScene extends AScene{
         CHANGE_PASSWORD
     }
 
-    public SearchScene() throws ClassNotFoundException, SQLException, ProjectException{
-        super();
+    /**
+     * Constructeur SearchScene
+     * Initialisation des differents boutons
+     * @author Maxime Emonnot
+     * @throws SQLException Erreurs lors des envois de requetes SQL (voir ResetQuestionList)
+     * @see SearchScene#ResetQuestionList()
+     */
+    public SearchScene() throws SQLException {
         ResetQuestionList();
         refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", () -> {
            try {
@@ -111,6 +128,12 @@ public class SearchScene extends AScene{
        confirmNewPassword.SetPasswordMode(true);
     }
     
+    /**
+     * {@inheritDoc}
+     * Mise a jour des menus en fonction de l'entree utilisateur, via notamment des champs de texte et des boites de choix.
+     * Mise a jour en fonction de l'etape de la scene.
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() throws SQLException {
         CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
@@ -192,6 +215,11 @@ public class SearchScene extends AScene{
         }
     }
     
+    /**
+     * {@inheritDoc}
+     * Affichage des differents menus, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException{
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
@@ -247,7 +275,7 @@ public class SearchScene extends AScene{
                 lastNameBox.Draw("Last Name : " + user.GetLastName(), Color.BLACK, Color.GRAY, Color.WHITE);
                 emailBox.Draw("Email : " + user.GetMail(), Color.BLACK, Color.GRAY, Color.WHITE);
                 phoneBox.Draw("Phone : " + user.GetPhoneNumber(), Color.BLACK, Color.GRAY, Color.WHITE);
-                addressBox.Draw("Address : " + user.GetAdress(), Color.BLACK, Color.GRAY, Color.WHITE);
+                addressBox.Draw("Address : " + user.GetAddress(), Color.BLACK, Color.GRAY, Color.WHITE);
                 if (backButton.IsClicked()){
                     backButton.Draw(Color.DARK_GRAY);
                 }
@@ -316,6 +344,11 @@ public class SearchScene extends AScene{
         } 
     }
      
+    /**
+     * Mise a jour de la liste de question, avec initialisation en fonction du domaine de la question.
+     * @author Maxime Emonnot
+     * @throws SQLException Erreurs lors de l'envoi de requetes SQL
+     */
     private void ResetQuestionList() throws SQLException{
            ddcArray.clear();
            domains.clear();

@@ -14,16 +14,29 @@ import GraphicsEngine.Sprite;
 import MenuSystem.*;
 import MenuSystem.Button;
 
+/**
+ * Scene d'inscription et de connexion au systeme
+ * Permet notamment a un utilisateur d'acceder a son compte
+ * @author Maxime Emonnot
+ */
 public class ConnectionScene extends AScene {
 
+    /**
+     * Differentes etapes de la scene
+     * @author Maxime Emonnot
+     */
     private enum ConnectionStep{
         INTRO,
         LOGIN,
         REGISTER
     }
 
-    public ConnectionScene() throws ClassNotFoundException, SQLException{
-        super();
+    /**
+     * Constructeur ConnectionScene
+     * Initialisation des differents boutons, champs de texte et ChoiceBox
+     * @author Maxime Emonnot
+     */
+    public ConnectionScene(){
         connectionType.add("Eleve");
         connectionType.add("Professeur");
         
@@ -205,6 +218,12 @@ public class ConnectionScene extends AScene {
         passwordConfirmationRegister.SetPasswordMode(true);
     }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour en fonction de l'etape de la scene.
+     * Permet le traitement des champs de texte, des boites de choix et des boutons
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() throws SQLException {
         // TODO Auto-generated method stub
@@ -258,6 +277,11 @@ public class ConnectionScene extends AScene {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des differents champs de texte, boites de choix et boutons
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
@@ -325,6 +349,12 @@ public class ConnectionScene extends AScene {
         }
     }
    
+    /**
+     * Methode de reinitilisation des menus (vider le contenu des champs de texte par exemple)
+     * Appels dans Update() lors des changements d'etapes de connexion via les boutons
+     * @author Maxime Emonnot
+     * @see ConnectionScene#Update()
+     */
     private void ClearMenus(){
         //Clearing login menu
         emailConnection.Clear();

@@ -1,5 +1,5 @@
 /**
- * Package de gestion des exceptions (Exceptions spécifiques au projet + Methode d'affichage)
+ * Package de gestion des exceptions (Exceptions specifiques au projet + Methode d'affichage)
  * @author Maxime Emonnot
  */
 package Exceptions;

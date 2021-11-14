@@ -10,16 +10,16 @@ import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- * <p>Gestion des entrees souris.<p/>
- * <p>Encapsulation des differents evenements Swing lies a la souris pour faciliter la gestion desdits evenements.<p/>
- * <p>Permet d'identifier le type d'evenement ainsi que la position de la souris.<p/>
+ * <p>Gestion des entrees souris.
+ * <p>Encapsulation des differents evenements Swing lies a la souris pour faciliter la gestion desdits evenements.
+ * <p>Permet d'identifier le type d'evenement ainsi que la position de la souris.
  * Utilise le patron de conception Singleton pour etre unique dans toute l'application.
  * @author Maxime Emonnot
  */
 public class Mouse implements MouseListener, MouseWheelListener, MouseMotionListener {
     
     /**
-     *<p>Enumerator possedant les differents types d'evenement souris.<p/>
+     *<p>Enumerator possedant les differents types d'evenement souris.
      * Adaptation des evenements Swing pour l'encapsulation
      * @author Maxime Emonnot
      */

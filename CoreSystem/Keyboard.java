@@ -57,7 +57,6 @@ public class Keyboard implements KeyListener {
      * @author Maxime Emonnot
      * @param keycode Code de la touche du clavier a tester
      * @return Vrai si la touche associee au code est pressee, Faux sinon
-     * @see 
      */
     public boolean KeyIsPressed(int keycode){
         ReadKey();
