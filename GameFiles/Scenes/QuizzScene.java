@@ -65,6 +65,7 @@ public class QuizzScene extends AScene {
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
+    	System.out.println(iCurQuestion);
         questions.get(iCurQuestion).Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LIVES : " + lives, new Point(10, 500), Color.BLACK, 15);
     }
