@@ -8,9 +8,20 @@ import Exceptions.ProjectException;
 import MenuSystem.Button;
 import MenuSystem.*;
 
+/**
+ * Scene de connexion a la base de donnees
+ * Initialisation des autres scenes apres le succes de la connexion
+ * @author Maxime Emonnot
+ */
 public class DatabaseConnectionScene extends AScene {
 
-    public DatabaseConnectionScene(Lambda func) throws ClassNotFoundException, SQLException {
+    /**
+     * Constructeur DatabaseConnectionScene
+     * Initialise un bouton permettant de se connecter a la base de donnee et d'executer une fonction lambda donnee
+     * @author Maxime Emonnot
+     * @param func Fonction a executer
+     */
+    public DatabaseConnectionScene(Lambda func) {
         super();
         //TODO Auto-generated constructor stub
         nextSceneIndex = 1;
@@ -35,6 +46,11 @@ public class DatabaseConnectionScene extends AScene {
         databasePassword.SetPasswordMode(true);
     }
 
+    /**
+     * {@inheritDoc}
+     * Gestion des differents champs de texte pour la connexion a la base de donnees
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() throws SQLException {
         // TODO Auto-generated method stub
@@ -48,6 +64,11 @@ public class DatabaseConnectionScene extends AScene {
         connectionMessage.Update();
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des differents boutons et champs de texte
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub

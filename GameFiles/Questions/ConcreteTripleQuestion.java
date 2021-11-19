@@ -5,10 +5,24 @@ import java.awt.*;
 import Exceptions.ProjectException;
 import GameFiles.Questions.InteractiveItems.Egg;
 
+/**
+ * Mini-jeu a trois propositions de reponse
+ * Trois oeufs representent les trois possibilites, l'utilisateur doit casser l'oeuf correspondant a la bonne reponse
+ * @author Maxime Emonnot
+ */
 public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
 
-    public ConcreteTripleQuestion(String _question, String _answerA, String _answerB, String _answerC,
-            AnswerType _type) {
+    /**
+     * Constructeur ConcreteTripleQuestion
+     * Reprend le constructeur de ATripleAnswerQuestion et initialise les differents oeufs pour la bonne reponse
+     * @author Maxime Emonnot
+     * @param _question Intitule question
+     * @param _answerA Proposition A
+     * @param _answerB Proposition B
+     * @param _answerC Proposition C
+     * @param _type Reponse correcte
+     */
+    public ConcreteTripleQuestion(String _question, String _answerA, String _answerB, String _answerC, AnswerType _type) {
         super(_question, _answerA, _answerB, _answerC, _type);
         //TODO Auto-generated constructor stub
         
@@ -53,6 +67,12 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour du mini-jeu
+     * Mise a jour des differents etats de l'oeuf, ainsi que des etats de succes et d'echec
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() {
         // TODO Auto-generated method stub
@@ -68,6 +88,11 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
         bIsWon = (eggA.HasWon() || eggB.HasWon() || eggC.HasWon());
         bIsLost = (bIsLost || eggA.HasLost() || eggB.HasLost() || eggC.HasLost());
     }
+    /**
+     * {@inheritDoc}
+     * Affichage des differents oeufs
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException {
         super.Draw();

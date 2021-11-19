@@ -3,17 +3,20 @@ package GameFiles;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import Exceptions.ProjectException;
 import GameFiles.Scenes.*;
 
+/**
+ * Gestion de la boucle de jeu.
+ * Contient tout le deroulement de l'application, calculs et affichage.
+ * @author Maxime Emonnot
+ */
 public class Game {
-    public Game() throws Exceptions.ProjectException, Exception{
+    /**
+     * Constructeur de la boucle de jeu. Initialisation des differents elements composant l'application. 
+     * @author Maxime Emonnot
+     * @throws Exception Renvoie une erreur de connexion a la base de donnees
+     */
+    public Game() throws Exception{
         scenes.add(new DatabaseConnectionScene(() -> {
             try {
                 scenes.add(new ConnectionScene());
@@ -29,13 +32,27 @@ public class Game {
         }));
     }
 
-    public void Go() throws Exceptions.ProjectException, LineUnavailableException, UnsupportedAudioFileException, IOException, SQLException{
+    /**
+     * Deroulement de la boucle de jeu.
+     * Realise d'abord une phasse de calcul, puis une phase de definition des affichages de la frame, avant de rendre le tout.
+     * @author Maxime Emonnot
+     * @throws Exception Les differentes erreurs contenues dans UpdateFrame
+     * @see Game#UpdateFrame()
+     * @see Game#RenderFrame()
+     */
+    public void Go() throws Exception{
         UpdateFrame();
         RenderFrame();
         GraphicsEngine.GraphicsSystem.GetInstance().Render();
     }
 
-    private void UpdateFrame() throws LineUnavailableException, UnsupportedAudioFileException, IOException, ProjectException, SQLException{
+    /**
+     * Methode privee contenant l'ensemble des calculs de l'application
+     * @author Maxime Emonnot
+     * @throws Exception Les differentes erreurs pouvant arrier durant le deroulement de la scene.
+     * @see Game#Go()
+     */
+    private void UpdateFrame() throws Exception{
         //Must be called to update the DeltaTime value
         CoreSystem.Timer.GetInstance().Update();
 
@@ -45,6 +62,12 @@ public class Game {
         }
     }
 
+    /**
+     * Methode privee contenant l'ensemble des methodes d'affichage
+     * @author Maxime Emonnot
+     * @throws Exceptions.ProjectException Erreur d'instanciation de GraphisSystem
+     * @see Game#Go()
+     */
     private void RenderFrame() throws Exceptions.ProjectException {
         scenes.get(iCurScene).Draw();
     }

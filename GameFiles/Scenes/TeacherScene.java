@@ -13,8 +13,17 @@ import Exceptions.ProjectException;
 import MenuSystem.*;
 import MenuSystem.Button;
 
+/**
+ * Scene professeur
+ * Permet d'ajouter des domaines de quiz, des questions, et d'editer la liste des questions (suppression d'une question)
+ * @author Maxime Emonnot
+ */
 public class TeacherScene extends AScene {
 
+    /**
+     * Differentes etapes de la scene TeacherScene
+     * @author Maxime Emonnot
+     */
     public enum SceneStage{
         SELECTION,
         ADD_DOMAIN,
@@ -22,8 +31,13 @@ public class TeacherScene extends AScene {
         QUESTION_LIST
     }
 
-    public TeacherScene() throws ClassNotFoundException, SQLException{
-        super();
+
+    /**
+     * Constructeur TeacherScene
+     * Initialisation des differents boutons composant la scene
+     * @author Maxime Emonnot
+     */
+    public TeacherScene(){
         addQButton = new Button(new Rectangle(25, 500, 100, 50), "Add", () -> {
             
             try {
@@ -138,6 +152,11 @@ public class TeacherScene extends AScene {
         levelSelection.AddChoice("Superieur");
     }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour des differents menus de la scene, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() throws SQLException {
         // TODO Auto-generated method stub
@@ -242,6 +261,11 @@ public class TeacherScene extends AScene {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage du menu, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
@@ -371,6 +395,12 @@ public class TeacherScene extends AScene {
         }
     }
 
+    /**
+     * Reinitialisation des menus, comme par exemple vider les champs d'ecriture
+     * Appels aux clics de boutons dans Update().
+     * @author Maxime Emonnot
+     * @see TeacherScene#Update()
+     */
     private void ClearMenus(){
         //Domain menu
         domain.Clear();
@@ -392,6 +422,12 @@ public class TeacherScene extends AScene {
         levelChoice.Reset();
     }
 
+    /**
+     * Reinitialisation de la liste des questions entrees par le professeur.
+     * Appels lors de l'entree dans l'etape QUESTION_ASK
+     * @author Maxime Emonnot
+     * @throws SQLException Erreurs lors de l'envoi des requetes SQL
+     */
     private void ResetQuestionList() throws SQLException{
         questionList.clear();
         ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT id, question FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".professeur WHERE " + dbm.GetDatabaseName() + ".questions.id_prof = " + dbm.GetDatabaseName() + ".professeur.id_professeur AND " + dbm.GetDatabaseName() + ".professeur.email = '" + user.GetMail() + "';");

@@ -15,8 +15,20 @@ import GraphicsEngine.GraphicsSystem;
 import MenuSystem.*;
 import MenuSystem.Button;
 
+/**
+ * Scene de forum, commune aux etudiants et aux enseignants
+ * Permet aux etudiant de poser des questions aux enseignants
+ * Permet egalement de proposer des reponses aux autres questions d'etudiant
+ * Les enseignants peuvent soit valider une reponse soit donner leur reponse, ce qui cloture la question
+ * @author Godfree Akakpo
+ * @author Maxime Emonnot
+ */
 public class ForumScene extends AScene {
 
+    /**
+     * Differentes etapes de la scene ForumScene
+     * @author Maxime Emonnot
+     */
     private enum SceneStage{
         SELECTION,
         STUDENT_ASK,
@@ -26,9 +38,14 @@ public class ForumScene extends AScene {
         TEACHER_INFOS
     }
 
-    public ForumScene() throws ClassNotFoundException, SQLException {
-        super();
-        //TODO Auto-generated constructor stub
+    /**
+     * Constructeur ForumScene
+     * Initialisation des menus pour les Etudiants et les Enseignants, separes en deux parties
+     * @author Maxime Emonnot
+     * @see ForumScene#InitStudent()
+     * @see ForumScene#InitTeacher()
+     */
+    public ForumScene() {
         ///PARTIE ETUDIANT
         InitStudent();
         ///PARTIE PROF
@@ -46,6 +63,13 @@ public class ForumScene extends AScene {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour des differents menus, en deux parties Etudiant et Enseignant, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     * @see ForumScene#UpdateStudent(CoreSystem.Mouse.EventType)
+     * @see ForumScene#UpdateTeacher(CoreSystem.Mouse.EventType)
+     */
     @Override
     public void Update() throws SQLException {
         // TODO Auto-generated method stub
@@ -62,6 +86,13 @@ public class ForumScene extends AScene {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des differents menus, en deux parties Etudiant et Enseignant, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     * @see ForumScene#DrawStudent()
+     * @see ForumScene#DrawTeacher()
+     */
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
@@ -81,6 +112,11 @@ public class ForumScene extends AScene {
      * La partie Student peut donc servir d'exemple pour la création de la partie Teacher 
      */
 
+    /**
+     * Initialistion du menu Etudiant.
+     * Separation pour un souci de clarte au niveau du code
+     * @author Maxime Emonnot
+     */
     private void InitStudent(){
         //Question words initialization
         questionWords.add("comment");
@@ -176,10 +212,22 @@ public class ForumScene extends AScene {
             currentStage = SceneStage.SELECTION;
         });
     }
+    /**
+     * Initialisation du menu Enseignant.
+     * Separation pour un souci de clarte au niveau du code
+     * @author Godfree Akakpo
+     */
     private void InitTeacher(){
         
     }
 
+    /**
+     * Mise a jour du menu de la partie Etudiant
+     * Separation pour un souci de clarte au niveau du code
+     * @author Maxime Emonnot
+     * @param e Entree souris enregistree dans la methode Update() generale
+     * @throws SQLException Erreurs lors d'envoi de requetes SQL
+     */
     private void UpdateStudent(CoreSystem.Mouse.EventType e) throws SQLException {
         //Ici, l'Update dépend de l'écran en cours dans la scène. Il n'y a pas grand chose à part les Update de base des menus
         ResetStudentQuestionList();
@@ -277,6 +325,12 @@ public class ForumScene extends AScene {
                 break;
             }
         }
+        /**
+     * Mise a jour du menu de la partie Enseignant
+     * Separation pour un souci de clarte au niveau du code
+     * @author Godfree Akakpo
+     * @param e Entree souris enregistree dans la methode Update() generale
+     */
     private void UpdateTeacher(CoreSystem.Mouse.EventType e) {
         switch(currentStage){
             case SELECTION:
@@ -292,6 +346,12 @@ public class ForumScene extends AScene {
         }
     }
         
+    /**
+     * Affichage du menu de la partie Etudiant
+     * Separation pour un souci de clarte au niveau du code
+     * @author Maxime Emonnot
+     * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+     */
     private void DrawStudent() throws ProjectException {
         switch(currentStage){
         case SELECTION:
@@ -436,6 +496,13 @@ public class ForumScene extends AScene {
         break;
         }
     }
+        
+    /**
+     * Affichage du menu de la partie Enseignant
+     * Separation pour un souci de clarte au niveau du code
+     * @author Godfree Akakpo
+     * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+     */
     private void DrawTeacher() throws ProjectException {
         switch(currentStage){
             case SELECTION:
@@ -454,7 +521,12 @@ public class ForumScene extends AScene {
         }
     }
         
-    //Reset de la list des questions
+    /**
+     * Reinitialisation de la liste des question Etudiant
+     * Appels lors de l'etape STUDENT_QUESTION_LIST
+     * @author Maxime Emonnot
+     * @throws SQLException Erreurs lors de l'envoi de requetes SQL
+     */
     private void ResetStudentQuestionList() throws SQLException {
         questionArray.clear();
         //Définition des mots clés
@@ -485,24 +557,31 @@ public class ForumScene extends AScene {
         }
 
         priorityQuestion.sort((e0, e1) -> e1.getKey() - e0.getKey());
-        int maxPriority = priorityQuestion.get(0).getKey();
+        if (priorityQuestion.size() != 0){
+            int maxPriority = priorityQuestion.get(0).getKey();
 
-        for (int i = 0; i < priorityQuestion.size(); i++){
-            if (maxPriority == priorityQuestion.get(i).getKey()){
-                if (!questionArray.containsKey(i/5)){
-                    questionArray.put(i/5, new HashMap<TextBox, Button>());
+            for (int i = 0; i < priorityQuestion.size(); i++){
+                if (maxPriority == priorityQuestion.get(i).getKey()){
+                    if (!questionArray.containsKey(i/5)){
+                        questionArray.put(i/5, new HashMap<TextBox, Button>());
+                    }
+                    int id = priorityQuestion.get(i).getValue().getValue();
+                    questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
+                        proposition.Clear();
+                        currentStage = SceneStage.STUDENT_PROPOSE;
+                        iChosenQuestion = id;
+                    }));
                 }
-                int id = priorityQuestion.get(i).getValue().getValue();
-                questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
-                    proposition.Clear();
-                    currentStage = SceneStage.STUDENT_PROPOSE;
-                    iChosenQuestion = id;
-                }));
             }
         }
     }
        
-    //Reset de la liste des questions à supprimer
+    /**
+     * Reinitialisation de la liste des questions a supprimer
+     * Appels lors de l'etape STUDENT_MANAGE_QUESTION
+     * @author Maxime Emonnot
+     * @throws SQLException Erreurs lors de l'envoi de requetes SQL
+     */
     private void ResetStudentQuestionDeleteList() throws SQLException {
         questionDeleteArray.clear();
         ResultSet questionDeleteSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".forumQuestion, " + dbm.GetDatabaseName() + ".etudiant WHERE forumQuestion.id_student = etudiant.id_etudiant AND etudiant.email = '" + user.GetMail() + "';");

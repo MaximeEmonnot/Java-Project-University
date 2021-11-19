@@ -5,15 +5,30 @@ import java.sql.SQLException;
 import Exceptions.ProjectException;
 import java.awt.*;
 
+/**
+ * Scene de jeu.
+ * Deroulement de la phase de quiz, ou l'etudiant doit repondre rapidement a differentes questions, a travers des mini-jeux
+ * @author Maxime Emonnot
+ */
 public class QuizzScene extends AScene {
 
-    public QuizzScene() throws Exception{
-        super();
+    /**
+     * Constructeur QuizzScene
+     * Initialisation de l'index de la prochaine scene
+     * @author Maxime Emonnot
+     */
+    public QuizzScene(){
         nextSceneIndex = 2;
     }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour et calculs des differents mini-jeux.
+     * Traitement des donnees de reussite ou d'echec
+     * @author Maxime Emonnot
+     */
     @Override
-    public void Update() throws SQLException {
+    public void Update() {
         // TODO Auto-generated method stub
         if (lives <= 0){
             SendStatistics();
@@ -42,6 +57,11 @@ public class QuizzScene extends AScene {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des differents mini-jeux
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub

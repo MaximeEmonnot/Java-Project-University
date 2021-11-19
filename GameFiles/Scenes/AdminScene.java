@@ -11,46 +11,64 @@ import Exceptions.ProjectException;
 import MenuSystem.*;
 import MenuSystem.Button;
 
+/**
+ * Scene adminisatrateur.
+ * Permet la gestion des utilisateurs (suppression des etudiants et des professeurs)
+ * @author Maxime Emonnot
+ */
 public class AdminScene extends AScene{
 
-    private enum SceneStage{
-        SELECTION,
-        STUDENT_LIST,
-        TEACHER_LIST
-     }  
-
-    public AdminScene() throws ClassNotFoundException, SQLException {
-        super();
-        //TODO Auto-generated constructor stub
-        backButton = new Button(new Rectangle(500, 500, 100, 50), "Back", () -> {
-            currentStage = SceneStage.SELECTION;
-        });
-        studentListButton = new Button(new Rectangle(100, 150, 600, 50), "Edit student list", () -> {
-          try{
-            ResetStudentList();
-            currentStage = SceneStage.STUDENT_LIST;
-          }
-          catch(SQLException e){
-            e.printStackTrace();
-          }
-        });
-        lastStudentPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageStudentList--;});
-        nextStudentPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageStudentList++;});
-        
-        teacherListButton = new Button(new Rectangle(100, 250, 600, 50), "Edit teacher list", () -> {
-          try{
-            ResetTeacherList();
-            currentStage = SceneStage.TEACHER_LIST;
-          }
-          catch(SQLException e){
-            e.printStackTrace();
-          }
-        });
-        lastTeacherPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageTeacherList--;});
-        nextTeacherPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageTeacherList++;});
+  /**
+   * Differentes etape de la scene Admin
+   * @author Maxime Emonnot
+   */  
+  private enum SceneStage{
+      SELECTION,
+      STUDENT_LIST,
+      TEACHER_LIST
+   }  
+   
+  /**
+   * Constructeur AdminScene.
+   * Initialisation des differents boutons composant la scene
+   * @author Maxime Emonnot
+   */
+  public AdminScene() {
+      //TODO Auto-generated constructor stub
+      backButton = new Button(new Rectangle(500, 500, 100, 50), "Back", () -> {
+          currentStage = SceneStage.SELECTION;
+      });
+      studentListButton = new Button(new Rectangle(100, 150, 600, 50), "Edit student list", () -> {
+        try{
+          ResetStudentList();
+          currentStage = SceneStage.STUDENT_LIST;
+        }
+        catch(SQLException e){
+          e.printStackTrace();
+        }
+      });
+      lastStudentPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageStudentList--;});
+      nextStudentPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageStudentList++;});
       
-      }
+      teacherListButton = new Button(new Rectangle(100, 250, 600, 50), "Edit teacher list", () -> {
+        try{
+          ResetTeacherList();
+          currentStage = SceneStage.TEACHER_LIST;
+        }
+        catch(SQLException e){
+          e.printStackTrace();
+        }
+      });
+      lastTeacherPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageTeacherList--;});
+      nextTeacherPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageTeacherList++;});
+    
+    }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour du menu, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() throws SQLException {
         // TODO Auto-generated method stub
@@ -123,6 +141,11 @@ public class AdminScene extends AScene{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage du menu, en fonction de l'etape de la scene
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
@@ -226,6 +249,12 @@ public class AdminScene extends AScene{
         }
     }
     
+    /**
+     * Reinitialisation du menu pour la liste des etudiants.
+     * A lieu lors de l'etape STUDENT_LIST
+     * @author Maxime Emonnot
+     * @throws SQLException Erreurs lors de l'envoi de requetes SQL
+     */
     private void ResetStudentList() throws SQLException{
         studentList.clear();
         ResultSet studentSet = dbm.GetResultFromSQLRequest("SELECT id_etudiant, nom, prenom FROM " + dbm.GetDatabaseName() + ".etudiant");
@@ -250,6 +279,12 @@ public class AdminScene extends AScene{
         }
       }
 
+      /**
+       * Reinitialisation du menu pour la liste des enseignants
+       * A lieu lors de l'etape TEACHER_LIST
+       * @author Maxime Emonnot
+       * @throws SQLException Erreurs lors de l'envoi de requetes SQL
+       */
     private void ResetTeacherList() throws SQLException{
         teacherList.clear();
         ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur, nom, prenom FROM " + dbm.GetDatabaseName() + ".professeur");

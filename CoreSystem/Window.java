@@ -5,12 +5,13 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 /**
- * Classe s'occupant de la gestion de la fenetre de Java Swing. S'occupe de la création et de la boucle d'execution.
+ * Gestion de la fenetre de Java Swing. S'occupe de la creation et de la boucle d'execution. 
+ * Utilise le patron de conception Singleton pour etre unique dans toute l'application.
  * @author Maxime Emonnot
  */
 public class Window {
     /**
-     * Constructeur privé de Window. Initalisation de l'objet JFrame.
+     * Constructeur privé de Window dans le cadre du Singleton. Initalisation de l'objet JFrame.
      * @author Maxime Emonnot
      * @throws Exceptions.ProjectException Si une erreur a lieu lors de la creation du JFRame (n'arrive jamais)
      */

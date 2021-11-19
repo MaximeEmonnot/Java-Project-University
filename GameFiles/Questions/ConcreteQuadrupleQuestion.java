@@ -7,10 +7,27 @@ import java.awt.*;
 
 import Exceptions.ProjectException;
 
+/**
+ * Mini-jeu a quatre possibilites de reponse
+ * L'utilisateur doit cliquer sur l'interrupteur, faisant apparaitre differents chats
+ * Chaque chat correspond a une proposition de reponse, comme indique sur le cote gauche
+ * @author Maxime Emonnot
+ */
 public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
 
-    public ConcreteQuadrupleQuestion(String _question, String _anwserA, String _answerB, String _answerC,
-            String _answerD, AnswerType _type) throws Exception {
+    /**
+     * Constructeur ConcreteQuadrupleQuestion
+     * Reprend le constructeur de AQuadrupleAnswerQuestion et initialise les differents chats pour la bonne reponse
+     * @author Maxime Emonnot
+     * @param _question Intitule de la question
+     * @param _anwserA Proposition A
+     * @param _answerB Proposition B 
+     * @param _answerC Proposition C
+     * @param _answerD Proposition D
+     * @param _type Reponse correcte
+     * @throws Exception Erreurs lors de l'acces aux fichiers JSON pour les animations des chats
+     */
+    public ConcreteQuadrupleQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) throws Exception {
         super(_question, _anwserA, _answerB, _answerC, _answerD, _type);
         //TODO Auto-generated constructor stub
         ls = new LightSwitch(new Rectangle(0, 0, 136, 200));
@@ -93,6 +110,12 @@ public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * Mise a jour du mini-jeu
+     * Mise a jour de l'animation des chats, de l'etat de l'interrupteur, ainsi que de l'etat de succes et d'echec
+     * @author Maxime Emonnot
+     */
     @Override
     public void Update() {
         // TODO Auto-generated method stub
@@ -126,6 +149,11 @@ public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
         bIsLost = bIsLost || (catA.HasLost() || catB.HasLost() || catC.HasLost() || catD.HasLost());
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des chats et de l'interrupteur
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException{
         super.Draw();

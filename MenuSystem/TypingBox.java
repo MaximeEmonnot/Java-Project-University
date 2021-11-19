@@ -8,12 +8,31 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 
+/**
+ * Champs d'ecriture
+ * Dans le cadre d'une interface Utilisateur
+ * @author Maxime Emonnot
+ */
 public class TypingBox {
+    /**
+     * Constructeur TypingBox
+     * Initilisation à partir d'un rectangle de position et d'un texte de description
+     * @author Maxime Emonnot
+     * @param _rect Rectangle de position de la TypingBox
+     * @param _description Texte de description de la TypingBox
+     */
     public TypingBox(Rectangle _rect, String _description){
         rect = _rect;
         description = _description;
     }  
 
+    /**
+     * Mise à jour de la TypingBox
+     * Recuperation des caracteres tapes par l'utilisateur, avec gestion du focus
+     * @author Maxime Emonnot
+     * @see TypingBox#Timer()
+     * @see TypingBox#Read()
+     */
     public void Update(){
         if(CoreSystem.Mouse.GetInstance().LeftIsPressed()){
             bIsFocused = rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos());
@@ -27,10 +46,21 @@ public class TypingBox {
         }
     }
 
+    /**
+     * Affiche la TypingBox et son contenu
+     * Priorite d'affichage par defaut a 0
+     * @author Maxime Emonnot
+     * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+     */
     public void Draw() throws ProjectException{
         Draw(0);
     }
-    
+    /**
+     * Surcharge fonctionnelle. Affiche la TypingBox et son contenu selon une priorite donnee
+     * @author Maxime Emonnot
+     * @param priority Priorite d'affichage de la TypingBox
+     * @throws ProjectException Erreur de lors de l'instanciation de GraphicsSystem
+     */
     public void Draw(int priority) throws ProjectException{
         GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(rect, Color.WHITE, priority);
         GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(rect, Color.BLACK, priority + 1);
@@ -55,18 +85,38 @@ public class TypingBox {
         }
     }
 
+    /**
+     * Initalisation du mode password selon une valeur d'activation donnee
+     * @author Maxime Emonnot
+     * @param bMode Definit le mode du champ d'ecriture, mode password si Vrai, mode normal sinon
+     */
     public void SetPasswordMode(boolean bMode){
         bIsPassword = bMode;
     }
 
+    /**
+     * Recuperation du texte tape par l'utilisateur
+     * @author Maxime Emonnot
+     * @return Texte entre par l'utilisateur
+     */
     public String GetText(){
         return text.replace("|", "");
     }
 
+    /**
+     * Reinitialisation du texte entre par l'utilisateur
+     * @author Maxime Emonnot
+     */
     public void Clear(){
         text = "";
     }
 
+    /**
+     * Timer pour l'apparition de la barre d'ecriture lors du focus du champ.
+     * Appels dans Update
+     * @author Maxime Emonnot
+     * @see TypingBox#Update()
+     */
     private void Timer(){
         currentTimer += CoreSystem.Timer.GetInstance().DeltaTime();
         if (currentTimer > timer){
@@ -80,6 +130,12 @@ public class TypingBox {
         }
     }
 
+    /**
+     * Routine de lecture des entrees utilisateurs, lors du focus du champ.
+     * Appels dans Update
+     * @author Maxime Emonnot
+     * @see TypingBox#Update()
+     */
     private void Read() {
         char c = CoreSystem.Keyboard.GetInstance().ReadChar();
         if (c != 0){

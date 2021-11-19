@@ -4,8 +4,17 @@ import Exceptions.ProjectException;
 
 import java.awt.*;
 
+/**
+ * Classe abstraite
+ * Definitions de base d'une question a deux possibilites de reponse
+ * @author Maxime Emonnot
+ */
 public abstract class ADoubleAnswerQuestion extends AQuestion {
 
+    /**
+     * Differents type de reponses pour les questions a deux possibilites
+     * @author Maxime Emonnot
+     */
     public enum AnswerType{
         ANSWER_A,
         ANSWER_B,
@@ -13,6 +22,15 @@ public abstract class ADoubleAnswerQuestion extends AQuestion {
         NONE
     }
 
+    /**
+     * Constructeur ADoubleAnswerQuestion
+     * Reprend le constructeur de AQuestion et initilise les differentes propositions ainsi que la reponse
+     * @author Maxime Emonnot
+     * @param _question Intitule de la question
+     * @param _answerA Proposition A
+     * @param _answerB Proposition B
+     * @param _type Reponse correcte
+     */
     public ADoubleAnswerQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
         super(_question);
         //TODO Auto-generated constructor stub
@@ -21,6 +39,11 @@ public abstract class ADoubleAnswerQuestion extends AQuestion {
         type = _type;
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des deux propositions de reponse
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException{
         super.Draw();

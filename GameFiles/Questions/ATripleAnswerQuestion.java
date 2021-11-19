@@ -3,8 +3,17 @@ package GameFiles.Questions;
 import java.awt.*;
 import Exceptions.ProjectException;
 
+/**
+ * Classe abstraite
+ * Definitions de base d'une question a trois possibilites de reponse
+ * @author Maxime Emonnot
+ */
 public abstract class ATripleAnswerQuestion extends AQuestion{
 
+    /**
+     * Differents types de reponses pour les questions a trois possibilites
+     * @author Maxime Emonnot
+     */
     public enum AnswerType{
         ANSWER_A,
         ANSWER_B,
@@ -16,6 +25,16 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
         NONE
     }
 
+    /**
+     * Constructeur ATripleAnswerQuestion
+     * Reprend le constructeur de AQuestion et initialise les differentes propositions ainsi que la reponse
+     * @author Maxime Emonnot
+     * @param _question Intitule de la question
+     * @param _answerA Proposition A
+     * @param _answerB Proposition B
+     * @param _answerC Proposition C
+     * @param _type Reponse correcte
+     */
     public ATripleAnswerQuestion(String _question, String _answerA, String _answerB, String _answerC, AnswerType _type) {
         super(_question);
         //TODO Auto-generated constructor stub
@@ -25,6 +44,11 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
         type = _type;
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des trois propositions de reponse
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException{
         super.Draw();

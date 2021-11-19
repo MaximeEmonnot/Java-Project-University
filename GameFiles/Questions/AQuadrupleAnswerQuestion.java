@@ -3,8 +3,17 @@ package GameFiles.Questions;
 import java.awt.*;
 import Exceptions.ProjectException;
 
+/**
+ * Classe abstraite
+ * Definitions de base d'une question a quatre possibilites de reponse
+ * @author Maxime Emonnot
+ */
 public abstract class AQuadrupleAnswerQuestion extends AQuestion {
 
+        /**
+     * Differents types de reponses pour les questions a quatre possibilites
+     * @author Maxime Emonnot
+     */
     public enum AnswerType{
         ANSWER_A,
         ANSWER_B,
@@ -24,6 +33,17 @@ public abstract class AQuadrupleAnswerQuestion extends AQuestion {
         NONE
     }
 
+    /**
+     * Constructeur AQuadrupleAnswerQuestion
+     * Reprend le constructeur de AQuestion et initialise les differentes propositions ainsi que la reponse
+     * @author Maxime Emonnot
+     * @param _question Intitule de la question
+     * @param _anwserA Proposition A
+     * @param _answerB Proposition B
+     * @param _answerC Proposition C
+     * @param _answerD Proposition D
+     * @param _type Reponse correcte
+     */
     public AQuadrupleAnswerQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
         super(_question);
         //TODO Auto-generated constructor stub
@@ -34,6 +54,11 @@ public abstract class AQuadrupleAnswerQuestion extends AQuestion {
         type = _type;
     }
 
+    /**
+     * {@inheritDoc}
+     * Affichage des quatres propositions de reponse
+     * @author Maxime Emonnot
+     */
     @Override
     public void Draw() throws ProjectException{
         super.Draw();
