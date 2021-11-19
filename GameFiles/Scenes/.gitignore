@@ -1,3 +1,13 @@
 /AScene.class
 /QuizzScene.class
 /SearchScene.class
+/AdminScene$SceneStage.class
+/AdminScene.class
+/ConnectionScene$ConnectionStep.class
+/ConnectionScene.class
+/DatabaseConnectionScene.class
+/ForumScene$SceneStage.class
+/ForumScene.class
+/SearchScene$SceneStage.class
+/TeacherScene$SceneStage.class
+/TeacherScene.class
