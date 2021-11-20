@@ -35,7 +35,8 @@ public class ForumScene extends AScene {
         STUDENT_QUESTION_LIST,
         STUDENT_PROPOSE,
         STUDENT_MANAGE_QUESTION,
-        TEACHER_INFOS
+        TEACHER_QUESTION_LIST,
+        TEACHER_ANSWER_QUESTION
     }
 
     /**
@@ -52,6 +53,20 @@ public class ForumScene extends AScene {
         InitTeacher();
 
         ///PARTIE COMMUNE
+        //Question words initialization
+        questionWords.add("comment");
+        questionWords.add("pourquoi");
+        questionWords.add("quoi");
+        questionWords.add("quel");
+        questionWords.add("quels");
+        questionWords.add("quelle");
+        questionWords.add("quelle");
+        questionWords.add("lesquelles");
+        questionWords.add("laquelle");
+        questionWords.add("lesquels");
+        questionWords.add("lequel");
+        questionWords.add("quand");
+        
         exitForumButton = new Button(new Rectangle(700, 500, 75, 50), "Exit", () -> {
             bChangeScene = true;
             if (user instanceof Student){
@@ -118,20 +133,6 @@ public class ForumScene extends AScene {
      * @author Maxime Emonnot
      */
     private void InitStudent(){
-        //Question words initialization
-        questionWords.add("comment");
-        questionWords.add("pourquoi");
-        questionWords.add("quoi");
-        questionWords.add("quel");
-        questionWords.add("quels");
-        questionWords.add("quelle");
-        questionWords.add("quelle");
-        questionWords.add("lesquelles");
-        questionWords.add("laquelle");
-        questionWords.add("lesquels");
-        questionWords.add("lequel");
-        questionWords.add("quand");
-
         //Selection menu initialization
         askQuestionButton = new Button(new Rectangle(100, 150, 600, 50), "Ask question", () -> {
             question.Clear();
@@ -218,7 +219,42 @@ public class ForumScene extends AScene {
      * @author Godfree Akakpo
      */
     private void InitTeacher(){
+    	
+    	tlastQuestionPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> { tiCurQuestionPage--;});
+        tnextQuestionPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> { tiCurQuestionPage++;});
         
+        tLastPropPage = new Button(new Rectangle(100, 500, 25, 25), "<", () -> { tiCurPropositionPage--;}); //A toi de metrte la position que tu veux
+        tNextPropPage = new Button(new Rectangle(600, 500, 25, 25), ">", () -> { tiCurPropositionPage++;}); //Meme chose
+    	
+    	teacherQuestionListButton = new Button(new Rectangle(100, 250, 600, 50), "View question list", () -> {
+            currentStage = SceneStage.TEACHER_QUESTION_LIST;
+        });
+        
+    	tValidateAnswer = new Button(new Rectangle(550, 100, 100, 50), "Validate", () -> {
+    		if (tAnswer.GetText().length() != 0) {
+    			try {
+					dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + tAnswer.GetText() + "' WHERE id = " + tiChosenQuestion + ";");
+					bHasAnswered = true;
+					teacherAnswerMessage.SetMessage("Reponse validee pour la question : " + tQuestionText, Color.GREEN, 2.0f);
+    			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    		else {
+    			teacherAnswerMessage.SetMessage("Veuillez remplir la zone de texte!", Color.RED, 2.0f);
+    		}
+    	});
+    	
+    	tCancelAnswerButton = new Button(new Rectangle(700, 500, 75, 50), "Cancel", () -> {
+    		currentStage = SceneStage.TEACHER_QUESTION_LIST;
+    		tAnswer.Clear();
+    		bHasAnswered = false;
+    	});
+    	
+        tbackButton = new Button(new Rectangle(700, 500, 75, 50), "Back", () -> {
+            currentStage = SceneStage.SELECTION;
+        });
     }
 
     /**
@@ -330,16 +366,91 @@ public class ForumScene extends AScene {
      * Separation pour un souci de clarte au niveau du code
      * @author Godfree Akakpo
      * @param e Entree souris enregistree dans la methode Update() generale
+     * @throws SQLException Erreurs lors d'envoi de requetes SQL
      */
-    private void UpdateTeacher(CoreSystem.Mouse.EventType e) {
+    private void UpdateTeacher(CoreSystem.Mouse.EventType e) throws SQLException {
+    	//Ici on va mettre une methode pour mettre a jour la liste des questions pour la partie Teacher
+    	ResetTeacherQuestionList();
+    	
         switch(currentStage){
             case SELECTION:
+            	//j'aicommencé par ici
+            	
+            	if (teacherQuestionListButton.OnClick(e)){
+            		 teacherQuestionListButton.ComputeFunction(); 
+            		}
+          
                 if (exitForumButton.OnClick(e)){
                     exitForumButton.ComputeFunction();
                 }
+                if (askQuestionButton.OnClick(e)){
+                    askQuestionButton.ComputeFunction();
+                }
+                
+                
             break;
-            case TEACHER_INFOS:
-            
+            //mise a jour de liste de question au niveau de teacher
+            case TEACHER_QUESTION_LIST:
+                if (tquestionArray.containsKey(tiCurQuestionPage)){
+                    Iterator<Map.Entry<TextBox, Button>> itrQuestion = tquestionArray.get(tiCurQuestionPage).entrySet().iterator();
+                    while (itrQuestion.hasNext()){
+                        Button btn = itrQuestion.next().getValue();
+                        if (btn.OnClick(e)){
+                            btn.ComputeFunction();
+                        }
+                    }
+                }
+
+                if (tquestionArray.containsKey(tiCurQuestionPage - 1)){
+                    if (tlastQuestionPage.OnClick(e)){
+                        tlastQuestionPage.ComputeFunction();
+                    }
+                }
+                if (tquestionArray.containsKey(tiCurQuestionPage + 1)){
+                    if (tnextQuestionPage.OnClick(e)){
+                        tnextQuestionPage.ComputeFunction();
+                    }
+                }
+
+                if (tbackButton.OnClick(e)){
+                    tbackButton.ComputeFunction();
+                }
+                tquestionSearch.Update();
+                break;
+            case TEACHER_ANSWER_QUESTION:
+            	
+            	if (!bHasAnswered) {
+            		tAnswer.Update();
+            		if (tValidateAnswer.OnClick(e)) {
+            			tValidateAnswer.ComputeFunction();
+            		}
+            		
+            		if (tPropositionArray.containsKey(tiCurPropositionPage)){
+                    	Iterator<Map.Entry<TextBox, Button>> itrQuestion = tPropositionArray.get(tiCurPropositionPage).entrySet().iterator();
+                    	while (itrQuestion.hasNext()){
+                        	Button btn = itrQuestion.next().getValue();
+                        	if (btn.OnClick(e)){
+                            	btn.ComputeFunction();
+                        	}
+                    	}
+                	}
+
+                	if (tPropositionArray.containsKey(tiCurPropositionPage - 1)){
+                    	if (tLastPropPage.OnClick(e)){
+                        	tLastPropPage.ComputeFunction();
+                    	}
+                	}
+                	if (tPropositionArray.containsKey(tiCurPropositionPage + 1)){
+                    	if (tNextPropPage.OnClick(e)){
+                        	tNextPropPage.ComputeFunction();
+                    	}
+                    }
+            	}
+            	teacherAnswerMessage.Update();
+            	
+            	if (tCancelAnswerButton.OnClick(e)) {
+            		tCancelAnswerButton.ComputeFunction();
+            	}
             break;
             default:
             break;
@@ -506,6 +617,15 @@ public class ForumScene extends AScene {
     private void DrawTeacher() throws ProjectException {
         switch(currentStage){
             case SELECTION:
+            	tiCurQuestionPage = 0;
+            	
+            	//pour le bouton de la liste des questions
+            	if (questionListButton.IsClicked())
+           		 teacherQuestionListButton.Draw(Color.GREEN);
+            	else {
+           		 teacherQuestionListButton.Draw(Color.GRAY);
+           		 }
+            	//pour le boutton exit
                 if (exitForumButton.IsClicked()){
                     exitForumButton.Draw(Color.GREEN);
                 }
@@ -513,9 +633,106 @@ public class ForumScene extends AScene {
                     exitForumButton.Draw(Color.GRAY);
                 }
             break;
-            case TEACHER_INFOS:
+            // pour afficher la liste des questions
+            case TEACHER_QUESTION_LIST:
+            	tiCurPropositionPage = 0;
+            	
+                if (tquestionArray.containsKey(tiCurQuestionPage)){
+                    Iterator<Map.Entry<TextBox, Button>> itrQuestion = tquestionArray.get(tiCurQuestionPage).entrySet().iterator();
+                    while(itrQuestion.hasNext()){
+                        Map.Entry<TextBox, Button> currentPair = itrQuestion.next();
+                        currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                        if (currentPair.getValue().IsClicked()){
+                            currentPair.getValue().Draw(Color.DARK_GRAY);
+                        }
+                        else{
+                            currentPair.getValue().Draw(Color.LIGHT_GRAY);
+                        }
+                    }
+                }
+                
+                if (tquestionArray.containsKey(tiCurQuestionPage - 1)){
+                    if (tlastQuestionPage.IsClicked()){
+                        tlastQuestionPage.Draw(Color.DARK_GRAY);
+                    }
+                    else {
+                        tlastQuestionPage.Draw(Color.LIGHT_GRAY);
+                    }
+                }
+                if (tquestionArray.containsKey(tiCurQuestionPage + 1)){
+                    if (tnextQuestionPage.IsClicked()){
+                        tnextQuestionPage.Draw(Color.DARK_GRAY);
+                    }
+                    else{
+                        tnextQuestionPage.Draw(Color.LIGHT_GRAY);
+                    }
+                }
+
+                tquestionSearch.Draw();
+
+                if (tbackButton.IsClicked()){
+                    tbackButton.Draw(Color.DARK_GRAY);
+                }
+                else{
+                    tbackButton.Draw(Color.LIGHT_GRAY);
+                }
+                break;
+                
+            case TEACHER_ANSWER_QUESTION:
+            	//Affichage question
+            	tQuestion.Draw(tQuestionText, Color.BLACK, Color.GRAY, Color.WHITE);
+            	
+            	if (!bHasAnswered) {
+            		tAnswer.Draw();
+            		if (tValidateAnswer.IsClicked()) {
+            			tValidateAnswer.Draw(Color.DARK_GRAY);
+            		}
+            		else {
+            			tValidateAnswer.Draw(Color.LIGHT_GRAY);
+            		}
+            		
+            		if (tPropositionArray.containsKey(tiCurPropositionPage)) {
+            		Iterator<Map.Entry<TextBox, Button>> itrQuestion = tPropositionArray.get(tiCurPropositionPage).entrySet().iterator();
+                    while(itrQuestion.hasNext()){
+                        Map.Entry<TextBox, Button> currentPair = itrQuestion.next();
+                        currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                        if (currentPair.getValue().IsClicked()){
+                            currentPair.getValue().Draw(Color.DARK_GRAY);
+                        }
+                        else{
+                            currentPair.getValue().Draw(Color.LIGHT_GRAY);
+                        }
+                    }
+            	}
             
-            break;
+            	 if (tPropositionArray.containsKey(tiCurPropositionPage - 1)){
+                     if (tLastPropPage.IsClicked()){
+                    	 tLastPropPage.Draw(Color.DARK_GRAY);
+                     }
+                     else {
+                    	 tLastPropPage.Draw(Color.LIGHT_GRAY);
+                     }
+                 }
+                 if (tPropositionArray.containsKey(tiCurPropositionPage + 1)){
+                     if (tNextPropPage.IsClicked()){
+                    	 tNextPropPage.Draw(Color.DARK_GRAY);
+                     }
+                     else{
+                    	 tNextPropPage.Draw(Color.LIGHT_GRAY);
+                     }
+                 }
+            	}
+            	
+            	teacherAnswerMessage.Draw();
+                 
+                 if (tCancelAnswerButton.IsClicked()) {
+                	 tCancelAnswerButton.Draw(Color.DARK_GRAY);
+                 }
+                 else {
+                	 tCancelAnswerButton.Draw(Color.LIGHT_GRAY);
+                 }
+                 
+            	break;
             default:
             break;
         }
@@ -607,6 +824,107 @@ public class ForumScene extends AScene {
             i++;
         }
     }
+    
+    private void ResetTeacherQuestionList() throws SQLException {
+    	 tquestionArray.clear();
+         //DÃ©finition des mots clÃ©s
+         String searchQ = tquestionSearch.GetText();
+         searchQ = searchQ.toLowerCase();
+         String[] words = searchQ.split(" ");
+         List<String> keyWords = new ArrayList<String>();
+         for (int i = 0; i < words.length; i++){
+             if (words[i].length() > 4 && !questionWords.contains(words[i])){
+                 keyWords.add(words[i]);
+             }
+         }
+
+         ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " +  dbm.GetDatabaseName() + ".forumQuestion");
+         ArrayList<Map.Entry<Integer, Map.Entry<String, Integer>>> priorityQuestion = new ArrayList<Map.Entry<Integer, Map.Entry<String, Integer>>>();
+
+         while (questionSet.next()){
+        	 if(questionSet.getString("answer").length() == 0) {
+        		 int id = questionSet.getInt("id");
+             	String questionStr = questionSet.getString("question").toLowerCase();
+             
+             	int nKeyW = 0;
+             	for (String key : keyWords){
+                 	if (questionStr.contains(key)){
+                     	nKeyW++;
+                 	}
+             	}
+             	priorityQuestion.add(Map.entry(nKeyW, Map.entry(questionStr, id)));
+        	 }
+         }
+
+         priorityQuestion.sort((e0, e1) -> e1.getKey() - e0.getKey());
+         if (priorityQuestion.size() != 0){
+             int maxPriority = priorityQuestion.get(0).getKey();
+
+             for (int i = 0; i < priorityQuestion.size(); i++){
+                 if (maxPriority == priorityQuestion.get(i).getKey()){
+                     if (!tquestionArray.containsKey(i/5)){
+                         tquestionArray.put(i/5, new HashMap<TextBox, Button>());
+                     }
+                     int id = priorityQuestion.get(i).getValue().getValue();
+                     tquestionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Answer", () -> { 
+                    	 //Fonction inscrite dans le bouton Answer
+                    	 try {
+                    		 //Passage à la phase de scène ANSWER_QUESTION
+                    		 currentStage = SceneStage.TEACHER_ANSWER_QUESTION;
+                    		 //On garde en mémoire l'id de la question pour la réutiliser plus tard
+                    		 tiChosenQuestion = id;
+                    		 //On met à jour la liste des propositions pour la question sélectionnée
+							 ResetTeacherQuestionPropositionList();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                     }));
+                 }
+             }
+         }
+    }
+    
+    private void ResetTeacherQuestionPropositionList() throws SQLException {
+    	tPropositionArray.clear();
+    	//On récupère la liste des questions et des propositions selon l'id que l'on a enregistré via le bouton answer
+    	ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".forumQuestion WHERE " + dbm.GetDatabaseName() + ".forumQuestion.id = " + tiChosenQuestion + ";");
+    	if (questionSet.next()) {
+    		tQuestionText = questionSet.getString("question");
+    		ResultSet propositionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".forumProposition WHERE " + dbm.GetDatabaseName() + ".forumProposition.id_question = "  + tiChosenQuestion + ";");
+    		int i = 0;
+    		while(propositionSet.next()) {
+    		
+    			/*
+    		 	* On ajoute les différentes pages de proposition. Si une page existe déjà, on ajoute juste la proposition dans la page
+    		 	* Ensuite, pour l'ajout de propositions, on définit une TextBox et un Bouton.
+    		 	* La position du couple TextBox/Bouton dépend du nombre d'éléments parcourus dans le tableau (valeur i)
+    		 	* Ici, nous avons 4 couples possibles (modifiable à ta guise, pour cela tu dois modifier les i / 4 et les i % 4).
+    		 	* Je te laisse également disposer les coordonnées des rectangles comme tu le souhaites, sachant que :
+    		 	* pour la partie x : abscisse du coin en haut à gauche du bloc de toutes les propositions
+    		 	* pour la partie y : ordonnée du coin en haut à gauche du bloc de toutes les proposition à laquelle on ajoute un décalage multiplié par i % 4 (tu peux regarder la méthode ResetStudentQuestionDeleteList() comme exemple si tu le souhaites)
+    		 	* partie width et height comme habituellement, juste faire attention à que les rectangles de TextBox et Bouton ne se chevauchent pas
+    		 	*/
+    			if (!tPropositionArray.containsKey(i / 4)) {
+    				tPropositionArray.put(i / 4, new HashMap<TextBox, Button>());
+    			}
+    			String prop = propositionSet.getString("proposition");
+    			tPropositionArray.get(i/4).put(new TextBox(new Rectangle(150, 175 + (i % 4) * 75, 400, 50), prop), new Button(new Rectangle(550, 175 + (i % 4) * 75, 100, 50), "Select", () -> {
+    				//Fonction dans les boutons Select (à faire plus tard)
+    				try {
+						dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + prop + "' WHERE id = " + tiChosenQuestion + ";");
+						bHasAnswered = true;
+						teacherAnswerMessage.SetMessage("Reponse validee pour : " + tQuestionText, Color.GREEN, 2.0f);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}));
+    			
+    			i++;
+    		}
+    	}
+    }
        
     //*** ELEMENTS STUDENT ***//
     //Etapes de la scÃ¨ne (type d'Ã©cran)
@@ -629,7 +947,6 @@ public class ForumScene extends AScene {
     private Button nextQuestionPage;
     private TypingBox questionSearch = new TypingBox(new Rectangle(100, 500, 600, 50), "Search question...");
     private int iChosenQuestion = 0;
-    private final List<String> questionWords = new ArrayList<String>();
     
     //Menu proposition Etudiant
     private TypingBox proposition = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your proposition...");
@@ -649,6 +966,39 @@ public class ForumScene extends AScene {
     private Button backButton;
     //*** FIN ELEMENTS STUDENT ***//
 
-    //Bouton commun aux deux parties
+    //Elements communs aux deux parties
     private Button exitForumButton;
+    private final List<String> questionWords = new ArrayList<String>();
+    
+    //*** ELEMENTS TEACHER ***//
+    
+    //Menu Selection Teacher
+    private Button teacherQuestionListButton;
+  
+    //Menu liste questions Teacher
+    private Map<Integer, HashMap<TextBox, Button>> tquestionArray = new HashMap<Integer, HashMap<TextBox, Button>>();
+    private int tiCurQuestionPage = 0;
+    private Button tlastQuestionPage;
+    private Button tnextQuestionPage;
+    private TypingBox tquestionSearch = new TypingBox(new Rectangle(100, 500, 600, 50), "Search question...");
+    private int tiChosenQuestion = 0;
+    
+    //Menu liste propositions questions Teacher
+    private Map<Integer, HashMap<TextBox, Button>> tPropositionArray = new HashMap<Integer, HashMap<TextBox, Button>>();
+    private int tiCurPropositionPage = 0;
+    private Button tLastPropPage;
+    private Button tNextPropPage;
+    private TypingBox tAnswer = new TypingBox(new Rectangle (150, 100, 400, 50), "Enter your answer..."); //A toi de modifier les valeurs pour Rectangle pour bien positionner le champ de texte
+    private Button tValidateAnswer;
+    private TextBox tQuestion = new TextBox(new Rectangle(100, 25, 600, 50)); //Même chose, je te laisse positionner le rectangle
+    private String tQuestionText = "";
+    private Button tCancelAnswerButton;
+    private boolean bHasAnswered = false;
+    private UserMessage teacherAnswerMessage = new UserMessage(new Point(100, 500));
+    
+    //Back button Teacher
+    private Button tbackButton;
+    
+    //*** FIN ELEMENTS TEACHER ***//
+    
 }   
