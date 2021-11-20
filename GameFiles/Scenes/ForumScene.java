@@ -825,6 +825,11 @@ public class ForumScene extends AScene {
         }
     }
     
+    /**
+     * Mise jour de la liste de question posee par les etudiants dans le cadre de teacher
+     * @author Godfree Akakpo
+     * @throws SQLException Erreurs lors des envois de requetes de sql
+     */
     private void ResetTeacherQuestionList() throws SQLException {
     	 tquestionArray.clear();
          //DÃ©finition des mots clÃ©s
@@ -885,6 +890,12 @@ public class ForumScene extends AScene {
          }
     }
     
+    
+    /**
+     * Mise a jour de la liste des propositions donner par les etudiants dans le cadre de teacher pour une question
+     * @author Godfree Akakpo
+     * @throws SQLException Erreurs lors des envois de requetes SQL
+     */
     private void ResetTeacherQuestionPropositionList() throws SQLException {
     	tPropositionArray.clear();
     	//On récupère la liste des questions et des propositions selon l'id que l'on a enregistré via le bouton answer
