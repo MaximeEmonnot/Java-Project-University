@@ -1171,3 +1171,31 @@ values (1, 1, 'Facile', '15 + 48 = ?', '010', '54', '63', '36', ''),
 (1, 60, 'Facile', '', '01', '', '', '', ''),
 (1, 60, 'Facile', '', '01', '', '', '', '');
 
+/* Ajout Questions Forum */
+
+INSERT INTO forumQuestion(question, id_student, answer)
+VALUES('Question1', 1, ''),
+('Question2', 1, ''),
+('Question3', 1, ''),
+('Question4', 1, ''),
+('Question5', 1, ''),
+('Question6', 1, ''),
+('Question7', 1, ''),
+('Question8', 1, ''),
+('Question9', 1, ''),
+('Question10', 1, ''),
+('Question11', 1, ''),
+('Question12', 1, ''),
+('Question13', 1, '');
+
+/* Ajout propositions questions forum */
+
+INSERT INTO forumProposition(id_question, proposition)
+VALUES(1, 'Proposition1'),
+(1, 'Proposition2'),
+(1, 'Proposition3'),
+(1, 'Proposition4'),
+(1, 'Proposition5'),
+(2, 'Proposition1'),
+(2, 'Proposition2'),
+(2, 'Proposition3');
