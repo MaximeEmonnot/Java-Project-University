@@ -380,7 +380,6 @@ public class SearchScene extends AScene{
                     String[] args = name.split(" - ");
                     ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
                     while(questionSet.next()){
-                    	System.out.println("Question clicked !");
                         if (questionSet.getString("reponseD").length() != 0){
                             AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
                             switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){
