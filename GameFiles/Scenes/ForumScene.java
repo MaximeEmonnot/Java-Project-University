@@ -34,6 +34,7 @@ public class ForumScene extends AScene {
         STUDENT_ASK,
         STUDENT_QUESTION_LIST,
         STUDENT_PROPOSE,
+        STUDENT_CHECK_ANSWER,
         STUDENT_MANAGE_QUESTION,
         TEACHER_QUESTION_LIST,
         TEACHER_ANSWER_QUESTION
@@ -330,6 +331,11 @@ public class ForumScene extends AScene {
                 }
                 studentPropositionMessage.Update();
                 break;
+            case STUDENT_CHECK_ANSWER:
+                if (exitPropositionButton.OnClick(e)){
+                    exitPropositionButton.ComputeFunction();
+                }
+                break;
             case STUDENT_MANAGE_QUESTION:
                 if (questionDeleteArray.containsKey(iCurDeletePage)){
                     Iterator<Map.Entry<TextBox, Button>> itrQuestionDelete = questionDeleteArray.get(iCurDeletePage).entrySet().iterator();
@@ -374,7 +380,7 @@ public class ForumScene extends AScene {
     	
         switch(currentStage){
             case SELECTION:
-            	//j'aicommencé par ici
+            	//j'aicommencï¿½ par ici
             	
             	if (teacherQuestionListButton.OnClick(e)){
             		 teacherQuestionListButton.ComputeFunction(); 
@@ -549,6 +555,7 @@ public class ForumScene extends AScene {
             }
             break;
         case STUDENT_PROPOSE:
+            chosenQuestion.Draw(chosenQuestionText, Color.BLACK, Color.GRAY, Color.WHITE);
             proposition.Draw();
             if (addPropositionButton.IsClicked()){
                 addPropositionButton.Draw(Color.DARK_GRAY);
@@ -563,6 +570,16 @@ public class ForumScene extends AScene {
                 exitPropositionButton.Draw(Color.LIGHT_GRAY);
             }
             studentPropositionMessage.Draw();
+            break;
+        case STUDENT_CHECK_ANSWER:
+            chosenQuestion.Draw(chosenQuestionText, Color.BLACK, Color.GRAY, Color.WHITE);
+            chosenQuestionAnswer.Draw(chosenQuestionAnswerText, Color.BLACK, Color.GRAY, Color.WHITE);
+            if (exitPropositionButton.IsClicked()){
+                exitPropositionButton.Draw(Color.DARK_GRAY);
+            }
+            else{
+                exitPropositionButton.Draw(Color.LIGHT_GRAY);
+            }
             break;
         case STUDENT_MANAGE_QUESTION: 
             if (questionDeleteArray.containsKey(iCurDeletePage)){
@@ -620,17 +637,17 @@ public class ForumScene extends AScene {
             	tiCurQuestionPage = 0;
             	
             	//pour le bouton de la liste des questions
-            	if (questionListButton.IsClicked())
-           		 teacherQuestionListButton.Draw(Color.GREEN);
+            	if (teacherQuestionListButton.IsClicked())
+           		    teacherQuestionListButton.Draw(Color.DARK_GRAY);
             	else {
-           		 teacherQuestionListButton.Draw(Color.GRAY);
+           		    teacherQuestionListButton.Draw(Color.LIGHT_GRAY);
            		 }
             	//pour le boutton exit
                 if (exitForumButton.IsClicked()){
-                    exitForumButton.Draw(Color.GREEN);
+                    exitForumButton.Draw(Color.DARK_GRAY);
                 }
                 else{
-                    exitForumButton.Draw(Color.GRAY);
+                    exitForumButton.Draw(Color.LIGHT_GRAY);
                 }
             break;
             // pour afficher la liste des questions
@@ -758,19 +775,20 @@ public class ForumScene extends AScene {
         }
 
         ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " +  dbm.GetDatabaseName() + ".forumQuestion");
-        ArrayList<Map.Entry<Integer, Map.Entry<String, Integer>>> priorityQuestion = new ArrayList<Map.Entry<Integer, Map.Entry<String, Integer>>>();
+        ArrayList<Map.Entry<Integer, Map.Entry<String, Map.Entry<String, Integer>>>> priorityQuestion = new ArrayList<Map.Entry<Integer, Map.Entry<String, Map.Entry<String, Integer>>>>();
 
         while (questionSet.next()){
             int id = questionSet.getInt("id");
-            String questionStr = questionSet.getString("question").toLowerCase();
+            String questionStr = questionSet.getString("question");
+            String answerStr = questionSet.getString("answer");
             
             int nKeyW = 0;
             for (String key : keyWords){
-                if (questionStr.contains(key)){
+                if (questionStr.toLowerCase().contains(key)){
                     nKeyW++;
                 }
             }
-            priorityQuestion.add(Map.entry(nKeyW, Map.entry(questionStr, id)));
+            priorityQuestion.add(Map.entry(nKeyW, Map.entry(questionStr, Map.entry(answerStr, id))));
         }
 
         priorityQuestion.sort((e0, e1) -> e1.getKey() - e0.getKey());
@@ -782,12 +800,25 @@ public class ForumScene extends AScene {
                     if (!questionArray.containsKey(i/5)){
                         questionArray.put(i/5, new HashMap<TextBox, Button>());
                     }
-                    int id = priorityQuestion.get(i).getValue().getValue();
-                    questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
-                        proposition.Clear();
-                        currentStage = SceneStage.STUDENT_PROPOSE;
-                        iChosenQuestion = id;
-                    }));
+                    int id = priorityQuestion.get(i).getValue().getValue().getValue();
+                    String questionStr = priorityQuestion.get(i).getValue().getKey();
+                    String answerStr = priorityQuestion.get(i).getValue().getValue().getKey();
+                    if (answerStr.length() == 0){
+                        questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), questionStr), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
+                            proposition.Clear();
+                            currentStage = SceneStage.STUDENT_PROPOSE;
+                            iChosenQuestion = id;
+                            chosenQuestionText = questionStr;
+                        }));
+                    }
+                    else{
+                        questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), questionStr), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "See answer", () -> { 
+                            currentStage = SceneStage.STUDENT_CHECK_ANSWER;
+                            iChosenQuestion = id;
+                            chosenQuestionText = questionStr;
+                            chosenQuestionAnswerText = answerStr;
+                        }));
+                    }
                 }
             }
         }
@@ -849,11 +880,11 @@ public class ForumScene extends AScene {
          while (questionSet.next()){
         	 if(questionSet.getString("answer").length() == 0) {
         		 int id = questionSet.getInt("id");
-             	String questionStr = questionSet.getString("question").toLowerCase();
+             	String questionStr = questionSet.getString("question");
              
              	int nKeyW = 0;
              	for (String key : keyWords){
-                 	if (questionStr.contains(key)){
+                 	if (questionStr.toLowerCase().contains(key)){
                      	nKeyW++;
                  	}
              	}
@@ -874,11 +905,11 @@ public class ForumScene extends AScene {
                      tquestionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Answer", () -> { 
                     	 //Fonction inscrite dans le bouton Answer
                     	 try {
-                    		 //Passage à la phase de scène ANSWER_QUESTION
+                    		 //Passage ï¿½ la phase de scï¿½ne ANSWER_QUESTION
                     		 currentStage = SceneStage.TEACHER_ANSWER_QUESTION;
-                    		 //On garde en mémoire l'id de la question pour la réutiliser plus tard
+                    		 //On garde en mï¿½moire l'id de la question pour la rï¿½utiliser plus tard
                     		 tiChosenQuestion = id;
-                    		 //On met à jour la liste des propositions pour la question sélectionnée
+                    		 //On met ï¿½ jour la liste des propositions pour la question sï¿½lectionnï¿½e
 							 ResetTeacherQuestionPropositionList();
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -898,7 +929,7 @@ public class ForumScene extends AScene {
      */
     private void ResetTeacherQuestionPropositionList() throws SQLException {
     	tPropositionArray.clear();
-    	//On récupère la liste des questions et des propositions selon l'id que l'on a enregistré via le bouton answer
+    	//On rï¿½cupï¿½re la liste des questions et des propositions selon l'id que l'on a enregistrï¿½ via le bouton answer
     	ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".forumQuestion WHERE " + dbm.GetDatabaseName() + ".forumQuestion.id = " + tiChosenQuestion + ";");
     	if (questionSet.next()) {
     		tQuestionText = questionSet.getString("question");
@@ -907,21 +938,16 @@ public class ForumScene extends AScene {
     		while(propositionSet.next()) {
     		
     			/*
-    		 	* On ajoute les différentes pages de proposition. Si une page existe déjà, on ajoute juste la proposition dans la page
-    		 	* Ensuite, pour l'ajout de propositions, on définit une TextBox et un Bouton.
-    		 	* La position du couple TextBox/Bouton dépend du nombre d'éléments parcourus dans le tableau (valeur i)
-    		 	* Ici, nous avons 4 couples possibles (modifiable à ta guise, pour cela tu dois modifier les i / 4 et les i % 4).
-    		 	* Je te laisse également disposer les coordonnées des rectangles comme tu le souhaites, sachant que :
-    		 	* pour la partie x : abscisse du coin en haut à gauche du bloc de toutes les propositions
-    		 	* pour la partie y : ordonnée du coin en haut à gauche du bloc de toutes les proposition à laquelle on ajoute un décalage multiplié par i % 4 (tu peux regarder la méthode ResetStudentQuestionDeleteList() comme exemple si tu le souhaites)
-    		 	* partie width et height comme habituellement, juste faire attention à que les rectangles de TextBox et Bouton ne se chevauchent pas
+    		 	* On ajoute les diffï¿½rentes pages de proposition. Si une page existe dï¿½jï¿½, on ajoute juste la proposition dans la page
+    		 	* Ensuite, pour l'ajout de propositions, on dï¿½finit une TextBox et un Bouton.
+    		 	* La position du couple TextBox/Bouton dï¿½pend du nombre d'ï¿½lï¿½ments parcourus dans le tableau (valeur i)
     		 	*/
     			if (!tPropositionArray.containsKey(i / 4)) {
     				tPropositionArray.put(i / 4, new HashMap<TextBox, Button>());
     			}
     			String prop = propositionSet.getString("proposition");
     			tPropositionArray.get(i/4).put(new TextBox(new Rectangle(150, 175 + (i % 4) * 75, 400, 50), prop), new Button(new Rectangle(550, 175 + (i % 4) * 75, 100, 50), "Select", () -> {
-    				//Fonction dans les boutons Select (à faire plus tard)
+    				//Fonction dans les boutons Select (ï¿½ faire plus tard)
     				try {
 						dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + prop + "' WHERE id = " + tiChosenQuestion + ";");
 						bHasAnswered = true;
@@ -960,11 +986,17 @@ public class ForumScene extends AScene {
     private int iChosenQuestion = 0;
     
     //Menu proposition Etudiant
+    private TextBox chosenQuestion = new TextBox(new Rectangle(100, 25, 600, 50));
+    private String chosenQuestionText = "";
     private TypingBox proposition = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your proposition...");
     private UserMessage studentPropositionMessage = new UserMessage(new Point(100, 225));
     private Button addPropositionButton;
     private Button exitPropositionButton;
     
+    //Menu check answer Etudiant
+    private TextBox chosenQuestionAnswer = new TextBox(new Rectangle(150, 100, 500, 50));
+    private String chosenQuestionAnswerText = "";
+
     //Menu gestion questions Etudiant
     private Map<Integer, HashMap<TextBox, Button>> questionDeleteArray = new HashMap<Integer, HashMap<TextBox, Button>>();
     private int iCurDeletePage = 0;
@@ -999,9 +1031,9 @@ public class ForumScene extends AScene {
     private int tiCurPropositionPage = 0;
     private Button tLastPropPage;
     private Button tNextPropPage;
-    private TypingBox tAnswer = new TypingBox(new Rectangle (150, 100, 400, 50), "Enter your answer..."); //A toi de modifier les valeurs pour Rectangle pour bien positionner le champ de texte
+    private TypingBox tAnswer = new TypingBox(new Rectangle (150, 100, 400, 50), "Enter your answer...");
     private Button tValidateAnswer;
-    private TextBox tQuestion = new TextBox(new Rectangle(100, 25, 600, 50)); //Même chose, je te laisse positionner le rectangle
+    private TextBox tQuestion = new TextBox(new Rectangle(100, 25, 600, 50)); 
     private String tQuestionText = "";
     private Button tCancelAnswerButton;
     private boolean bHasAnswered = false;
