@@ -454,7 +454,7 @@ public class ForumScene extends AScene {
             	}
             	teacherAnswerMessage.Update();
             	
-            	if (tCancelAnswerButton.OnClick(e)) {
+                if (tCancelAnswerButton.OnClick(e)) {
             		tCancelAnswerButton.ComputeFunction();
             	}
             break;
@@ -949,7 +949,7 @@ public class ForumScene extends AScene {
     			tPropositionArray.get(i/4).put(new TextBox(new Rectangle(150, 175 + (i % 4) * 75, 400, 50), prop), new Button(new Rectangle(550, 175 + (i % 4) * 75, 100, 50), "Select", () -> {
     				//Fonction dans les boutons Select (� faire plus tard)
     				try {
-						dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + prop + "' WHERE id = " + tiChosenQuestion + ";");
+						dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + prop.replace("'", "\\'") + "' WHERE id = " + tiChosenQuestion + ";");
 						bHasAnswered = true;
 						teacherAnswerMessage.SetMessage("Reponse validee pour : " + tQuestionText, Color.GREEN, 2.0f);
 					} catch (SQLException e) {
