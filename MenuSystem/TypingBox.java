@@ -100,7 +100,7 @@ public class TypingBox {
      * @return Texte entre par l'utilisateur
      */
     public String GetText(){
-        return text.replace("|", "");
+        return text.replace("|", "").replace("'", "\\'");
     }
 
     /**
