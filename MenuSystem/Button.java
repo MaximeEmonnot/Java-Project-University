@@ -37,8 +37,10 @@ public class Button {
      */
     public boolean OnClick(CoreSystem.Mouse.EventType e){
         bIsClicked = false;
-        if (rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos()) && e == CoreSystem.Mouse.EventType.LPress){
-            bIsClicked = true;
+        if (rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
+            if (e == CoreSystem.Mouse.EventType.LPress){
+                bIsClicked = true;
+            }
         }
         return bIsClicked;
     }

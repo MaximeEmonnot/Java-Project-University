@@ -357,30 +357,29 @@ public class SearchScene extends AScene{
         ResultSet rs = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject =  " + dbm.GetDatabaseName() + ".sujets.id");
         while(rs.next()){
             String name = String.valueOf(rs.getLong("id_prof"))  + " - " + rs.getString("domaine") + " - " + rs.getString("categorie") + " - " + rs.getString("niveau");
-            domains.add(rs.getString("domaine"));
-            if (!categories.containsKey(rs.getString("domaine"))){
-                categories.put(rs.getString("domaine"), new HashSet<String>());
+            String[] args = name.split(" - ");
+            domains.add(args[1]);
+            if (!categories.containsKey(args[1])){
+                categories.put(args[1], new HashSet<String>());
             }
-            categories.get(rs.getString("domaine")).add(rs.getString("categorie"));
-            if (!difficulty.containsKey(rs.getString("domaine"))){
-                difficulty.put(rs.getString("domaine"), new HashMap<String, HashSet<String>>());
-                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
+            categories.get(args[1]).add(args[2]);
+            if (!difficulty.containsKey(args[1])){
+                difficulty.put(args[1], new HashMap<String, HashSet<String>>());
+                difficulty.get(args[1]).put(args[2], new HashSet<String>());
             }
-            else if (!difficulty.get(rs.getString("domaine")).containsKey(rs.getString("categorie"))){
-                difficulty.get(rs.getString("domaine")).put(rs.getString("categorie"), new HashSet<String>());
+            else if (!difficulty.get(args[1]).containsKey(args[2])){
+                difficulty.get(args[1]).put(args[2], new HashSet<String>());
             }
-            difficulty.get(rs.getString("domaine")).get(rs.getString("categorie")).add(rs.getString("niveau"));
+            difficulty.get(args[1]).get(args[2]).add(args[3]);
             ddcArray.add(new Button(new Rectangle(0, 0, 0, 0), name, () -> {
                 bChangeScene = true;
                 nextSceneIndex = 3;
                 currentQuizz = name;
-                
                 try {
                     questions.clear();
-                    String[] args = name.split(" - ");
-                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1] + "\" AND categorie = \"" + args[2] + "\" AND niveau = \"" + args[3] + "\")");
+                    ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1].replace("'", "\\'") + "\" AND categorie = \"" + args[2].replace("'", "\\'") + "\" AND niveau = \"" + args[3] + "\")");
                     while(questionSet.next()){
-                    	System.out.println("Question clicked !");
+
                         if (questionSet.getString("reponseD").length() != 0){
                             AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
                             switch(Integer.parseInt(questionSet.getString("code_reponses"), 2)){

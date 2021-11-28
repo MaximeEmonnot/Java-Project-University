@@ -65,7 +65,6 @@ public class QuizzScene extends AScene {
     @Override
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
-    	System.out.println(iCurQuestion);
         questions.get(iCurQuestion).Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LIVES : " + lives, new Point(10, 500), Color.BLACK, 15);
     }
@@ -76,7 +75,7 @@ public class QuizzScene extends AScene {
             if (studentSet.next()){
                 String[] statsArgs = currentQuizz.split(" - ");
                 int studentId = studentSet.getInt("id_etudiant");
-                ResultSet subjectSet = dbm.GetResultFromSQLRequest("SELECT id FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + statsArgs[1] + "' AND categorie = '" + statsArgs[2] + "' AND niveau = '" + statsArgs[3] + "';");
+                ResultSet subjectSet = dbm.GetResultFromSQLRequest("SELECT id FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + statsArgs[1].replace("'", "\\'") + "' AND categorie = '" + statsArgs[2].replace("'", "\\'") + "' AND niveau = '" + statsArgs[3] + "';");
                 if (subjectSet.next()) {
                     int subjectId = subjectSet.getInt("id");
                     float currentScore = (float)rightAnswers / (float)questions.size() * 100;
