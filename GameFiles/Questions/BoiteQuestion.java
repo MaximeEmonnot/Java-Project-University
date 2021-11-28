@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
 import GameFiles.Questions.InteractiveItems.Boite;
-import GameFiles.Questions.InteractiveItems.Egg;
 
 public class BoiteQuestion extends ATripleAnswerQuestion {
     private Boite boiteA;
@@ -78,8 +77,8 @@ public class BoiteQuestion extends ATripleAnswerQuestion {
 	        boiteC.Draw();
 
 	        //Drawing text
-	        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A", new Point(175, 120), Color.black);
-	        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B", new Point(395, 120), Color.black);
+	        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A", new Point(175, 120), Color.BLACK);
+	        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B", new Point(395, 120), Color.BLACK);
 	        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("C", new Point(612, 120), Color.BLACK);
 	    }
 }

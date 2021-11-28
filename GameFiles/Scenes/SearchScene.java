@@ -461,8 +461,15 @@ public class SearchScene extends AScene{
                             default :
                                 break;
                             }
-
-                            questions.add(new BoiteQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                            
+                            //Génération aléatoire de mini-jeux (structure à reprendre pour les minis jeux à 2 et 4 réponses)
+                            double rng = Math.random() * 2;
+                            if (rng < 1){
+                                questions.add(new ConcreteTripleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                            }
+                            else{
+                                questions.add(new BoiteQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                            }
                         }
                         else{
                             ADoubleAnswerQuestion.AnswerType type = ADoubleAnswerQuestion.AnswerType.NONE;
