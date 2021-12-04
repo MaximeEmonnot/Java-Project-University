@@ -431,8 +431,16 @@ public class SearchScene extends AScene{
                                 default:
                                     break;
                             }
+                            
+                            double rng = Math.random() * 2;
+                            if (rng < 1){
+                            	questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            }
+                            else{
+                            	questions.add(new CardQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            }
 
-                            questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            //questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
                         }
                         else if (questionSet.getString("reponseC").length() != 0) {
                             ATripleAnswerQuestion.AnswerType type = ATripleAnswerQuestion.AnswerType.NONE;

@@ -72,7 +72,7 @@ public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
                 break;
             case ANSWER_BD:
                 catB.SetCatRightness(true);
-                catB.SetCatRightness(true);
+                catD.SetCatRightness(true);
                 break;
             case ANSWER_CD:
                 catC.SetCatRightness(true);
