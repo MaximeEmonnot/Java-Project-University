@@ -12,87 +12,87 @@ public class CardQuestion extends AQuadrupleAnswerQuestion{
 	       
 	        switch (_type){
 	        case ANSWER_A:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64),false);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64),false);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64),false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64),false);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64),false);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64),false);
 	            break;
 	        case ANSWER_B:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64),false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), false);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64),false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64),false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), false);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64),false);
 	            break;
 	        case ANSWER_C:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), false);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64),true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), false);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64),true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), false);
 	            break;
 	        case ANSWER_D:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), false);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), false);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), false);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), false);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	            break;
 	        case ANSWER_AB:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), false);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), false);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), false);
 	            break;
 	        case ANSWER_AC:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), false);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), false);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), false);
 	            break;
 	        case ANSWER_BC:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), false);
 	            break;
 	        case ANSWER_BD:
-                cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), false);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+                cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), false);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	            break;
 	        case ANSWER_CD:
-	        	cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), false);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	        	cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), false);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	            break;
 	        case ANSWER_ABC:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), false);
 	            break;
 	        case ANSWER_ABD:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), false);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), false);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	            break;
 	        case ANSWER_ACD:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64),false);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64),false);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	        case ANSWER_BCD:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), false);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), false);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	            break;
 	        case ANSWER_ABCD:
-	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(100, 150, 64, 64), true);
-	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(275, 150, 64, 64), true);
-	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(450, 150, 64, 64), true);
-	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(625, 150, 64, 64), false);
+	            cardA = new Card(new Rectangle(100, 150, 71, 96), new Rectangle(115, 200, 64, 64), true);
+	            cardB = new Card(new Rectangle(275, 150, 71, 96), new Rectangle(290, 200, 64, 64), true);
+	            cardC = new Card(new Rectangle(450, 150, 71, 96), new Rectangle(465, 200, 64, 64), true);
+	            cardD = new Card(new Rectangle(625, 150, 71, 96), new Rectangle(640, 200, 64, 64), true);
 	            break;
 	        default:
 	            break;

@@ -3,7 +3,6 @@ package GameFiles.Questions.InteractiveItems;
 import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
-import GraphicsEngine.Animation;
 import GraphicsEngine.Sprite;
 
 public class Card{ 
@@ -21,15 +20,14 @@ public class Card{
 		    srcRectValue = new Rectangle(0 + value * 71, 0 + color * 96, 71, 96);
 		    if (bIsRight) {
 		    	srcCross = new Rectangle(0, 0,64, 64);
-		    	Animation inside = new Animation(srcCross, 4,  cross, 0.1f);
-		    	}else { 
+		    	}
+				else { 
 		    	srcCross = new Rectangle(64, 0, 64, 64);
-		    	Animation inside = new Animation(srcCross, 4,  cross, 0.1f);
-		    }
+		    	}
 		  }
 
 		  public void Update(CoreSystem.Mouse.EventType e){
-		    if (e == CoreSystem.Mouse.EventType.LCLick && destRect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
+		    if (e == CoreSystem.Mouse.EventType.LRelease && destRect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
 		      bIsRevealed = true;
 		    }
 		  }
