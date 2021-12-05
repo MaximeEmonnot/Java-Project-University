@@ -5,8 +5,24 @@ import java.awt.*;
 import Exceptions.ProjectException;
 import GameFiles.Questions.InteractiveItems.Card;
 
+/**
+ * Mini-jeu a quatre propositions de reponse
+ * Quatre Cartes de dos representent les qautres possibilites, l'utilisateur doit cliquer sur la carte correspondante a la bonne reponse
+ * @author Ahmad
+ */
 public class CardQuestion extends AQuadrupleAnswerQuestion{
 
+	/**
+     * Constructeur CardQuestion
+     * Reprend le constructeur de AQuadrupleAnswerQuestion et initialise les differentes cartes pour la bonne reponse
+     * @author Ahmad
+     * @param _question Intitule question
+     * @param _answerA Proposition A
+     * @param _answerB Proposition B
+     * @param _answerC Proposition C
+     * @param _answerD Proposition D
+     * @param _type Reponse correcte
+     */
 	    public CardQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
 	        super(_question, _anwserA, _answerB, _answerC, _answerD, _type);
 	       
@@ -101,7 +117,12 @@ public class CardQuestion extends AQuadrupleAnswerQuestion{
 
 	    }
 
-	    
+	    /**
+	     * {@inheritDoc}
+	     * Mise a jour du mini-jeu
+	     * Mise a jour des etats de la carte, ainsi que des etats de d'echec et de succes
+	     * @author Ahmad
+	     */
 	    @Override
 	    public void Update() {
 	        // TODO Auto-generated method stub
@@ -119,7 +140,11 @@ public class CardQuestion extends AQuadrupleAnswerQuestion{
 	        bIsLost = bIsLost || (cardA.HasLost() || cardB.HasLost() || cardC.HasLost() || cardD.HasLost());
 	    }
 
-	   
+	    /**
+	     * {@inheritDoc}
+	     * Affichage des differentes cartes et du text A,B,C et D correspondant a chaque cartes
+	     * @author Ahmad
+	     */
 	    @Override
 	    public void Draw() throws ProjectException{
 	        super.Draw();

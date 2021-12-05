@@ -4,8 +4,23 @@ import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
 import GraphicsEngine.Sprite;
-
+/**
+ * Card utilisé dans CardQuestion
+ * Possede 2 phases, passant de l'une a l'autre apres un clic.
+ * Le contenu, apres les 2 phases, indique sur le succes ou l'echec
+ * @author Ahmad
+ */
 public class Card{ 
+	/**
+     * Constructeur Card
+     * Initilisation de l'oeuf, ainsi que du contenu selon un rectangle de position de l'oeuf, un rectangle de position du contenu, et un booleen donnes
+     * @author Ahmad
+     * @param _destRect Rectangle indicant le type de la carte après le clic sur la carte
+     * @param _destCross Rectangle de la croix d'echec ou de validation
+     * @param _bIsRight Valeur indicant s'il s'agit de la bonne reponse
+     * Choix 4 des cartes et de leur couleurs aleatoirement dans le spritesheet 
+     * Initialisation du rectangle de la croix
+     */
 	  public Card(Rectangle _destRect, Rectangle _destCross, boolean _bIsRight){
 		    destRect = _destRect;
 		    destCross = _destCross;
@@ -25,13 +40,24 @@ public class Card{
 		    	srcCross = new Rectangle(64, 0, 64, 64);
 		    	}
 		  }
-
+	  
+	  	  /**
+	  	 	* Mise a jour de l'oeuf, selon une entree souris donnee
+		     * @author Ahmad
+		     * @param e Entree souris enregistree dans CardQuestion
+		     */
 		  public void Update(CoreSystem.Mouse.EventType e){
 		    if (e == CoreSystem.Mouse.EventType.LRelease && destRect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
 		      bIsRevealed = true;
 		    }
 		  }
-
+		  
+		  /**
+		   	 *Affichage des cartes de dos dans un premier temps
+		     * Affichage des cartes, ainsi que de la croix d'echec ou de validation
+		     * @author Ahmad
+		     * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+		     */
 		  public void Draw() throws ProjectException{ 
 		    if (bIsRevealed) {
 		      GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(card, destRect, srcRectValue);
@@ -40,9 +66,18 @@ public class Card{
 		    else GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(card, destRect, srcRectBack);
 		  }
 
+		  /**
+		     * Recuperation de l'etat de succes
+		     * @return Vrai si la mauvaise reponse est selectionnee, Faux sinon
+		     */
 		  public boolean HasWon(){
 		    return bIsRight && bIsRevealed;
 		  }
+		  
+		  /**
+		     * Recuperation de l'etat d'echec
+		     * @return Vrai si la mauvaise reponse est selectionnee, Faux sinon
+		     */
 		  public boolean HasLost(){
 		    return !bIsRight && bIsRevealed;
 		  }
