@@ -63,6 +63,7 @@ public class CadeauQuestion extends ADoubleAnswerQuestion {
 	
 	public void Draw() throws ProjectException {
         super.Draw();
+        
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);
         cadGauche.Draw();
         cadDroite.Draw();
