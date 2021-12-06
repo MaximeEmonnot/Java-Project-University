@@ -18,8 +18,7 @@ public class Bubble {
         int[] sizes = {16, 24, 32, 48};
         int[] dir = {-1, 1};
 
-        xVel = ((int)(Math.random() * 4) + 1) * dir[(int)(Math.random() * 2)];
-        yVel = ((int)(Math.random() * 4) + 1) * dir[(int)(Math.random() * 2)];
+        vel = new Point(((int)(Math.random() * 4) + 1) * dir[(int)(Math.random() * 2)], ((int)(Math.random() * 4) + 1) * dir[(int)(Math.random() * 2)]);
         destRect.x = startingDest.x + (int)(Math.random() * startingDest.width);
         destRect.y = startingDest.y + (int)(Math.random() * startingDest.height); 
         destRect.width = sizes[(int)(Math.random() * 4)];
@@ -27,8 +26,8 @@ public class Bubble {
     }
 
     public void Update(){
-        destRect.x += xVel;
-        destRect.y += yVel;
+        destRect.x += (int)vel.getX();
+        destRect.y += (int)vel.getY();
     }
 
     public void Draw() throws ProjectException{
@@ -38,6 +37,5 @@ public class Bubble {
     private static final Sprite sprite = new Sprite("Images/bubbles.png");
     private final Animation anim;
     private Rectangle destRect = new Rectangle(0, 0, 0, 0);
-    private final int xVel;
-    private final int yVel;
+    private final Point vel;
 }
