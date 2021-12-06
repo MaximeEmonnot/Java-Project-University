@@ -61,15 +61,7 @@ public class Cadeau {
 		}
 		
 	}
-	
-	public boolean isbIsRevealed() {
-		return bIsRevealed;
-	}
-	
-	public void setbIsRevealed(boolean bIsRevealed) {
-		this.bIsRevealed = bIsRevealed;
-	}
-	
+
 	public boolean HasWon(){
 		return bIsRight && bIsRevealed;
     }
