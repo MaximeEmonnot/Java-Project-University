@@ -1,7 +1,6 @@
 package GameFiles.Questions;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
@@ -11,8 +10,8 @@ import GameFiles.Questions.InteractiveItems.Cadeau;
  * 
  * @author Lansana Diakite
  * Le mini jeu des cadeaux, en concret
- * Hérite de ADOubleAnswer
- * Mini jeu valable pour les quizzs à deux réponses
+ * Hï¿½rite de ADOubleAnswer
+ * Mini jeu valable pour les quizzs ï¿½ deux rï¿½ponses
  * 
  *
  */

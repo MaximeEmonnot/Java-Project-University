@@ -495,7 +495,7 @@ public class SearchScene extends AScene{
                                 break;
                             }
                             double rng = Math.random() * 2;
-                            if (rng < 1){
+                            if (rng < 2){
                                 questions.add(new CadeauQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
                             }
                             else{
