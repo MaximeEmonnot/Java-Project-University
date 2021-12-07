@@ -496,8 +496,18 @@ public class SearchScene extends AScene{
                             default:
                                 break;
                             }
+                            double rng = Math.random() * 3;
+                            if (rng < 1){
+                                questions.add(new HandCoinQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                            }
+                            else if (rng > 2){
+                                questions.add(new CadeauQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                            }
+                            else{
+                                questions.add(new ConcreteDoubleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+
+                            }
                            
-                            questions.add(new ConcreteDoubleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
                         }
                     }
                     Collections.shuffle(questions);
