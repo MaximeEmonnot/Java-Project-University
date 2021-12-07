@@ -12,87 +12,87 @@ public class CardBoardQuestion extends AQuadrupleAnswerQuestion{
 	       
 	        switch (_type){
 	        case ANSWER_A:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64),false);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64),false);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64),false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 190, 78, 86),false);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 190, 78, 86),false);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86),false);
 	            break;
 	        case ANSWER_B:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64),false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), false);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64),false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86),false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 190, 78, 86), false);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86),false);
 	            break;
 	        case ANSWER_C:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), false);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64),true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86), false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 190, 78, 86), false);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64),true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86), false);
 	            break;
 	        case ANSWER_D:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), false);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), false);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86), false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 190, 78, 86), false);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 190, 78, 86), false);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	            break;
 	        case ANSWER_AB:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), false);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 190, 78, 86), false);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86), false);
 	            break;
 	        case ANSWER_AC:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 32), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 32), new Rectangle(290, 200, 40, 64), false);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 32), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 32), new Rectangle(625, 150, 40, 64), false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 190, 78, 86), false);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86), false);
 	            break;
 	        case ANSWER_BC:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 32), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 32), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 32), new Rectangle(625, 150, 40, 64), false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86), false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86), false);
 	            break;
 	        case ANSWER_BD:
-                CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), false);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+                CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86), false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 190, 78, 86), false);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	            break;
 	        case ANSWER_CD:
-	        	CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), false);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+	        	CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86), false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 190, 78, 86), false);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	            break;
 	        case ANSWER_ABC:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), false);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 190, 78, 86), false);
 	            break;
 	        case ANSWER_ABD:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), false);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 190, 78, 86), false);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	            break;
 	        case ANSWER_ACD:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64),false);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 190, 78, 86),false);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	        case ANSWER_BCD:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), false);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 190, 78, 86), false);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	            break;
 	        case ANSWER_ABCD:
-	            CardBoardA = new CardBoard(new Rectangle(100, 150, 40, 64), new Rectangle(115, 200, 40, 64), true);
-	            CardBoardB = new CardBoard(new Rectangle(275, 150, 40, 64), new Rectangle(290, 200, 40, 64), true);
-	            CardBoardC = new CardBoard(new Rectangle(450, 150, 40, 64), new Rectangle(465, 200, 40, 64), true);
-	            CardBoardD = new CardBoard(new Rectangle(625, 150, 40, 64), new Rectangle(625, 150, 40, 64), true);
+	            CardBoardA = new CardBoard(new Rectangle(100, 150, 100, 160), new Rectangle(115, 200, 64, 64), true);
+	            CardBoardB = new CardBoard(new Rectangle(275, 150, 100, 160), new Rectangle(290, 200, 64, 64), true);
+	            CardBoardC = new CardBoard(new Rectangle(450, 150, 100, 160), new Rectangle(465, 200, 64, 64), true);
+	            CardBoardD = new CardBoard(new Rectangle(625, 150, 100, 160), new Rectangle(625, 200, 64, 64), true);
 	            break;
 	        default:
 	            break;
@@ -106,13 +106,12 @@ public class CardBoardQuestion extends AQuadrupleAnswerQuestion{
 	        // TODO Auto-generated method stub
 	        super.Update();
 	        CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
-	        
-	        if (!bIsWon && !bIsLost){   
+	        if (bIsWon || bIsLost) e = CoreSystem.Mouse.EventType.None; 
+
 	        CardBoardA.Update(e);
 	        CardBoardB.Update(e);
 	        CardBoardC.Update(e);
 	        CardBoardD.Update(e);
-	        }
 
 	        bIsWon = (CardBoardA.HasWon() || CardBoardB.HasWon() || CardBoardC.HasWon() || CardBoardD.HasWon());
 	        bIsLost = bIsLost || (CardBoardA.HasLost() || CardBoardB.HasLost() || CardBoardC.HasLost() || CardBoardD.HasLost());

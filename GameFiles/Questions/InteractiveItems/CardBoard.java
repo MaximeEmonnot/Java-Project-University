@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
 import GraphicsEngine.Animation;
+import GraphicsEngine.GraphicsSystem;
 import GraphicsEngine.Sprite;
 
 public class CardBoard{ 
@@ -12,30 +13,24 @@ public class CardBoard{
 		    destRect = _destRect;
 		    destRep = _destRep;
 		    bIsRight = _bIsRight;
-		    if (bIsRight) {
-		    	srcRect = new Rectangle(destRect.x, destRect.y, 40, 64); 
-		    	inside = new Animation(new Rectangle(0, 0, 64, 64), 6, money, 0.1f);
-		    	inside2  = new Animation(new Rectangle(40, 0, 40, 64), 6, cardBoard, 0.1f);
-		    	}
-				else {
-					srcRect = new Rectangle(destRect.x, destRect.y, 40, 64); 
-					inside  = new Animation(new Rectangle(0, 0, 78, 86), 6, scorpion, 0.1f);
-					inside2  = new Animation(new Rectangle(40, 0, 40, 64), 6, cardBoard, 0.1f);
-		    	}
 		  }
 	  
 		  public void Update(CoreSystem.Mouse.EventType e){
 		    if (e == CoreSystem.Mouse.EventType.LRelease && destRect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
 		      bIsRevealed = true;
 		    }
+			if (bIsRevealed){
+				scorpion.Update();
+			}
 		  }
 		  
 		  public void Draw() throws ProjectException{ 
 		    if (bIsRevealed) {
-		    	inside2.Draw(srcRect);
-		    	inside.Draw(srcRect);
+				if (bIsRight) GraphicsSystem.GetInstance().DrawSprite(money, destRep, new Rectangle(0, 0, 64, 64), 1);
+		    	else scorpion.Draw(destRep, 1);
+				GraphicsSystem.GetInstance().DrawSprite(cardBoard, destRect, new Rectangle(40, 0, 40, 64));
 		    }
-		    else GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(cardBoard, destRect, srcCardF);
+		    else GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(cardBoard, destRect, new Rectangle(0, 0, 40, 64));
 		  }
 
 		  public boolean HasWon(){
@@ -46,14 +41,10 @@ public class CardBoard{
 		    return !bIsRight && bIsRevealed;
 		  }
 
-		  private Sprite money = new Sprite("Images/money.png");
-		  private Sprite scorpion = new Sprite("Images/scorpion.png");
 		  private Sprite cardBoard = new Sprite("Images/greenBoxStates.png");
-		  private Rectangle srcCardF = new Rectangle(0, 0, 40, 64);
-		  private Animation inside;
-		  private Animation inside2;
+		  private Sprite money = new Sprite("Images/money.png");
+		  private Animation scorpion = new Animation(new Rectangle(0, 0, 78, 86), 6, new Sprite("Images/scorpion.png"), 0.1f);
 		  private Rectangle destRect;
-		  private Rectangle srcRect;
 		  private Rectangle destRep;
 		  private boolean bIsRight;
 		  private boolean bIsRevealed = false;
