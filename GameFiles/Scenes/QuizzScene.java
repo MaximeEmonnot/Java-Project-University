@@ -35,7 +35,9 @@ public class QuizzScene extends AScene {
         nextSceneIndex = 2;
         
         SoundSystem.GetInstance().AddNewSong("Audio/coin.wav");
-        SoundSystem.GetInstance().AddNewSong("Audio/fart.wav");
+        SoundSystem.GetInstance().AddNewSong("Audio/bigFart.wav");
+        SoundSystem.GetInstance().AddNewSong("Audio/smallFart.wav");
+        SoundSystem.GetInstance().AddNewSong("Audio/wetFart.wav");
     }
 
     /**
@@ -71,7 +73,7 @@ public class QuizzScene extends AScene {
                     SoundSystem.GetInstance().RestartSong(0); //coin
                 }
                 else{
-                    SoundSystem.GetInstance().RestartSong(1); //fart
+                    SoundSystem.GetInstance().RestartSong((int)(Math.random() * 3) + 1); //fart
                 }
             }
             timerNextQuestion -= CoreSystem.Timer.GetInstance().DeltaTime();

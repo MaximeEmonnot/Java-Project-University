@@ -85,7 +85,7 @@ public class SoundSystem {
         long beginDelay = System.currentTimeMillis();
         while(System.currentTimeMillis() - beginDelay < 2){}
         clip.open(ais.get(index));
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.loop(0);
         clip.start();
         sStatus = SongStatus.PLAY;
     }
