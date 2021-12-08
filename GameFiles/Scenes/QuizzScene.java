@@ -1,7 +1,12 @@
 package GameFiles.Scenes;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mysql.cj.CoreSession;
+
 import Exceptions.ProjectException;
 import java.awt.*;
 
@@ -30,6 +35,12 @@ public class QuizzScene extends AScene {
     @Override
     public void Update() {
         // TODO Auto-generated method stub
+        if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_ESCAPE)){
+            bChangeScene = true;
+            rightAnswers = 0;
+            timerNextQuestion = 1.0f;
+        }
+
         if (lives <= 0){
             SendStatistics();
             bChangeScene = true;

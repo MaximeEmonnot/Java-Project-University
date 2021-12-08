@@ -12,7 +12,7 @@ public class Main {
             }
             
             GameFiles.Game theGame = new GameFiles.Game();
-            while(CoreSystem.Window.GetInstance().listensToEvents()){
+            while(true){
                 long beginFrame = System.currentTimeMillis();
                 theGame.Go();
                 while(System.currentTimeMillis() - beginFrame < 17){}
