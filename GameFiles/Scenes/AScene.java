@@ -1,8 +1,12 @@
 package GameFiles.Scenes;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import DataBaseSystem.DataBaseManager;
 import Exceptions.ProjectException;
@@ -26,8 +30,11 @@ public abstract class AScene {
      * Calculs et mises a jour de la scene
      * @author Maxime Emonnot
      * @throws SQLException Erreurs lors des envois de requetes SQL
+     * @throws LineUnavailableException
+     * @throws IOException
+     * @throws UnsupportedAudioFileException
      */
-    public abstract void Update() throws SQLException;
+    public abstract void Update() throws Exception;
     /**
      * Affichage de la scene
      * @author Maxime Emonnot

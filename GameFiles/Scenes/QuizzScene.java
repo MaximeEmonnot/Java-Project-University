@@ -2,12 +2,18 @@ package GameFiles.Scenes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.mysql.cj.CoreSession;
 
 import Exceptions.ProjectException;
+import SoundEngine.SoundSystem;
+
 import java.awt.*;
 
 /**
@@ -16,14 +22,20 @@ import java.awt.*;
  * @author Maxime Emonnot
  */
 public class QuizzScene extends AScene {
-
+    
     /**
      * Constructeur QuizzScene
      * Initialisation de l'index de la prochaine scene
      * @author Maxime Emonnot
+     * @throws LineUnavailableException
+     * @throws IOException
+     * @throws UnsupportedAudioFileException
      */
-    public QuizzScene(){
+    public QuizzScene() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         nextSceneIndex = 2;
+        
+        SoundSystem.GetInstance().AddNewSong("Audio/coin.wav");
+        SoundSystem.GetInstance().AddNewSong("Audio/fart.wav");
     }
 
     /**
@@ -31,9 +43,13 @@ public class QuizzScene extends AScene {
      * Mise a jour et calculs des differents mini-jeux.
      * Traitement des donnees de reussite ou d'echec
      * @author Maxime Emonnot
+     * @throws LineUnavailableException
+     * @throws IOException
+     * @throws UnsupportedAudioFileException
+     * @throws ProjectException
      */
     @Override
-    public void Update() {
+    public void Update() throws UnsupportedAudioFileException, IOException, LineUnavailableException, ProjectException {
         // TODO Auto-generated method stub
         if (CoreSystem.Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_ESCAPE)){
             bChangeScene = true;
@@ -49,6 +65,15 @@ public class QuizzScene extends AScene {
         
         questions.get(iCurQuestion).Update();
         if (questions.get(iCurQuestion).IsLost() || questions.get(iCurQuestion).IsWon()){
+            if (!bIsPlayingSong){
+                bIsPlayingSong = true;
+                if (questions.get(iCurQuestion).IsWon()){
+                    SoundSystem.GetInstance().RestartSong(0); //coin
+                }
+                else{
+                    SoundSystem.GetInstance().RestartSong(1); //fart
+                }
+            }
             timerNextQuestion -= CoreSystem.Timer.GetInstance().DeltaTime();
             if (timerNextQuestion <= 0.0f){
                 if (questions.get(iCurQuestion).IsLost()){
@@ -64,6 +89,12 @@ public class QuizzScene extends AScene {
                     rightAnswers = 0;
                 }
                 timerNextQuestion = 1.0f;
+            }
+        }
+        else{
+            if (bIsPlayingSong){
+                bIsPlayingSong = false;
+                SoundSystem.GetInstance().StopSong();
             }
         }
     }
@@ -109,4 +140,5 @@ public class QuizzScene extends AScene {
 
     private float timerNextQuestion = 1.0f;
     private int rightAnswers = 0;
+    private boolean bIsPlayingSong = false;
 }
