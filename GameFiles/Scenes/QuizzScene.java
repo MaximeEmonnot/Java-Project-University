@@ -90,10 +90,7 @@ public class QuizzScene extends AScene {
             }
         }
         else{
-            if (bIsPlayingSong){
-                bIsPlayingSong = false;
-                SoundSystem.GetInstance().StopSong();
-            }
+            bIsPlayingSong = false;
         }
     }
 

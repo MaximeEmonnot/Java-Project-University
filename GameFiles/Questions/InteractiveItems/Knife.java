@@ -53,7 +53,7 @@ public class Knife {
 	}
 
 	//Creation d'un sprite de couteau
-	private Sprite sprite = new Sprite("Images/bigKnife.png");
+	private Sprite sprite = new Sprite("Images/knife.png");
 	//Rectangle de decoupage
 	private final Rectangle startingRect;
 	private Rectangle cuttingRectangle = new Rectangle(0, 0, 85, 16);

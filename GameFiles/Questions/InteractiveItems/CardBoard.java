@@ -41,7 +41,7 @@ public class CardBoard{
 		    return !bIsRight && bIsRevealed;
 		  }
 
-		  private Sprite cardBoard = new Sprite("Images/greenBoxStates.png");
+		  private Sprite cardBoard = new Sprite("Images/boxStates.png");
 		  private Sprite money = new Sprite("Images/money.png");
 		  private Animation scorpion = new Animation(new Rectangle(0, 0, 78, 86), 6, new Sprite("Images/scorpion.png"), 0.1f);
 		  private Rectangle destRect;
