@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.sql.ResultSet;
 
@@ -488,12 +489,27 @@ public class SearchScene extends AScene{
                             }
                             
                             //Génération aléatoire de mini-jeux (structure à reprendre pour les minis jeux à 2 et 4 réponses)
+<<<<<<< HEAD
                             double rng = Math.random() * 2;
                             if (rng < 1){
                                 questions.add(new EggQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
                             }
                             else{
                                 questions.add(new BoxQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+=======
+                            
+                            Random random = new Random();
+                            int nb;
+                            nb = random.nextInt(4);
+                            if (nb == 1){
+                                questions.add(new ConcreteTripleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                            }
+                            else if(nb==2){
+                                questions.add(new AppleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                            }
+                            else {
+                                questions.add(new BoiteQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+>>>>>>> 68f8913449f0dc9d0ccdb8adaf9dd2040ed2cf13
                             }
                         }
                         else{

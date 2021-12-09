@@ -20,14 +20,16 @@ public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
 	private Gift cadDroite;
 
 	/**
-	 * Initialise l'affichage des cadeaux
+	 * Mini jeux des cadeaux, 02 r�ponses possibles.
+	 * Initialise l'affichage des cadeaux.
 	 * @param _question
 	 * @param _answerA
 	 * @param _answerB
 	 * @param _type
 	 */
-	public BubbleGiftQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
-		super(_question, _timer, _answerA, _answerB, _type);
+	public CadeauQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
+		super(_question, _answerA, _answerB, _type);
+		//Determiner quel cadeau est le bon
 		switch(_type) {
 		case ANSWER_A:
 			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),true);
@@ -50,6 +52,11 @@ public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
 
 	}
 	
+	/**
+	 * Actualise l'affichage des cadeaux au fur et � mesure.
+	 * Se base de la position de la souris
+	 * @see CoreSystem#Mouse
+	 */
 	public void Update() {
 		super.Update();
 		CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
@@ -60,6 +67,9 @@ public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
         
 	}
 	
+	/**
+	 * Se charge d'afficher les diff�rents cadeaux, celui de gauche et de droite
+	 */
 	public void Draw() throws ProjectException {
         super.Draw();
         
