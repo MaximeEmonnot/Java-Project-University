@@ -8,8 +8,8 @@ import Exceptions.ProjectException;
 
 public class HandCoinQuestion extends ADoubleAnswerQuestion {
 
-    public HandCoinQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
-        super(_question, _answerA, _answerB, _type);
+    public HandCoinQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
+        super(_question, _timer, _answerA, _answerB, _type);
         //TODO Auto-generated constructor stub
         switch (_type){
         case ANSWER_A:

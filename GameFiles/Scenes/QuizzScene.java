@@ -9,12 +9,8 @@ import java.sql.SQLException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import com.mysql.cj.CoreSession;
-
 import Exceptions.ProjectException;
 import SoundEngine.SoundSystem;
-
-import java.awt.*;
 
 /**
  * Scene de jeu.
@@ -70,10 +66,10 @@ public class QuizzScene extends AScene {
             if (!bIsPlayingSong){
                 bIsPlayingSong = true;
                 if (questions.get(iCurQuestion).IsWon()){
-                    SoundSystem.GetInstance().RestartSong(0); //coin
+                    SoundSystem.GetInstance().RestartSong(0);
                 }
                 else{
-                    SoundSystem.GetInstance().RestartSong((int)(Math.random() * 3) + 1); //fart
+                    SoundSystem.GetInstance().RestartSong((int)(Math.random() * 3) + 1);
                 }
             }
             timerNextQuestion -= CoreSystem.Timer.GetInstance().DeltaTime();

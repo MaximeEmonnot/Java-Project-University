@@ -6,8 +6,8 @@ import Exceptions.ProjectException;
 import GraphicsEngine.Animation;
 import GraphicsEngine.Sprite;
 
-public class Boite {
-	public Boite(Rectangle _rect, boolean _bIsRight, int type){
+public class Box {
+	public Box(Rectangle _rect, boolean _bIsRight, int type){
 		rect = _rect;
 		bIsRight = _bIsRight;
 		switch(type){

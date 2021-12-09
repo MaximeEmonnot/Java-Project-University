@@ -23,8 +23,8 @@ public class CardQuestion extends AQuadrupleAnswerQuestion{
      * @param _answerD Proposition D
      * @param _type Reponse correcte
      */
-	    public CardQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
-	        super(_question, _anwserA, _answerB, _answerC, _answerD, _type);
+	    public CardQuestion(String _question, float _timer, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
+	        super(_question, _timer, _anwserA, _answerB, _answerC, _answerD, _type);
 	       
 	        switch (_type){
 	        case ANSWER_A:

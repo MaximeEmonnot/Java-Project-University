@@ -35,8 +35,8 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
      * @param _answerC Proposition C
      * @param _type Reponse correcte
      */
-    public ATripleAnswerQuestion(String _question, String _answerA, String _answerB, String _answerC, AnswerType _type) {
-        super(_question);
+    public ATripleAnswerQuestion(String _question, float _timer, String _answerA, String _answerB, String _answerC, AnswerType _type) {
+        super(_question, _timer);
         //TODO Auto-generated constructor stub
         answerA = _answerA;
         answerB = _answerB;

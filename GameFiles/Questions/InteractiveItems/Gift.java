@@ -17,9 +17,9 @@ import GraphicsEngine.Sprite;
  * selon si le joueur a trouv� ou non
  * @see La classe Animation pour plus de d�tails
  */
-public class Cadeau {
+public class Gift {
 	
-	public Cadeau(Rectangle _rect, boolean _bIsRight) {
+	public Gift(Rectangle _rect, boolean _bIsRight) {
 		rect = _rect; //La position du cadeau
 		bIsRight = _bIsRight;
 		//Je fais de switch case car c'est le m�me cadeau partout

@@ -7,8 +7,8 @@ import GameFiles.Questions.InteractiveItems.CardBoard;
 
 public class CardBoardQuestion extends AQuadrupleAnswerQuestion{
 
-	    public CardBoardQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
-	        super(_question, _anwserA, _answerB, _answerC, _answerD, _type);
+	    public CardBoardQuestion(String _question, float _timer, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
+	        super(_question, _timer, _anwserA, _answerB, _answerC, _answerD, _type);
 	       
 	        switch (_type){
 	        case ANSWER_A:

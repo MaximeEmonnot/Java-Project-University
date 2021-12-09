@@ -13,7 +13,7 @@ import Exceptions.ProjectException;
  * Chaque chat correspond a une proposition de reponse, comme indique sur le cote gauche
  * @author Maxime Emonnot
  */
-public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
+public class CatsLightQuestion extends AQuadrupleAnswerQuestion {
 
     /**
      * Constructeur ConcreteQuadrupleQuestion
@@ -27,8 +27,8 @@ public class ConcreteQuadrupleQuestion extends AQuadrupleAnswerQuestion {
      * @param _type Reponse correcte
      * @throws Exception Erreurs lors de l'acces aux fichiers JSON pour les animations des chats
      */
-    public ConcreteQuadrupleQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) throws Exception {
-        super(_question, _anwserA, _answerB, _answerC, _answerD, _type);
+    public CatsLightQuestion(String _question, float _timer, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) throws Exception {
+        super(_question, _timer, _anwserA, _answerB, _answerC, _answerD, _type);
         //TODO Auto-generated constructor stub
         ls = new LightSwitch(new Rectangle(0, 0, 136, 200));
         catA = new Cat(new Rectangle(0, 0, 64, 64), "json/blackCat.json");

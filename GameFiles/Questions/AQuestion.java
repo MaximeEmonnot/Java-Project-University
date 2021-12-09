@@ -16,8 +16,9 @@ public abstract class AQuestion {
      * @author Maxime Emonnot
      * @param _question Intitule de la question
      */
-    public AQuestion(String _question){
+    public AQuestion(String _question, float _timer){
         question = _question;
+        timer = _timer;
     }
 
     /**
@@ -73,7 +74,7 @@ public abstract class AQuestion {
         return bIsWon;
     }
 
-    private float timer = 10.0f;
+    private float timer;
     private String question;
     protected boolean bIsWon;
     protected boolean bIsLost;

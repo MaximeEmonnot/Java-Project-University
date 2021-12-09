@@ -10,7 +10,7 @@ import GameFiles.Questions.InteractiveItems.*;
  * Deux narines representent les deux possibilites, l'utilisateur doit mettre le doigt dans la narine correspondant a la bonne reponse
  * @author Maxime Emonnot
  */
-public class ConcreteDoubleQuestion extends ADoubleAnswerQuestion {
+public class FingerNoseQuestion extends ADoubleAnswerQuestion {
 
     /**
      * Constructeur ConcreteDoubleQuestion
@@ -21,8 +21,8 @@ public class ConcreteDoubleQuestion extends ADoubleAnswerQuestion {
      * @param _answerB Proposition B
      * @param _type Reponse correcte
      */
-    public ConcreteDoubleQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
-        super(_question, _answerA, _answerB, _type);
+    public FingerNoseQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
+        super(_question, _timer, _answerA, _answerB, _type);
         //TODO Auto-generated constructor stub
         switch (_type){
             case ANSWER_A:

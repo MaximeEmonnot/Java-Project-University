@@ -44,8 +44,8 @@ public abstract class AQuadrupleAnswerQuestion extends AQuestion {
      * @param _answerD Proposition D
      * @param _type Reponse correcte
      */
-    public AQuadrupleAnswerQuestion(String _question, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
-        super(_question);
+    public AQuadrupleAnswerQuestion(String _question, float _timer, String _anwserA, String _answerB, String _answerC, String _answerD, AnswerType _type) {
+        super(_question, _timer);
         //TODO Auto-generated constructor stub
         answerA = _anwserA;
         answerB = _answerB;

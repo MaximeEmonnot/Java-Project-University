@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
-import GameFiles.Questions.InteractiveItems.Cadeau;
+import GameFiles.Questions.InteractiveItems.Gift;
 
 /**
  * 
@@ -15,9 +15,9 @@ import GameFiles.Questions.InteractiveItems.Cadeau;
  * 
  *
  */
-public class CadeauQuestion extends ADoubleAnswerQuestion {
-	private Cadeau cadGauche;
-	private Cadeau cadDroite;
+public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
+	private Gift cadGauche;
+	private Gift cadDroite;
 
 	/**
 	 * Initialise l'affichage des cadeaux
@@ -26,24 +26,24 @@ public class CadeauQuestion extends ADoubleAnswerQuestion {
 	 * @param _answerB
 	 * @param _type
 	 */
-	public CadeauQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
-		super(_question, _answerA, _answerB, _type);
+	public BubbleGiftQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
+		super(_question, _timer, _answerA, _answerB, _type);
 		switch(_type) {
 		case ANSWER_A:
-			cadGauche = new Cadeau(new Rectangle(140, 150, 78, 78),true);
-			cadDroite = new Cadeau(new Rectangle(500,150,78,78),false);
+			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),true);
+			cadDroite = new Gift(new Rectangle(500,150,78,78),false);
 			break;
 		case ANSWER_B:
-			cadGauche = new Cadeau(new Rectangle(140, 150, 78, 78),false);
-			cadDroite = new Cadeau(new Rectangle(500,150,78,78),true);
+			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),false);
+			cadDroite = new Gift(new Rectangle(500,150,78,78),true);
 			break;
 		case BOTH:
-			cadGauche = new Cadeau(new Rectangle(140, 150, 78, 78),true);
-			cadDroite = new Cadeau(new Rectangle(500,150,78,78),true);
+			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),true);
+			cadDroite = new Gift(new Rectangle(500,150,78,78),true);
 			break;
 		default:
-			cadGauche = new Cadeau(new Rectangle(140, 150, 78, 78),false);
-			cadDroite = new Cadeau(new Rectangle(500,150,78,78),false);
+			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),false);
+			cadDroite = new Gift(new Rectangle(500,150,78,78),false);
 			break;
 			
 		}

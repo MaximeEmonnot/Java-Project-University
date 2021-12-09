@@ -2,8 +2,6 @@ package CoreSystem;
 
 import javax.swing.*;
 
-import java.awt.event.KeyEvent;
-
 /**
  * Gestion de la fenetre de Java Swing. S'occupe de la creation et de la boucle d'execution. 
  * Utilise le patron de conception Singleton pour etre unique dans toute l'application.
@@ -43,7 +41,7 @@ public class Window {
     /**
      * Retourne l'object JFrame de cette classe. Est recupere par GraphicsSystem pour l'initialisation de l'interface graphique
      * @author Maxime Emonnot
-     * @return frame
+     * @return JFrame de cette classe
      */
     public JFrame getFrame(){
         return frame;

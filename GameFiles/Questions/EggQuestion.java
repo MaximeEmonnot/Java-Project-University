@@ -10,7 +10,7 @@ import GameFiles.Questions.InteractiveItems.Egg;
  * Trois oeufs representent les trois possibilites, l'utilisateur doit casser l'oeuf correspondant a la bonne reponse
  * @author Maxime Emonnot
  */
-public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
+public class EggQuestion extends ATripleAnswerQuestion {
 
     /**
      * Constructeur ConcreteTripleQuestion
@@ -22,8 +22,8 @@ public class ConcreteTripleQuestion extends ATripleAnswerQuestion {
      * @param _answerC Proposition C
      * @param _type Reponse correcte
      */
-    public ConcreteTripleQuestion(String _question, String _answerA, String _answerB, String _answerC, AnswerType _type) {
-        super(_question, _answerA, _answerB, _answerC, _type);
+    public EggQuestion(String _question, float _timer, String _answerA, String _answerB, String _answerC, AnswerType _type) {
+        super(_question, _timer, _answerA, _answerB, _answerC, _type);
         //TODO Auto-generated constructor stub
         
         switch (_type){

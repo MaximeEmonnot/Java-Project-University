@@ -31,8 +31,8 @@ public abstract class ADoubleAnswerQuestion extends AQuestion {
      * @param _answerB Proposition B
      * @param _type Reponse correcte
      */
-    public ADoubleAnswerQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
-        super(_question);
+    public ADoubleAnswerQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
+        super(_question, _timer);
         //TODO Auto-generated constructor stub
         answerA = _answerA;
         answerB = _answerB;
