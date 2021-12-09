@@ -49,15 +49,6 @@ public class Window {
         return frame;
     }
 
-    /**
-     * Boucle d'execution de cette fenetre. Retourne vrai tant que l'on n'appuie pas sur Echap
-     * @author Maxime Emonnot
-     * @return boolean
-     */
-    public boolean listensToEvents(){ 
-        return !Keyboard.GetInstance().KeyIsPressed(KeyEvent.VK_ESCAPE);
-    }
-
     private static Window INSTANCE = null;
 
     private JFrame frame;

@@ -1,5 +1,8 @@
 package SoundEngine;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,6 +11,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import Exceptions.ProjectException;
 
 /**
  * Gestion des fichiers audios.
@@ -58,22 +63,29 @@ public class SoundSystem {
      * @throws IOException S'il ya une erreur d'acces au fichier
      * @throws LineUnavailableException Si le system de lecture est indisponible
      */
-    public void SelectNewSong(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
-        long beginDelay = System.currentTimeMillis();
-        while(System.currentTimeMillis() - beginDelay < 2){}
-        currentSong = path;
-        ais = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
-        clip.open(ais);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    public void AddNewSong(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+        songs.add(path);
+        ais.add(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
+        //clip.open(ais);
+        //clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     /**
      * Joue le son selectionne.
      * Passe le systeme en etat PLAY.
      * @author Maxime Emonnot
-     * @see SoundSystem#SelectNewSong(String)
+     * @throws ProjectException
+     * @throws IOException
+     * @throws LineUnavailableException
+     * @see SoundSystem#AddNewSong(String)
      */
-    public void PlaySong(){
+    public void PlaySong(int index) throws ProjectException, LineUnavailableException, IOException{
+        if (index > ais.size())
+            throw new ProjectException("Can't access a song that's not added !");
+        long beginDelay = System.currentTimeMillis();
+        while(System.currentTimeMillis() - beginDelay < 2){}
+        clip.open(ais.get(index));
+        clip.loop(0);
         clip.start();
         sStatus = SongStatus.PLAY;
     }
@@ -81,7 +93,7 @@ public class SoundSystem {
      * Met en pause le son selectionne
      * Passe le systeme en etat PAUSE
      * @author Maxime Emonnot
-     * @see SoundSystem#SelectNewSong(String)
+     * @see SoundSystem#AddNewSong(String)
      */
     public void PauseSong(){
         currentFrame = clip.getMicrosecondPosition();
@@ -95,14 +107,15 @@ public class SoundSystem {
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
      * @throws LineUnavailableException Si le system de lecture est indisponible
+     * @throws ProjectException
      * @see SoundSystem#ResetAudio()
      * @see SoundSystem#PlaySong()
      */
-    public void ResumeSong() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+    public void ResumeSong(int index) throws UnsupportedAudioFileException, IOException, LineUnavailableException, ProjectException{
         if (sStatus == SongStatus.PAUSE){
             clip.close();
-            ResetAudio();
-            PlaySong();
+            ResetAudio(index);
+            PlaySong(index);
             long beginDelay = System.currentTimeMillis();
             while(System.currentTimeMillis() - beginDelay < 2){}
             clip.setMicrosecondPosition(currentFrame);
@@ -112,7 +125,7 @@ public class SoundSystem {
      * Arrete le son selectionne.
      * Met le system en etat STOP
      * @author Maxime Emonnot
-     * @see SoundSystem#SelectNewSong(String)
+     * @see SoundSystem#AddNewSong(String)
      */
     public void StopSong(){
         currentFrame = 0L;
@@ -127,15 +140,16 @@ public class SoundSystem {
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
      * @throws LineUnavailableException Si le system de lecture est indisponible
+     * @throws ProjectException
      * @see SoundSystem#ResetAudio()
      * @see SoundSystem#PlaySong()
      */
-    public void RestartSong() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+    public void RestartSong(int index) throws UnsupportedAudioFileException, IOException, LineUnavailableException, ProjectException{
         clip.stop();
         clip.close();
-        ResetAudio();
+        ResetAudio(index);
         currentFrame = 0L;
-        PlaySong();
+        PlaySong(index);
     }
 
     /**
@@ -144,20 +158,18 @@ public class SoundSystem {
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
      * @throws LineUnavailableException Si le system de lecture est indisponible
-     * @see SoundSystem#SelectNewSong(String)
+     * @see SoundSystem#AddNewSong(String)
      */
-    private void ResetAudio() throws LineUnavailableException, IOException, UnsupportedAudioFileException{
-        ais = AudioSystem.getAudioInputStream(new File(currentSong).getAbsoluteFile());
-        clip.open(ais);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    private void ResetAudio(int index) throws LineUnavailableException, IOException, UnsupportedAudioFileException{
+        ais.set(index, AudioSystem.getAudioInputStream(new File(songs.get(index)).getAbsoluteFile()));        
     }
 
     private static SoundSystem INSTANCE = null;
 
-    private String currentSong;
+    private List<String> songs = new ArrayList<String>();
     private SongStatus sStatus = SongStatus.NONE;
 
-    private AudioInputStream ais;
+    private List<AudioInputStream> ais = new ArrayList<AudioInputStream>();
     private long currentFrame;
     private Clip clip;
 }

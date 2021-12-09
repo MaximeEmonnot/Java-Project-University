@@ -433,12 +433,14 @@ public class SearchScene extends AScene{
                                     break;
                             }
                             
-                            double rng = Math.random() * 2;
+                            double rng = Math.random() * 3;
                             if (rng < 1){
                             	questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
                             }
-                            else{
+                            else if (rng < 2){
                             	questions.add(new CardQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            }else{
+                            	questions.add(new CardBoardQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
                             }
 
                             //questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
@@ -501,8 +503,11 @@ public class SearchScene extends AScene{
                             default:
                                 break;
                             }
-                            double rng = Math.random() * 2;
+                            double rng = Math.random() * 3;
                             if (rng < 1){
+                                questions.add(new HandCoinQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                            }
+                            else if (rng > 2){
                                 questions.add(new CadeauQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
                             }
                             else{
