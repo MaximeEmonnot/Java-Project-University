@@ -27,8 +27,8 @@ public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
 	 * @param _answerB
 	 * @param _type
 	 */
-	public CadeauQuestion(String _question, String _answerA, String _answerB, AnswerType _type) {
-		super(_question, _answerA, _answerB, _type);
+	public BubbleGiftQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
+		super(_question, _timer, _answerA, _answerB, _type);
 		//Determiner quel cadeau est le bon
 		switch(_type) {
 		case ANSWER_A:

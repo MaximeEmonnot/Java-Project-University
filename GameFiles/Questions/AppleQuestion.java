@@ -6,20 +6,15 @@ import java.awt.Rectangle;
 import Exceptions.ProjectException;
 import GameFiles.Questions.InteractiveItems.Apple;
 import GameFiles.Questions.InteractiveItems.Knife;
+import GameFiles.Questions.InteractiveItems.Apple.AppleType;
 
 /**
  * Mini jeu des pommes.
- * Quizz à trois réponses possibles
+ * Quizz ï¿½ trois rï¿½ponses possibles
  * @author Alhousseiny Diallo @ Lansana DIakite
  *
  */
 public class AppleQuestion extends ATripleAnswerQuestion {
-	
-	private Apple appleA;
-	private Apple appleB;
-	private Apple appleC;
-	private Knife knife = new Knife();
-	
 
 	/**
 	 * 
@@ -29,75 +24,74 @@ public class AppleQuestion extends ATripleAnswerQuestion {
 	 * @param _answerC
 	 * @param _type
 	 */
-	public AppleQuestion(String _question, String _answerA, String _answerB, String _answerC, AnswerType _type) {
-		super(_question, _answerA, _answerB, _answerC, _type);
+	public AppleQuestion(String _question, float _timer, String _answerA, String _answerB, String _answerC, AnswerType _type) {
+		super(_question, _timer, _answerA, _answerB, _answerC, _type);
 		switch(_type) {
 			case ANSWER_A:
-		        appleA = new Apple(new Rectangle(140, 150, 78, 78), true,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),false,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),false,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), false, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), false, AppleType.GREEN);
+			break;
 		    case ANSWER_B:
-		    	appleA = new Apple(new Rectangle(140, 150, 78, 78), false,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),true,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),false,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), false, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), false, AppleType.GREEN);
+			break;
 		    case ANSWER_C:
-		    	appleA = new Apple(new Rectangle(140, 150, 78, 78), false,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),false,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),true,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), false, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), false, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			break;
 		    case ANSWER_AB:
-		    	appleA = new Apple(new Rectangle(140, 150, 78, 78), true,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),true,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),false,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), false, AppleType.GREEN);
+			break;
 		    case ANSWER_AC:
-		    	appleA = new Apple(new Rectangle(140, 150, 78, 78), true,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),false,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),true,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), false, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			break;
 		    case ANSWER_BC:
-		    	appleA = new Apple(new Rectangle(140, 150, 78, 78), false,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),true,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),true,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), false, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			break;
 		    case ANSWER_ABC:
-		    	appleA = new Apple(new Rectangle(140, 150, 78, 78), true,1);
-		        appleB = new Apple(new Rectangle(360, 150, 78, 78),true,2);
-		        appleC = new Apple(new Rectangle(580, 150, 78, 78),true,3);
-		        break;
+			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			break;
 		    default:
-		        break;
-		    }
+			break;
+		}
 		
 		
 	}
 	
 	/**
-	 * Mise à jour des différents affichages
+	 * Mise ï¿½ jour des diffï¿½rents affichages
 	 */
 	public void Update() {
-        // TODO Auto-generated method stub
+		// TODO Auto-generated method stub
         super.Update();
         CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
-
+		
+		knife.Update();
         
-            appleA.Update(e);
-            appleB.Update(e);
-            appleC.Update(e);
-            knife.Update();
-        
-
+		appleA.Update(knife.GetCuttingRectangle());
+		appleB.Update(knife.GetCuttingRectangle());
+		appleC.Update(knife.GetCuttingRectangle());
+		
         bIsWon = (appleA.HasWon() || appleB.HasWon() || appleC.HasWon());
         bIsLost = (bIsLost || appleA.HasLost() || appleB.HasLost() || appleC.HasLost());
     }
 	
 	/**
-	 * S'occupe des différents affichages
+	 * S'occupe des diffï¿½rents affichages
 	 */
 	public void Draw() throws ProjectException {
-        super.Draw();
+		super.Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);
         appleA.Draw();
         appleB.Draw();
@@ -105,4 +99,8 @@ public class AppleQuestion extends ATripleAnswerQuestion {
         knife.Draw();
 	}
 
-}
+	private Apple appleA;
+	private Apple appleB;
+	private Apple appleC;
+	private Knife knife = new Knife(new Rectangle(400, 400, 256, 64));
+}	

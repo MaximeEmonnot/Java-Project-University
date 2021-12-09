@@ -24,7 +24,7 @@ public class Gift {
 	 * @param _rect le rectangle de destination
 	 * @param _bIsRight savvoir si c'est le bon cadeau ou pas
 	 */
-	public Cadeau(Rectangle _rect, boolean _bIsRight) {
+	public Gift(Rectangle _rect, boolean _bIsRight) {
 		rect = _rect; //La position du cadeau
 		bIsRight = _bIsRight;
 		//Je fais pas de switch case car c'est le m�me cadeau partout

@@ -3,41 +3,61 @@ package GameFiles.Questions.InteractiveItems;
 import java.awt.Rectangle;
 
 import Exceptions.ProjectException;
-import GraphicsEngine.Animation;
+import GraphicsEngine.GraphicsSystem;
 import GraphicsEngine.Sprite;
 
 /**
- * initialise l'animation d'un couteau qui va servir à couper la pomme
+ * initialise l'animation d'un couteau qui va servir ï¿½ couper la pomme
  * @author ALhouseeiny Diallo @ Lansana Dakite
  * @see Apple 
  *
  */
 public class Knife {
-	//Creation d'un sprite de couteau
-	private Sprite sprite = new Sprite("Images/bigKnife.png");
-	private Animation knifeAnimation;
-	//Rectangle de decoupage
-	private Rectangle rect = new Rectangle(0,0,704,64);
-	private Rectangle moveRect = new Rectangle(100, 100, 100, 40);
-	
 	/**
-	 * Creation d'une instance d'animation de knife à travers un rectangle et un sprite
+	 * Creation d'une instance d'animation de knife ï¿½ travers un rectangle et un sprite
 	 * @see #Sprite
 	 */
-	public Knife() {
-		knifeAnimation = new Animation(rect,7,sprite,0.1);
+	public Knife(Rectangle _startingRect) {
+		startingRect = _startingRect;
+		destRect = startingRect;
 	}
 	
 	/**
-	 * Déplace le couteau en même temps que la souris
+	 * Dï¿½place le couteau en mï¿½me temps que la souris
 	 */
 	public void Update(){
-        moveRect.x = CoreSystem.Mouse.GetInstance().GetMousePosX();
-        moveRect.y = CoreSystem.Mouse.GetInstance().GetMousePosY();
+		if (CoreSystem.Mouse.GetInstance().LeftIsPressed()){
+			if (!bIsHold){
+				if (startingRect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
+					bIsHold = true;
+				}
+			}
+			else{
+				destRect.x = CoreSystem.Mouse.GetInstance().GetMousePosX() - 182;
+				destRect.y = CoreSystem.Mouse.GetInstance().GetMousePosY() - 24;
+				cuttingRectangle.x = destRect.x;
+				cuttingRectangle.y = destRect.y + 36;
+			}
+		}
+		else{
+			destRect = startingRect;
+		}
     }
 	
-	 public void Draw() throws ProjectException{
-	        knifeAnimation.Draw(moveRect);
-	    }
+	public void Draw() throws ProjectException{
+		GraphicsSystem.GetInstance().DrawSprite(sprite, destRect);
+	}
 
+	public Rectangle GetCuttingRectangle(){
+		return cuttingRectangle;
+	}
+
+	//Creation d'un sprite de couteau
+	private Sprite sprite = new Sprite("Images/bigKnife.png");
+	//Rectangle de decoupage
+	private final Rectangle startingRect;
+	private Rectangle cuttingRectangle = new Rectangle(0, 0, 85, 16);
+	private Rectangle destRect;
+	private boolean bIsHold = false;
 }
+
