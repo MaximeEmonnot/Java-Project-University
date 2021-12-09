@@ -379,6 +379,21 @@ public class SearchScene extends AScene{
                     questions.clear();
                     ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE (" + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND id_prof = " + Integer.parseInt(args[0]) + " AND domaine = \"" + args[1].replace("'", "\\'") + "\" AND categorie = \"" + args[2].replace("'", "\\'") + "\" AND niveau = \"" + args[3] + "\")");
                     while(questionSet.next()){
+                        float questionTimer;
+                        switch(questionSet.getString("difficulte")){
+                        case "Facile":
+                            questionTimer = 10.0f;
+                            break;
+                        case "Moyen":
+                            questionTimer = 20.0f;
+                            break;
+                        case "Difficile":
+                            questionTimer = 30.0f;
+                            break;
+                        default:
+                            questionTimer = 0.0f;
+                            break;
+                        }
 
                         if (questionSet.getString("reponseD").length() != 0){
                             AQuadrupleAnswerQuestion.AnswerType type = AQuadrupleAnswerQuestion.AnswerType.NONE;
@@ -434,12 +449,12 @@ public class SearchScene extends AScene{
                             
                             double rng = Math.random() * 3;
                             if (rng < 1){
-                            	questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            	questions.add(new CatsLightQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
                             }
                             else if (rng < 2){
-                            	questions.add(new CardQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            	questions.add(new CardQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
                             }else{
-                            	questions.add(new CardBoardQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
+                            	questions.add(new CardBoardQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
                             }
 
                             //questions.add(new ConcreteQuadrupleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), questionSet.getString("reponseD"), type));
@@ -475,10 +490,10 @@ public class SearchScene extends AScene{
                             //Génération aléatoire de mini-jeux (structure à reprendre pour les minis jeux à 2 et 4 réponses)
                             double rng = Math.random() * 2;
                             if (rng < 1){
-                                questions.add(new ConcreteTripleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                                questions.add(new EggQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
                             }
                             else{
-                                questions.add(new BoiteQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
+                                questions.add(new BoxQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), questionSet.getString("reponseC"), type));
                             }
                         }
                         else{
@@ -498,13 +513,13 @@ public class SearchScene extends AScene{
                             }
                             double rng = Math.random() * 3;
                             if (rng < 1){
-                                questions.add(new HandCoinQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                                questions.add(new HandCoinQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
                             }
                             else if (rng > 2){
-                                questions.add(new CadeauQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                                questions.add(new BubbleGiftQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
                             }
                             else{
-                                questions.add(new ConcreteDoubleQuestion(questionSet.getString("question"), questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
+                                questions.add(new FingerNoseQuestion(questionSet.getString("question"), questionTimer, questionSet.getString("reponseA"), questionSet.getString("reponseB"), type));
 
                             }
                            
