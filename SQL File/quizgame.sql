@@ -48,7 +48,8 @@ create table admin(
 create table `statistique`(
     `id_statistique` int not null,
     `score` float,
-    `id_subject` int not null
+    `id_subject` int not null,
+    FOREIGN KEY (id_statistique) REFERENCES etudiant(id_etudiant)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -72,7 +73,8 @@ create table questions(
     reponseA varchar(150) not null,
     reponseB varchar(150) not null,
     reponseC varchar(150) not null,
-    reponseD varchar(150) not null
+    reponseD varchar(150) not null,
+    FOREIGN KEY (id_subject) REFERENCES sujets(id)
 );
 
 /*Creation de la table forumQuestion */
@@ -81,14 +83,16 @@ create table forumQuestion(
     id int auto_increment primary key,
     question varchar(150) not null,
     id_student int not null,
-    answer varchar(150)
+    answer varchar(150),
+    FOREIGN KEY (id_student) REFERENCES etudiant(id_etudiant)
 );
 
 /*Creation de la table forumProposition */
 
 create table forumProposition(
     id_question int not null,
-    proposition varchar(150) not null
+    proposition varchar(150) not null,
+    FOREIGN KEY (id_question) REFERENCES forumQuestion(id),
 );
 
 /*Ajout Student*/
