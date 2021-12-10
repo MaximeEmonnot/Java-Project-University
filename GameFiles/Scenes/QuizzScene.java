@@ -108,7 +108,17 @@ public class QuizzScene extends AScene {
             }
         }
         else{
-            bIsPlayingSong = false;
+            if (bIsPlayingSong){
+                bIsPlayingSong = false;
+                threadPool.execute(() -> {
+                    try {
+                        SoundSystem.GetInstance().StopSong();
+                    } catch (LineUnavailableException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
+            }
         }
     }
 
