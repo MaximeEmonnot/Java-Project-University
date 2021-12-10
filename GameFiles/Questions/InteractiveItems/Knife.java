@@ -47,6 +47,7 @@ public class Knife {
 		}
 		else{
 			destRect = startingRect;
+			bIsHold = false;
 		}
     }
 	

@@ -41,8 +41,7 @@ public class Hand {
      * @param bRevealedState Etat de la question (repondu ou non)
      */
     public void Update(CoreSystem.Mouse.EventType e, boolean bRevealedState){
-        bIsRevealed = bRevealedState;
-        if (!bIsRevealed){
+        if (!bRevealedState){
             if (e == CoreSystem.Mouse.EventType.LRelease && rect.contains(CoreSystem.Mouse.GetInstance().GetMousePos())){
                 bIsRevealed = true;
             }
@@ -56,10 +55,11 @@ public class Hand {
     /**
      * Affichage de la main et de son contenu si revele
      * @author Godfree Akakpo
+     * @param bRevealedState Etat de la question (repondu ou non)
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */
-    public void Draw() throws ProjectException{
-        if (!bIsRevealed){
+    public void Draw(boolean bRevealedState) throws ProjectException{
+        if (!bRevealedState){
             GraphicsSystem.GetInstance().DrawSprite(hand, rect, new Rectangle(0, 0, 32, 32));
         }
         else{

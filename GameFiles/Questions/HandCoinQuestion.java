@@ -75,8 +75,8 @@ public class HandCoinQuestion extends ADoubleAnswerQuestion {
         super.Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);
 
-        leftHand.Draw();
-        rightHand.Draw();
+        leftHand.Draw(bIsWon || bIsLost);
+        rightHand.Draw(bIsWon || bIsLost);
     }
     
     private Hand leftHand;

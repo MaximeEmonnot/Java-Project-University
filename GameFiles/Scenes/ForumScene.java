@@ -192,7 +192,7 @@ public class ForumScene extends AScene {
         });
 
         //Ajout proposition menu
-        addPropositionButton = new Button(new Rectangle(70, 600, 100, 50), "Add proposition", () -> {
+        addPropositionButton = new Button(new Rectangle(70, 600, 150, 50), "Add proposition", () -> {
             try {
                 if (proposition.GetText().length() != 0){
                     //Insertion de la proposition de réponse, pas de vérification d'existence car les étudiants n'ont pas accès aux autres propositions
@@ -434,7 +434,7 @@ public class ForumScene extends AScene {
             		}
             		
             		if (tPropositionArray.containsKey(tiCurPropositionPage)){
-                    	Iterator<Map.Entry<TextBox, Button>> itrQuestion = tPropositionArray.get(tiCurPropositionPage).entrySet().iterator();
+                    	Iterator<Map.Entry<TextBox, Button>> itrQuestion = tPropositionArray.get(tiCurPropositionPage).iterator();
                     	while (itrQuestion.hasNext()){
                         	Button btn = itrQuestion.next().getValue();
                         	if (btn.OnClick(e)){
@@ -711,7 +711,7 @@ public class ForumScene extends AScene {
             		}
             		
             		if (tPropositionArray.containsKey(tiCurPropositionPage)) {
-            		Iterator<Map.Entry<TextBox, Button>> itrQuestion = tPropositionArray.get(tiCurPropositionPage).entrySet().iterator();
+            		Iterator<Map.Entry<TextBox, Button>> itrQuestion = tPropositionArray.get(tiCurPropositionPage).iterator();
                     while(itrQuestion.hasNext()){
                         Map.Entry<TextBox, Button> currentPair = itrQuestion.next();
                         currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
@@ -944,11 +944,11 @@ public class ForumScene extends AScene {
     		 	* Ensuite, pour l'ajout de propositions, on d�finit une TextBox et un Bouton.
     		 	* La position du couple TextBox/Bouton d�pend du nombre d'�l�ments parcourus dans le tableau (valeur i)
     		 	*/
-    			if (!tPropositionArray.containsKey(i / 6)) {
-    				tPropositionArray.put(i / 6, new HashMap<TextBox, Button>());
+    			if (!tPropositionArray.containsKey(i / 5)) {
+    				tPropositionArray.put(i / 5, new ArrayList<Map.Entry<TextBox, Button>>());
     			}
     			String prop = propositionSet.getString("proposition");
-    			tPropositionArray.get(i/6).put(new TextBox(new Rectangle(390, 175 + (i % 6) * 75, 400, 50), prop), new Button(new Rectangle(790, 175 + (i % 6) * 75, 100, 50), "Select", () -> {
+    			tPropositionArray.get(i/5).add(Map.entry(new TextBox(new Rectangle(390, 175 + (i % 5) * 75, 400, 50), prop), new Button(new Rectangle(790, 175 + (i % 5) * 75, 100, 50), "Select", () -> {
     				//Fonction dans les boutons Select (� faire plus tard)
     				try {
 						dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + prop.replace("'", "\\'") + "' WHERE id = " + tiChosenQuestion + ";");
@@ -958,7 +958,7 @@ public class ForumScene extends AScene {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-    			}));
+    			})));
     			
     			i++;
     		}
@@ -1029,7 +1029,7 @@ public class ForumScene extends AScene {
     private int tiChosenQuestion = 0;
     
     //Menu liste propositions questions Teacher
-    private Map<Integer, HashMap<TextBox, Button>> tPropositionArray = new HashMap<Integer, HashMap<TextBox, Button>>();
+    private Map<Integer, ArrayList<Map.Entry<TextBox, Button>>> tPropositionArray = new HashMap<Integer, ArrayList<Map.Entry<TextBox, Button>>>();
     private int tiCurPropositionPage = 0;
     private Button tLastPropPage;
     private Button tNextPropPage;
