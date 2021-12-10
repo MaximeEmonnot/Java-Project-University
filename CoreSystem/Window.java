@@ -51,6 +51,6 @@ public class Window {
 
     private JFrame frame;
     
-    private final static int WIDTH = 800;
-    private final static int HEIGHT = 600;
+    private final static int WIDTH = 1280;
+    private final static int HEIGHT = 720;
 }

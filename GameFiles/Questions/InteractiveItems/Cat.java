@@ -125,8 +125,8 @@ public class Cat extends Character {
      * @author Maxime Emonnot
      */
     public void ChangePosition(){
-        rect.x = (int)(Math.random() * (660 - rect.width)) + 140;
-        rect.y = (int)(Math.random() * (480 - rect.height));
+        rect.x = (int)(Math.random() * (1140 - rect.width)) + 140;
+        rect.y = (int)(Math.random() * (550 - rect.height));
 
         bIsVisible = (Math.random() < 0.5) ? false : true;
 

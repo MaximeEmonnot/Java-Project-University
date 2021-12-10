@@ -164,18 +164,18 @@ public class CatsLightQuestion extends AQuadrupleAnswerQuestion {
         catD.Draw();
 
     //Legend Drawing
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(0, 200, 136, 280), Color.WHITE, 5);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(0, 200, 136, 280), Color.BLACK, 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(0, 200, 136, 350), Color.WHITE, 5);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(0, 200, 136, 350), Color.BLACK, 6);
 
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catAIcon, new Rectangle(70, 205, 64, 64), 6);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catBIcon, new Rectangle(70, 275, 64, 64), 6);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catCIcon, new Rectangle(70, 345, 64, 64), 6);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catDIcon, new Rectangle(70, 415, 64, 64), 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catAIcon, new Rectangle(60, 219, 64, 64), 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catBIcon, new Rectangle(60, 302, 64, 64), 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catCIcon, new Rectangle(60, 385, 64, 64), 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(catDIcon, new Rectangle(60, 468, 64, 64), 6);
 
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A = ", new Point(30, 245), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B = ", new Point(30, 315), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("C = ", new Point(30, 385), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("D = ", new Point(30, 455), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("A = ", new Point(25, 260), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("B = ", new Point(25, 342), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("C = ", new Point(25, 425), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("D = ", new Point(25, 508), new Font("Arial Bold", Font.PLAIN, 16), Color.BLACK, 6);
     }
     
     private LightSwitch ls;

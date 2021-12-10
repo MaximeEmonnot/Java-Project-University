@@ -13,16 +13,16 @@ public class HandCoinQuestion extends ADoubleAnswerQuestion {
         //TODO Auto-generated constructor stub
         switch (_type){
         case ANSWER_A:
-            rightHand = new Hand("Images/rightHand.png", new Rectangle(175, 150, 128, 128), new Rectangle(225, 166, 48, 48), true);
-            leftHand = new Hand("Images/leftHand.png", new Rectangle(375, 150, 128, 128), new Rectangle(425, 166, 48, 48), false);
+            rightHand = new Hand("Images/rightHand.png", new Rectangle(500, 150, 128, 128), new Rectangle(550, 166, 48, 48), true);
+            leftHand = new Hand("Images/leftHand.png", new Rectangle(650, 150, 128, 128), new Rectangle(700, 166, 48, 48), false);
             break;
         case ANSWER_B:
-            rightHand = new Hand("Images/rightHand.png", new Rectangle(175, 150, 128, 128), new Rectangle(225, 166, 48, 48), false);
-            leftHand = new Hand("Images/leftHand.png", new Rectangle(375, 150, 128, 128), new Rectangle(425, 166, 48, 48), true);
+            rightHand = new Hand("Images/rightHand.png", new Rectangle(500, 150, 128, 128), new Rectangle(550, 166, 48, 48), false);
+            leftHand = new Hand("Images/leftHand.png", new Rectangle(650, 150, 128, 128), new Rectangle(700, 166, 48, 48), true);
             break;
         case BOTH:
-            rightHand = new Hand("Images/rightHand.png", new Rectangle(175, 150, 128, 128), new Rectangle(225, 166, 48, 48), true);
-            leftHand = new Hand("Images/leftHand.png", new Rectangle(375, 150, 128, 128), new Rectangle(425, 166, 48, 48), true);
+            rightHand = new Hand("Images/rightHand.png", new Rectangle(500, 150, 128, 128), new Rectangle(550, 166, 48, 48), true);
+            leftHand = new Hand("Images/leftHand.png", new Rectangle(650, 150, 128, 128), new Rectangle(700, 166, 48, 48), true);
             break;
             default:
             break;

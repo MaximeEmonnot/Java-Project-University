@@ -35,10 +35,10 @@ public class AdminScene extends AScene{
    */
   public AdminScene() {
       //TODO Auto-generated constructor stub
-      backButton = new Button(new Rectangle(500, 500, 100, 50), "Back", () -> {
+      backButton = new Button(new Rectangle(1100, 600, 100, 50), "Back", () -> {
           currentStage = SceneStage.SELECTION;
       });
-      studentListButton = new Button(new Rectangle(100, 150, 600, 50), "Edit student list", () -> {
+      studentListButton = new Button(new Rectangle(340, 150, 600, 50), "Edit student list", () -> {
         try{
           ResetStudentList();
           currentStage = SceneStage.STUDENT_LIST;
@@ -47,10 +47,10 @@ public class AdminScene extends AScene{
           e.printStackTrace();
         }
       });
-      lastStudentPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageStudentList--;});
-      nextStudentPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageStudentList++;});
+      lastStudentPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPageStudentList--;});
+      nextStudentPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPageStudentList++;});
       
-      teacherListButton = new Button(new Rectangle(100, 250, 600, 50), "Edit teacher list", () -> {
+      teacherListButton = new Button(new Rectangle(340, 250, 600, 50), "Edit teacher list", () -> {
         try{
           ResetTeacherList();
           currentStage = SceneStage.TEACHER_LIST;
@@ -59,8 +59,8 @@ public class AdminScene extends AScene{
           e.printStackTrace();
         }
       });
-      lastTeacherPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPageTeacherList--;});
-      nextTeacherPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> {iCurPageTeacherList++;});
+      lastTeacherPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPageTeacherList--;});
+      nextTeacherPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPageTeacherList++;});
     
     }
 
@@ -262,10 +262,10 @@ public class AdminScene extends AScene{
         while(studentSet.next()){
             int id = studentSet.getInt("id_etudiant");
             String name = studentSet.getString("nom") + " " + studentSet.getString("prenom");
-            if (!studentList.containsKey(i/5)){
-              studentList.put(i/5, new HashMap<TextBox, Button>());
+            if (!studentList.containsKey(i/6)){
+              studentList.put(i/6, new HashMap<TextBox, Button>());
             }
-            studentList.get(i/5).put(new TextBox(new Rectangle(100, 50 + (i % 5) * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 200, 50), "Delete", () -> {
+            studentList.get(i/6).put(new TextBox(new Rectangle(340, 50 + (i % 6) * 75, 400, 50), studentSet.getString("nom") + " " + studentSet.getString("prenom")), new Button(new Rectangle(740, 50 + (i % 6) * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".etudiant WHERE id_etudiant = " + id + ";");
                 deletionMessage.SetMessage("Student " + name + " deleted !", Color.GREEN, 2.0f);
@@ -292,10 +292,10 @@ public class AdminScene extends AScene{
         while(teacherSet.next()){
             int id = teacherSet.getInt("id_professeur");
             String name = teacherSet.getString("nom") + " " + teacherSet.getString("prenom");
-            if (!teacherList.containsKey(i/5)){
-              teacherList.put(i/5, new HashMap<TextBox, Button>());
+            if (!teacherList.containsKey(i/6)){
+              teacherList.put(i/6, new HashMap<TextBox, Button>());
             }
-            teacherList.get(i/5).put(new TextBox(new Rectangle(100, 50 + (i%5) * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 200, 50), "Delete", () -> {
+            teacherList.get(i/6).put(new TextBox(new Rectangle(340, 50 + (i%6) * 75, 400, 50), teacherSet.getString("nom") + " " + teacherSet.getString("prenom")), new Button(new Rectangle(740, 50 + (i % 6) * 75, 200, 50), "Delete", () -> {
               try {
                 dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".professeur WHERE id_professeur = " + id + ";");
                 deletionMessage.SetMessage("Teacher " + name + " deleted !", Color.GREEN, 2.0f);
@@ -325,7 +325,7 @@ public class AdminScene extends AScene{
      private Button lastTeacherPage;
      private Button nextTeacherPage;
     
-     private UserMessage deletionMessage = new UserMessage(new Point(100, 500));
+     private UserMessage deletionMessage = new UserMessage(new Point(340, 500));
      private Button backButton;
      private SceneStage currentStage = SceneStage.SELECTION;
 }

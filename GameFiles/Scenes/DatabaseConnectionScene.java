@@ -25,7 +25,7 @@ public class DatabaseConnectionScene extends AScene {
         super();
         //TODO Auto-generated constructor stub
         nextSceneIndex = 1;
-        connectionButton = new Button(new Rectangle(100, 450, 500, 50), "Connect", () -> {
+        connectionButton = new Button(new Rectangle(380, 540, 500, 50), "Connect", () -> {
             if (databaseName.GetText().length() != 0 && databasePassword.GetText().length() != 0){
                 try {
                     dbm = new DataBaseManager(databaseName.GetText(), databasePassword.GetText());
@@ -86,8 +86,8 @@ public class DatabaseConnectionScene extends AScene {
     }
     
 
-    private TypingBox databaseName = new TypingBox(new Rectangle(100, 250, 600, 50), "Enter database name...");
-    private TypingBox databasePassword = new TypingBox(new Rectangle(100, 350, 600, 50), "Enter database password...");
-    private UserMessage connectionMessage = new UserMessage(new Point(100, 425));
+    private TypingBox databaseName = new TypingBox(new Rectangle(340, 300, 600, 50), "Enter database name...");
+    private TypingBox databasePassword = new TypingBox(new Rectangle(340, 420, 600, 50), "Enter database password...");
+    private UserMessage connectionMessage = new UserMessage(new Point(340, 510));
     private Button connectionButton;
 }

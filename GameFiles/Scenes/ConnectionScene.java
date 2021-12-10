@@ -47,10 +47,10 @@ public class ConnectionScene extends AScene {
 
         //logo = new Sprite("Images/quizzGameLogo.png");
 
-        connectButton = new Button(new Rectangle(200, 400, 400, 50), "Log in", () -> { currentStage = ConnectionStep.LOGIN;});
-        createAccountButton = new Button(new Rectangle(200, 475, 400, 50), "Register", () -> { currentStage = ConnectionStep.REGISTER;});
-        backButton = new Button(new Rectangle(550, 500, 200, 50), "Back", () -> { currentStage = ConnectionStep.INTRO;});
-        loginButton = new Button(new Rectangle(150, 500, 200, 50), "Connect", () -> { 
+        connectButton = new Button(new Rectangle(440, 400, 400, 50), "Log in", () -> { currentStage = ConnectionStep.LOGIN;});
+        createAccountButton = new Button(new Rectangle(440, 475, 400, 50), "Register", () -> { currentStage = ConnectionStep.REGISTER;});
+        backButton = new Button(new Rectangle(740, 500, 200, 50), "Back", () -> { currentStage = ConnectionStep.INTRO;});
+        loginButton = new Button(new Rectangle(340, 500, 200, 50), "Connect", () -> { 
             if (emailConnection.GetText().length() != 0
             &&  passwordConnection.GetText().length() != 0
             &&  choiceConnection.GetText().length() != 0){
@@ -129,7 +129,7 @@ public class ConnectionScene extends AScene {
                 loginMessage.SetMessage("Please fill all blank spaces", Color.RED, 5.0f);
             }
         });
-        registerButton = new Button(new Rectangle(150, 500, 200, 50), "Register", () -> {
+        registerButton = new Button(new Rectangle(340, 500, 200, 50), "Register", () -> {
             if (firstNameRegister.GetText().length() != 0
             &&  lastNameRegister.GetText().length() != 0
             &&  emailRegister.GetText().length() != 0
@@ -378,22 +378,22 @@ public class ConnectionScene extends AScene {
     private Button createAccountButton;
  
     //Login menu
-    private TypingBox emailConnection = new TypingBox(new Rectangle(100, 200, 600, 50), "Enter your email...");
-    private TypingBox passwordConnection = new TypingBox(new Rectangle(100, 300, 600, 50), "Enter your password...");
-    private ChoiceBox choiceConnection = new ChoiceBox(new Rectangle(100, 400, 600, 50), "Select user type...");
-    private UserMessage loginMessage = new UserMessage(new Point(100, 475));
+    private TypingBox emailConnection = new TypingBox(new Rectangle(340, 200, 600, 50), "Enter your email...");
+    private TypingBox passwordConnection = new TypingBox(new Rectangle(340, 300, 600, 50), "Enter your password...");
+    private ChoiceBox choiceConnection = new ChoiceBox(new Rectangle(340, 400, 600, 50), "Select user type...");
+    private UserMessage loginMessage = new UserMessage(new Point(340, 475));
     private Button loginButton;
 
     //Register menui
-    private TypingBox firstNameRegister = new TypingBox(new Rectangle(100, 30, 275, 50), "Enter your first name...");
-    private TypingBox lastNameRegister = new TypingBox(new Rectangle(425, 30, 275, 50), "Enter your last name...");
-    private TypingBox emailRegister = new TypingBox(new Rectangle(100, 95, 275, 50), "Enter your email...");
-    private TypingBox phoneRegister = new TypingBox(new Rectangle(425, 95, 275, 50), "Enter your phone number...");
-    private TypingBox addressRegister = new TypingBox(new Rectangle(100, 165, 600, 50), "Enter your address...");
-    private TypingBox passwordRegister = new TypingBox(new Rectangle(100, 245, 600, 50), "Enter your password...");
-    private TypingBox passwordConfirmationRegister = new TypingBox(new Rectangle(100, 325, 600, 50), "Confirmation password...");
-    private ChoiceBox choiceRegister = new ChoiceBox(new Rectangle(100, 405, 600, 50), "Select user type...");
-    private UserMessage registerMessage = new UserMessage(new Point(100, 475));
+    private TypingBox firstNameRegister = new TypingBox(new Rectangle(340, 30, 285, 50), "Enter your first name...");
+    private TypingBox lastNameRegister = new TypingBox(new Rectangle(655, 30, 285, 50), "Enter your last name...");
+    private TypingBox emailRegister = new TypingBox(new Rectangle(340, 95, 285, 50), "Enter your email...");
+    private TypingBox phoneRegister = new TypingBox(new Rectangle(655, 95, 285, 50), "Enter your phone number...");
+    private TypingBox addressRegister = new TypingBox(new Rectangle(340, 165, 600, 50), "Enter your address...");
+    private TypingBox passwordRegister = new TypingBox(new Rectangle(340, 245, 600, 50), "Enter your password...");
+    private TypingBox passwordConfirmationRegister = new TypingBox(new Rectangle(340, 325, 600, 50), "Confirmation password...");
+    private ChoiceBox choiceRegister = new ChoiceBox(new Rectangle(340, 405, 600, 50), "Select user type...");
+    private UserMessage registerMessage = new UserMessage(new Point(340, 475));
     private Button registerButton;
 
     private Button backButton;

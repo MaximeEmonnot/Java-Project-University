@@ -42,17 +42,17 @@ public abstract class AQuestion {
      */
     public void Draw() throws ProjectException
     {
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(0, 480, 800, 105), Color.WHITE, 15);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(0, 480, 800, 105), Color.BLACK, 16);
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(question, new Point((int)((800 - (question.length() * 8))/2), 500), new Font("Arial Bold", Font.BOLD, 16), Color.BLACK, 16);
-     
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(String.valueOf(timer), new Point(700, 525), new Font ("Arial Bold", Font.PLAIN, 16), Color.BLACK, 18);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(0, 550, 1280, 150), Color.WHITE, 15);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawRect(new Rectangle(0, 550, 1280, 150), Color.BLACK, 16);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(question, new Point(640 - (question.length() * 4), 575), new Font("Arial Bold", Font.BOLD, 16), Color.BLACK, 16);
+    
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText(String.valueOf(timer), new Point(50, 600), new Font ("Arial Bold", Font.PLAIN, 16), Color.BLACK, 18);
 
         if (bIsWon){
-            GraphicsEngine.GraphicsSystem.GetInstance().DrawText("WON", new Point(700, 550), new Font("Arial Bold", Font.BOLD, 22), Color.GREEN, 20);
+            GraphicsEngine.GraphicsSystem.GetInstance().DrawText("WON", new Point(1100, 575), new Font("Arial Bold", Font.BOLD, 22), Color.GREEN, 20);
         }
         else if (bIsLost){
-            GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LOST", new Point(700, 550), new Font("Arial Bold", Font.BOLD, 22), Color.RED, 20);
+            GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LOST", new Point(1100, 575), new Font("Arial Bold", Font.BOLD, 22), Color.RED, 20);
         }
 
     }

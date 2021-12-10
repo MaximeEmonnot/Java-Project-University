@@ -47,7 +47,7 @@ public class SearchScene extends AScene{
      */
     public SearchScene() throws SQLException {
         ResetQuestionList();
-        refreshButton = new Button(new Rectangle(660, 500, 100, 40), "Refresh", () -> {
+        refreshButton = new Button(new Rectangle(1150, 600, 100, 40), "Refresh", () -> {
            try {
                 ResetQuestionList();
             } catch (SQLException e) {
@@ -56,19 +56,19 @@ public class SearchScene extends AScene{
             }
        });
     
-       profileButton = new Button(new Rectangle(25, 10, 200, 50), "View profile", () -> {
+       profileButton = new Button(new Rectangle(50, 10, 350, 50), "View profile", () -> {
            currentStage = SceneStage.PROFILE;
        });
-       statisticsButton = new Button(new Rectangle(250, 10, 200, 50), "View statistics", () -> {
+       statisticsButton = new Button(new Rectangle(425, 10, 350, 50), "View statistics", () -> {
         statsArray.clear();
         try {
             ResultSet rSet = dbm.GetResultFromSQLRequest("SELECT domaine, categorie, niveau, score FROM " + dbm.GetDatabaseName() + ".etudiant, " + dbm.GetDatabaseName() + ".statistique, " + dbm.GetDatabaseName() + ".sujets WHERE email = '" + user.GetMail() + "' AND id_etudiant = id_statistique AND " + dbm.GetDatabaseName() + ".sujets.id = " + dbm.GetDatabaseName() + ".statistique.id_subject;");
             int i = 0;
             while(rSet.next()){
-                if (!statsArray.containsKey(i/5)){
-                    statsArray.put(i/5, new HashSet<TextBox>());
+                if (!statsArray.containsKey(i/6)){
+                    statsArray.put(i/6, new HashSet<TextBox>());
                 }
-                statsArray.get(i/5).add(new TextBox(new Rectangle(100, 50 + 75 * (i%5), 600, 50), rSet.getString("domaine") + " - " + rSet.getString("categorie") + " - " + rSet.getString("niveau") + " - Score : " + rSet.getFloat("score") + "%"));
+                statsArray.get(i/6).add(new TextBox(new Rectangle(340, 50 + 75 * (i%6), 600, 50), rSet.getString("domaine") + " - " + rSet.getString("categorie") + " - " + rSet.getString("niveau") + " - Score : " + rSet.getFloat("score") + "%"));
                 i++;
             }
         } catch (SQLException e) {
@@ -78,23 +78,23 @@ public class SearchScene extends AScene{
            currentStage = SceneStage.STATISTICS;
        });
 
-       lastStatPage = new Button(new Rectangle(100, 500, 25, 25), "<", () -> { iCurPage--;});
-       nextStatPage = new Button(new Rectangle(400, 500, 25, 25), ">", () -> { iCurPage++;});
+       lastStatPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> { iCurPage--;});
+       nextStatPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> { iCurPage++;});
 
-       forumButton = new Button(new Rectangle(475, 10, 200, 50), "Go to forum", () ->{
+       forumButton = new Button(new Rectangle(800, 10, 350, 50), "Go to forum", () ->{
             bChangeScene = true;
             nextSceneIndex = 6;
        });
-       backButton = new Button(new Rectangle(650, 500, 100, 50), "Back", () -> {
+       backButton = new Button(new Rectangle(1100, 600, 100, 50), "Back", () -> {
            currentStage = SceneStage.SEARCHING;
        });
-       changePasswordButton = new Button(new Rectangle(100, 500, 200, 50), "Change password", () -> {
+       changePasswordButton = new Button(new Rectangle(70, 600, 200, 50), "Change password", () -> {
             currentStage = SceneStage.CHANGE_PASSWORD;
        });
-       cancelButton = new Button(new Rectangle(500, 500, 200, 50), "Cancel", () -> {
+       cancelButton = new Button(new Rectangle(740, 500, 200, 50), "Cancel", () -> {
             currentStage = SceneStage.PROFILE;
        });
-       confirmPasswordButton = new Button(new Rectangle(100, 500, 200, 50), "Confirm password", () -> {
+       confirmPasswordButton = new Button(new Rectangle(340, 500, 200, 50), "Confirm password", () -> {
            if (oldPassword.GetText().length() != 0
             && newPassword.GetText().length() != 0
             && confirmNewPassword.GetText().length() != 0){
@@ -226,7 +226,7 @@ public class SearchScene extends AScene{
 
         switch(currentStage){
             case SEARCHING: 
-                GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 70), new Point(800, 70), Color. BLACK);
+                GraphicsEngine.GraphicsSystem.GetInstance().DrawLine(new Point(0, 70), new Point(1280, 70), Color. BLACK);
                 searchId.Draw();
                 searchDomain.Draw(5);
                 searchCategory.Draw(5);
@@ -262,7 +262,7 @@ public class SearchScene extends AScene{
                 while(itr.hasNext()){
                     Button btn = itr.next();
                     if (btn.GetText().startsWith(searchId.GetText()) && btn.GetText().contains(searchDomain.GetText()) && btn.GetText().contains(searchCategory.GetText()) && btn.GetText().contains(searchDifficulty.GetText())){
-                        btn.Draw(Color.LIGHT_GRAY, new Rectangle(25 + 380 * (int)(j / 8), 85 + 50 * (j % 8), 350, 45));
+                        btn.Draw(Color.LIGHT_GRAY, new Rectangle(25 + 415 * (int)(j / 10), 85 + 50 * (j % 10), 375, 45));
                         j++;
                     }
                     else {
@@ -554,17 +554,17 @@ public class SearchScene extends AScene{
     private Button cancelButton;
 
     //Change password menu
-    private TypingBox oldPassword = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter old password...");
-    private TypingBox newPassword = new TypingBox(new Rectangle(100, 250, 600, 50), "Enter new password...");
-    private TypingBox confirmNewPassword = new TypingBox(new Rectangle(100, 350, 600, 50), "Confirm new password...");
-    private UserMessage passwordMessage = new UserMessage(new Point(100, 425));
+    private TypingBox oldPassword = new TypingBox(new Rectangle(340, 150, 600, 50), "Enter old password...");
+    private TypingBox newPassword = new TypingBox(new Rectangle(340, 250, 600, 50), "Enter new password...");
+    private TypingBox confirmNewPassword = new TypingBox(new Rectangle(340, 350, 600, 50), "Confirm new password...");
+    private UserMessage passwordMessage = new UserMessage(new Point(340, 425));
 
     //Profile menu
-    private TextBox firstNameBox = new TextBox(new Rectangle(100, 150, 275, 50));
-    private TextBox lastNameBox = new TextBox(new Rectangle(400, 150, 275, 50));
-    private TextBox emailBox = new TextBox(new Rectangle(100, 250, 275, 50));
-    private TextBox phoneBox = new TextBox(new Rectangle(400, 250, 275, 50));
-    private TextBox addressBox = new TextBox(new Rectangle(100, 350, 600, 50));
+    private TextBox firstNameBox = new TextBox(new Rectangle(150, 100, 450, 50));
+    private TextBox lastNameBox = new TextBox(new Rectangle(650, 100, 450, 50));
+    private TextBox emailBox = new TextBox(new Rectangle(150, 200, 450, 50));
+    private TextBox phoneBox = new TextBox(new Rectangle(650, 200, 450, 50));
+    private TextBox addressBox = new TextBox(new Rectangle(150, 300, 950, 50));
 
     //Statistics menu
     private Map<Integer, HashSet<TextBox>> statsArray = new HashMap<Integer, HashSet<TextBox>>(); 
@@ -573,10 +573,10 @@ public class SearchScene extends AScene{
     private Button lastStatPage;
 
     //Searching menu
-    private TypingBox searchId = new TypingBox(new Rectangle(15, 500, 150, 50), "Enter ID..."); 
-    private ChoiceBox searchDomain = new ChoiceBox(new Rectangle(175, 500, 150, 50), "Select domain..."); 
-    private ChoiceBox searchCategory = new ChoiceBox(new Rectangle(335, 500, 150, 50), "Select category..."); 
-    private ChoiceBox searchDifficulty = new ChoiceBox(new Rectangle(495, 500, 150, 50), "Select level..."); 
+    private TypingBox searchId = new TypingBox(new Rectangle(50, 600, 250, 50), "Enter ID..."); 
+    private ChoiceBox searchDomain = new ChoiceBox(new Rectangle(325, 600, 250, 50), "Select domain..."); 
+    private ChoiceBox searchCategory = new ChoiceBox(new Rectangle(600, 600, 250, 50), "Select category..."); 
+    private ChoiceBox searchDifficulty = new ChoiceBox(new Rectangle(875, 600, 250, 50), "Select level..."); 
 
     private Set<String> domains = new HashSet<String>();
     private Map<String, HashSet<String>> categories = new HashMap<String, HashSet<String>>();

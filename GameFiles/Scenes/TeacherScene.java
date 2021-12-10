@@ -38,7 +38,7 @@ public class TeacherScene extends AScene {
      * @author Maxime Emonnot
      */
     public TeacherScene(){
-        addQButton = new Button(new Rectangle(25, 500, 100, 50), "Add", () -> {
+        addQButton = new Button(new Rectangle(70, 600, 100, 50), "Add", () -> {
             
             try {
                 ResultSet questionSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".questions, " + dbm.GetDatabaseName() + ".sujets WHERE " + dbm.GetDatabaseName() + ".questions.id_subject = " + dbm.GetDatabaseName() + ".sujets.id AND domaine = '" + domainChoice.GetText().replace("'", "\\'") + "' AND categorie = '" + categoryChoice.GetText().replace("'", "\\'") + "' AND niveau = '" + levelChoice.GetText() + "' AND question = '" + question.GetText() + "' AND reponseA = '" + answerA.GetText() + "' AND reponseB = '" + answerB.GetText() + "' AND reponseC = '" + answerC.GetText() + "' AND reponseD = '" + answerD.GetText() + "';");
@@ -64,7 +64,7 @@ public class TeacherScene extends AScene {
                         ResultSet teacherSet = dbm.GetResultFromSQLRequest("SELECT id_professeur FROM " + dbm.GetDatabaseName() + ".professeur WHERE email = '" + user.GetMail() + "';");
                         if (teacherSet.next()){
                             dbm.SendSQLRequest("INSERT INTO " + dbm.GetDatabaseName() + ".questions (id_prof, id_subject, difficulte, question, code_reponses, reponseA, reponseB, reponseC, reponseD)" +
-                                               "VALUES (" + teacherSet.getInt("id_professeur") + ", " + subjectId + ", 'Facile' , '" + question.GetText() + "', '" + answerCode + "', '" + answerA.GetText() + "', '" + answerB.GetText() + "', '" + answerC.GetText() + "', '" + answerD.GetText() + "');");
+                                               "VALUES (" + teacherSet.getInt("id_professeur") + ", " + subjectId + ", '" + difficultyChoice.GetText() + "' , '" + question.GetText() + "', '" + answerCode + "', '" + answerA.GetText() + "', '" + answerB.GetText() + "', '" + answerC.GetText() + "', '" + answerD.GetText() + "');");
                             questionMessage.SetMessage("Question added !", Color.GREEN, 2.0f);
                         }
                     }
@@ -75,7 +75,7 @@ public class TeacherScene extends AScene {
             }
         });
     
-        addDButton = new Button(new Rectangle(25, 500, 100, 50), "Add", () -> {
+        addDButton = new Button(new Rectangle(70, 600, 100, 50), "Add", () -> {
             try {
                 ResultSet domainSet = dbm.GetResultFromSQLRequest("SELECT * FROM " + dbm.GetDatabaseName() + ".sujets WHERE domaine = '" + domain.GetText() + "' AND categorie = '" + category.GetText() + "' AND niveau = '" + levelSelection.GetText() + "';");
                 if (domainSet.next()){
@@ -93,10 +93,10 @@ public class TeacherScene extends AScene {
             }
         });
 
-        addDomainButton = new Button(new Rectangle(100, 150, 600, 50), "Add domain", () -> {
+        addDomainButton = new Button(new Rectangle(340, 150, 600, 50), "Add domain", () -> {
             currentStage = SceneStage.ADD_DOMAIN;
         });
-        addQuestionButton = new Button(new Rectangle(100, 250, 600, 50), "Add question", () -> {
+        addQuestionButton = new Button(new Rectangle(340, 250, 600, 50), "Add question", () -> {
             domains.clear();
             categories.clear();
             level.clear();
@@ -125,7 +125,7 @@ public class TeacherScene extends AScene {
             }
             currentStage = SceneStage.ADD_QUESTION;
         });
-        editQuestionListButton = new Button(new Rectangle(100, 350, 600, 50), "Edit questions", () -> {
+        editQuestionListButton = new Button(new Rectangle(340, 350, 600, 50), "Edit questions", () -> {
             try {
                 ResetQuestionList();
             } catch (SQLException e) {
@@ -135,21 +135,27 @@ public class TeacherScene extends AScene {
             currentStage = SceneStage.QUESTION_LIST;
         });
         
-        lastPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> {iCurPage--;} );
-        nextPage = new Button(new Rectangle(600, 450, 25, 25), ">", () -> {iCurPage++;} );
+        lastPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPage--;} );
+        nextPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPage++;} );
         
-        forumButton = new Button(new Rectangle(100, 450, 600, 50), "Go to forum", () -> {
+        forumButton = new Button(new Rectangle(340, 450, 600, 50), "Go to forum", () -> {
             bChangeScene = true;
             nextSceneIndex = 6;
         });
-        backButton = new Button(new Rectangle(600, 500, 100, 50), "Back", () -> {
+        backButton = new Button(new Rectangle(1100, 600, 100, 50), "Back", () -> {
             currentStage = SceneStage.SELECTION;
         });
    
+        //Level selection initialisation
         levelSelection.AddChoice("Primaire");
         levelSelection.AddChoice("College");
         levelSelection.AddChoice("Lycee");
         levelSelection.AddChoice("Superieur");
+
+        //Difficulty selection initialisation
+        difficultyChoice.AddChoice("Facile");
+        difficultyChoice.AddChoice("Moyen");
+        difficultyChoice.AddChoice("Difficile");
     }
 
     /**
@@ -219,6 +225,7 @@ public class TeacherScene extends AScene {
                 domainChoice.Update(e);
                 categoryChoice.Update(e);
                 levelChoice.Update(e);
+                difficultyChoice.Update(e);
             
                 if (addQButton.OnClick(e)){
                     addQButton.ComputeFunction();
@@ -334,6 +341,7 @@ public class TeacherScene extends AScene {
                 domainChoice.Draw(5);
                 categoryChoice.Draw(5);
                 levelChoice.Draw(5);
+                difficultyChoice.Draw(5);
                 
                 //Drawing button
                 if (addQButton.IsClicked()){
@@ -435,10 +443,10 @@ public class TeacherScene extends AScene {
         while(questionSet.next()){
             int id = questionSet.getInt("id");
             String name = questionSet.getString("question");
-            if (!questionList.containsKey(i / 5)){
-                questionList.put(i/5, new HashMap<TextBox, Button>());
+            if (!questionList.containsKey(i / 6)){
+                questionList.put(i/6, new HashMap<TextBox, Button>());
             }
-            questionList.get(i/5).put(new TextBox(new Rectangle(100, 50 + 75 * (i % 5), 400, 50), questionSet.getInt("id") + " - " + questionSet.getString("question")), new Button(new Rectangle(550, 50 + 75 * (i % 5), 150, 50), "Delete", () -> {
+            questionList.get(i/6).put(new TextBox(new Rectangle(340, 50 + 75 * (i % 6), 400, 50), questionSet.getInt("id") + " - " + questionSet.getString("question")), new Button(new Rectangle(790, 50 + 75 * (i % 6), 150, 50), "Delete", () -> {
                 try {
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".questions WHERE id = " + id + ";");
                     deletionMessage.SetMessage("Question '" + name + "' deleted !", Color.GREEN, 2.0f);
@@ -465,26 +473,27 @@ public class TeacherScene extends AScene {
     private Button forumButton;
 
     //Add domain menu
-    private TypingBox domain = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter domain...");
-    private TypingBox category = new TypingBox(new Rectangle(100, 250, 600, 50), "Enter category...");
-    private ChoiceBox levelSelection = new ChoiceBox(new Rectangle(100, 350, 600, 50), "Select level...");
-    private UserMessage domainMessage = new UserMessage(new Point(100, 425));
+    private TypingBox domain = new TypingBox(new Rectangle(340, 150, 600, 50), "Enter domain...");
+    private TypingBox category = new TypingBox(new Rectangle(340, 250, 600, 50), "Enter category...");
+    private ChoiceBox levelSelection = new ChoiceBox(new Rectangle(340, 350, 600, 50), "Select level...");
+    private UserMessage domainMessage = new UserMessage(new Point(340, 425));
     private Button addDButton;
 
     //Add question menu
-    private TypingBox question = new TypingBox(new Rectangle(50, 125, 600, 50), "Question");
-    private TypingBox answerA = new TypingBox(new Rectangle(50, 200, 500, 50), "Answer A");
-    private TypingBox answerB = new TypingBox(new Rectangle(50, 275, 500, 50), "Answer B");
-    private TypingBox answerC = new TypingBox(new Rectangle(50, 350, 500, 50), "Answer C");
-    private TypingBox answerD = new TypingBox(new Rectangle(50, 425, 500, 50), "Answer D");
-    private CheckBox checkAnswerA = new CheckBox(new Rectangle(575, 212, 25, 25));
-    private CheckBox checkAnswerB = new CheckBox(new Rectangle(575, 287, 25, 25));
-    private CheckBox checkAnswerC = new CheckBox(new Rectangle(575, 362, 25, 25));
-    private CheckBox checkAnswerD = new CheckBox(new Rectangle(575, 437, 25, 25));
-    private ChoiceBox domainChoice = new ChoiceBox(new Rectangle(25, 25, 175, 50), "Select domain...");
-    private ChoiceBox categoryChoice = new ChoiceBox(new Rectangle(300, 25, 175, 50), "Select category...");
-    private ChoiceBox levelChoice = new ChoiceBox(new Rectangle(575, 25, 175, 50), "Select level...");
-    private UserMessage questionMessage = new UserMessage(new Point(100, 490));
+    private TypingBox question = new TypingBox(new Rectangle(340, 125, 600, 50), "Question");
+    private TypingBox answerA = new TypingBox(new Rectangle(340, 200, 500, 50), "Answer A");
+    private TypingBox answerB = new TypingBox(new Rectangle(340, 275, 500, 50), "Answer B");
+    private TypingBox answerC = new TypingBox(new Rectangle(340, 350, 500, 50), "Answer C");
+    private TypingBox answerD = new TypingBox(new Rectangle(340, 425, 500, 50), "Answer D");
+    private CheckBox checkAnswerA = new CheckBox(new Rectangle(865, 212, 25, 25));
+    private CheckBox checkAnswerB = new CheckBox(new Rectangle(865, 287, 25, 25));
+    private CheckBox checkAnswerC = new CheckBox(new Rectangle(865, 362, 25, 25));
+    private CheckBox checkAnswerD = new CheckBox(new Rectangle(865, 437, 25, 25));
+    private ChoiceBox domainChoice = new ChoiceBox(new Rectangle(165, 25, 200, 50), "Select domain...");
+    private ChoiceBox categoryChoice = new ChoiceBox(new Rectangle(415, 25, 200, 50), "Select category...");
+    private ChoiceBox levelChoice = new ChoiceBox(new Rectangle(665, 25, 200, 50), "Select level...");
+    private ChoiceBox difficultyChoice = new ChoiceBox(new Rectangle(915, 25, 200, 50), "Select level...");
+    private UserMessage questionMessage = new UserMessage(new Point(340, 490));
     private Button addQButton;
 
     //Edit question list menu
@@ -493,7 +502,7 @@ public class TeacherScene extends AScene {
     private int iCurPage = 0;
     private Button lastPage;
     private Button nextPage;
-    private UserMessage deletionMessage = new UserMessage(new Point(100, 500));
+    private UserMessage deletionMessage = new UserMessage(new Point(340, 500));
 
     private SceneStage currentStage = SceneStage.SELECTION;
 }

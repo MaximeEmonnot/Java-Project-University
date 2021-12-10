@@ -68,7 +68,7 @@ public class ForumScene extends AScene {
         questionWords.add("lequel");
         questionWords.add("quand");
         
-        exitForumButton = new Button(new Rectangle(700, 500, 75, 50), "Exit", () -> {
+        exitForumButton = new Button(new Rectangle(1100, 600, 75, 50), "Exit", () -> {
             bChangeScene = true;
             if (user instanceof Student){
                 nextSceneIndex = 2;
@@ -135,17 +135,17 @@ public class ForumScene extends AScene {
      */
     private void InitStudent(){
         //Selection menu initialization
-        askQuestionButton = new Button(new Rectangle(100, 150, 600, 50), "Ask question", () -> {
+        askQuestionButton = new Button(new Rectangle(340, 150, 600, 50), "Ask question", () -> {
             question.Clear();
             currentStage = SceneStage.STUDENT_ASK;
         });
-        questionListButton = new Button(new Rectangle(100, 250, 600, 50), "View question list", () -> {
+        questionListButton = new Button(new Rectangle(340, 250, 600, 50), "View question list", () -> {
             currentStage = SceneStage.STUDENT_QUESTION_LIST;
         });
-        lastQuestionPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> { iCurQuestionPage--;});
-        nextQuestionPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> { iCurQuestionPage++;});
+        lastQuestionPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> { iCurQuestionPage--;});
+        nextQuestionPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> { iCurQuestionPage++;});
 
-        editQuestionsButton = new Button(new Rectangle(100, 350, 600, 50), "Manage questions", () -> {
+        editQuestionsButton = new Button(new Rectangle(340, 350, 600, 50), "Manage questions", () -> {
             try {
                 ResetStudentQuestionDeleteList();
                 currentStage = SceneStage.STUDENT_MANAGE_QUESTION;
@@ -154,11 +154,11 @@ public class ForumScene extends AScene {
                 e.printStackTrace();
             }
         });
-        lastDeletePage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> { iCurDeletePage--;});
-        nextDeletePage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> { iCurDeletePage++;});
+        lastDeletePage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> { iCurDeletePage--;});
+        nextDeletePage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> { iCurDeletePage++;});
 
         //Ajout question menu 
-        addQuestionButton = new Button(new Rectangle(250, 500, 100, 50), "Add question", () -> {
+        addQuestionButton = new Button(new Rectangle(70, 600, 100, 50), "Add question", () -> {
             try {
                 if (question.GetText().length() != 0){
                     //Vérification de l'existence de la question
@@ -190,7 +190,7 @@ public class ForumScene extends AScene {
         });
 
         //Ajout proposition menu
-        addPropositionButton = new Button(new Rectangle(250, 500, 100, 50), "Add proposition", () -> {
+        addPropositionButton = new Button(new Rectangle(70, 600, 100, 50), "Add proposition", () -> {
             try {
                 if (proposition.GetText().length() != 0){
                     //Insertion de la proposition de réponse, pas de vérification d'existence car les étudiants n'ont pas accès aux autres propositions
@@ -207,10 +207,10 @@ public class ForumScene extends AScene {
                 e.printStackTrace();
             }
         });
-        exitPropositionButton = new Button(new Rectangle(700, 500, 75, 50), "Back to question list", () -> {
+        exitPropositionButton = new Button(new Rectangle(1100, 600, 75, 50), "Cancel", () -> {
             currentStage = SceneStage.STUDENT_QUESTION_LIST;
         });
-        backButton = new Button(new Rectangle(700, 500, 75, 50), "Back", () -> {
+        backButton = new Button(new Rectangle(1100, 600, 75, 50), "Back", () -> {
             currentStage = SceneStage.SELECTION;
         });
     }
@@ -221,17 +221,17 @@ public class ForumScene extends AScene {
      */
     private void InitTeacher(){
     	
-    	tlastQuestionPage = new Button(new Rectangle(100, 450, 25, 25), "<", () -> { tiCurQuestionPage--;});
-        tnextQuestionPage = new Button(new Rectangle(500, 450, 25, 25), ">", () -> { tiCurQuestionPage++;});
+    	tlastQuestionPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> { tiCurQuestionPage--;});
+        tnextQuestionPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> { tiCurQuestionPage++;});
         
-        tLastPropPage = new Button(new Rectangle(100, 500, 25, 25), "<", () -> { tiCurPropositionPage--;}); //A toi de metrte la position que tu veux
-        tNextPropPage = new Button(new Rectangle(600, 500, 25, 25), ">", () -> { tiCurPropositionPage++;}); //Meme chose
+        tLastPropPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> { tiCurPropositionPage--;}); //A toi de metrte la position que tu veux
+        tNextPropPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> { tiCurPropositionPage++;}); //Meme chose
     	
-    	teacherQuestionListButton = new Button(new Rectangle(100, 250, 600, 50), "View question list", () -> {
+    	teacherQuestionListButton = new Button(new Rectangle(340, 250, 600, 50), "View question list", () -> {
             currentStage = SceneStage.TEACHER_QUESTION_LIST;
         });
         
-    	tValidateAnswer = new Button(new Rectangle(550, 100, 100, 50), "Validate", () -> {
+    	tValidateAnswer = new Button(new Rectangle(790, 100, 100, 50), "Validate", () -> {
     		if (tAnswer.GetText().length() != 0) {
     			try {
 					dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + tAnswer.GetText() + "' WHERE id = " + tiChosenQuestion + ";");
@@ -247,13 +247,13 @@ public class ForumScene extends AScene {
     		}
     	});
     	
-    	tCancelAnswerButton = new Button(new Rectangle(700, 500, 75, 50), "Cancel", () -> {
+    	tCancelAnswerButton = new Button(new Rectangle(1100, 600, 75, 50), "Cancel", () -> {
     		currentStage = SceneStage.TEACHER_QUESTION_LIST;
     		tAnswer.Clear();
     		bHasAnswered = false;
     	});
     	
-        tbackButton = new Button(new Rectangle(700, 500, 75, 50), "Back", () -> {
+        tbackButton = new Button(new Rectangle(1100, 600, 75, 50), "Back", () -> {
             currentStage = SceneStage.SELECTION;
         });
     }
@@ -797,14 +797,14 @@ public class ForumScene extends AScene {
 
             for (int i = 0; i < priorityQuestion.size(); i++){
                 if (maxPriority == priorityQuestion.get(i).getKey()){
-                    if (!questionArray.containsKey(i/5)){
-                        questionArray.put(i/5, new HashMap<TextBox, Button>());
+                    if (!questionArray.containsKey(i/6)){
+                        questionArray.put(i/6, new HashMap<TextBox, Button>());
                     }
                     int id = priorityQuestion.get(i).getValue().getValue().getValue();
                     String questionStr = priorityQuestion.get(i).getValue().getKey();
                     String answerStr = priorityQuestion.get(i).getValue().getValue().getKey();
                     if (answerStr.length() == 0){
-                        questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), questionStr), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Add proposition", () -> { 
+                        questionArray.get(i/6).put(new TextBox(new Rectangle(340, 50 + (i % 6) * 75, 400, 50), questionStr), new Button(new Rectangle(740, 50 + (i % 6) * 75, 150, 50), "Add proposition", () -> { 
                             proposition.Clear();
                             currentStage = SceneStage.STUDENT_PROPOSE;
                             iChosenQuestion = id;
@@ -812,7 +812,7 @@ public class ForumScene extends AScene {
                         }));
                     }
                     else{
-                        questionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), questionStr), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "See answer", () -> { 
+                        questionArray.get(i/6).put(new TextBox(new Rectangle(340, 50 + (i % 6) * 75, 400, 50), questionStr), new Button(new Rectangle(740, 50 + (i % 6) * 75, 150, 50), "See answer", () -> { 
                             currentStage = SceneStage.STUDENT_CHECK_ANSWER;
                             iChosenQuestion = id;
                             chosenQuestionText = questionStr;
@@ -836,11 +836,11 @@ public class ForumScene extends AScene {
         int i = 0;
         while (questionDeleteSet.next()){
             int currentId = questionDeleteSet.getInt("id");
-            if (!questionDeleteArray.containsKey(i / 5)){
-                questionDeleteArray.put(i/5, new HashMap<TextBox, Button>());
+            if (!questionDeleteArray.containsKey(i / 6)){
+                questionDeleteArray.put(i/6, new HashMap<TextBox, Button>());
             }
             //On ajoute tous les couples TextBox Button à partir de la base de données. Le bouton va enclencher la fonction en Lambda (suppression de la question).
-            questionDeleteArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), questionDeleteSet.getString("question")), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Delete", () -> {
+            questionDeleteArray.get(i/6).put(new TextBox(new Rectangle(340, 50 + (i % 6) * 75, 400, 50), questionDeleteSet.getString("question")), new Button(new Rectangle(740, 50 + (i % 6) * 75, 100, 50), "Delete", () -> {
                 try {
                     //On supprime toutes les propositions à la quesiton, puis on supprime la question. Enfin, on fait un reset la liste des boutons
                     dbm.SendSQLRequest("DELETE FROM " + dbm.GetDatabaseName() + ".forumProposition WHERE id_question = " + currentId + ";");
@@ -898,11 +898,11 @@ public class ForumScene extends AScene {
 
              for (int i = 0; i < priorityQuestion.size(); i++){
                  if (maxPriority == priorityQuestion.get(i).getKey()){
-                     if (!tquestionArray.containsKey(i/5)){
-                         tquestionArray.put(i/5, new HashMap<TextBox, Button>());
+                     if (!tquestionArray.containsKey(i/6)){
+                         tquestionArray.put(i/6, new HashMap<TextBox, Button>());
                      }
                      int id = priorityQuestion.get(i).getValue().getValue();
-                     tquestionArray.get(i/5).put(new TextBox(new Rectangle(50, 50 + (i % 5) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(500, 50 + (i % 5) * 75, 100, 50), "Answer", () -> { 
+                     tquestionArray.get(i/6).put(new TextBox(new Rectangle(340, 50 + (i % 6) * 75, 400, 50), priorityQuestion.get(i).getValue().getKey()), new Button(new Rectangle(740, 50 + (i % 6) * 75, 100, 50), "Answer", () -> { 
                     	 //Fonction inscrite dans le bouton Answer
                     	 try {
                     		 //Passage � la phase de sc�ne ANSWER_QUESTION
@@ -942,11 +942,11 @@ public class ForumScene extends AScene {
     		 	* Ensuite, pour l'ajout de propositions, on d�finit une TextBox et un Bouton.
     		 	* La position du couple TextBox/Bouton d�pend du nombre d'�l�ments parcourus dans le tableau (valeur i)
     		 	*/
-    			if (!tPropositionArray.containsKey(i / 4)) {
-    				tPropositionArray.put(i / 4, new HashMap<TextBox, Button>());
+    			if (!tPropositionArray.containsKey(i / 6)) {
+    				tPropositionArray.put(i / 6, new HashMap<TextBox, Button>());
     			}
     			String prop = propositionSet.getString("proposition");
-    			tPropositionArray.get(i/4).put(new TextBox(new Rectangle(150, 175 + (i % 4) * 75, 400, 50), prop), new Button(new Rectangle(550, 175 + (i % 4) * 75, 100, 50), "Select", () -> {
+    			tPropositionArray.get(i/6).put(new TextBox(new Rectangle(390, 175 + (i % 6) * 75, 400, 50), prop), new Button(new Rectangle(790, 175 + (i % 6) * 75, 100, 50), "Select", () -> {
     				//Fonction dans les boutons Select (� faire plus tard)
     				try {
 						dbm.SendSQLRequest("UPDATE " + dbm.GetDatabaseName() + ".forumQuestion SET answer = '" + prop.replace("'", "\\'") + "' WHERE id = " + tiChosenQuestion + ";");
@@ -973,8 +973,8 @@ public class ForumScene extends AScene {
     private Button editQuestionsButton;
     
     //Menu poser question Etudiant
-    private TypingBox question = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your question...");
-    private UserMessage studentQuestionMessage = new UserMessage(new Point(100, 225));
+    private TypingBox question = new TypingBox(new Rectangle(340, 150, 600, 50), "Enter your question...");
+    private UserMessage studentQuestionMessage = new UserMessage(new Point(340, 225));
     private Button addQuestionButton;
     
     //Menu liste questions Etudiant
@@ -982,19 +982,19 @@ public class ForumScene extends AScene {
     private int iCurQuestionPage = 0;
     private Button lastQuestionPage;
     private Button nextQuestionPage;
-    private TypingBox questionSearch = new TypingBox(new Rectangle(100, 500, 600, 50), "Search question...");
+    private TypingBox questionSearch = new TypingBox(new Rectangle(340, 600, 600, 50), "Search question...");
     private int iChosenQuestion = 0;
     
     //Menu proposition Etudiant
-    private TextBox chosenQuestion = new TextBox(new Rectangle(100, 25, 600, 50));
+    private TextBox chosenQuestion = new TextBox(new Rectangle(340, 25, 600, 50));
     private String chosenQuestionText = "";
-    private TypingBox proposition = new TypingBox(new Rectangle(100, 150, 600, 50), "Enter your proposition...");
+    private TypingBox proposition = new TypingBox(new Rectangle(340, 150, 600, 50), "Enter your proposition...");
     private UserMessage studentPropositionMessage = new UserMessage(new Point(100, 225));
     private Button addPropositionButton;
     private Button exitPropositionButton;
     
     //Menu check answer Etudiant
-    private TextBox chosenQuestionAnswer = new TextBox(new Rectangle(150, 100, 500, 50));
+    private TextBox chosenQuestionAnswer = new TextBox(new Rectangle(390, 100, 500, 50));
     private String chosenQuestionAnswerText = "";
 
     //Menu gestion questions Etudiant
@@ -1003,7 +1003,7 @@ public class ForumScene extends AScene {
     private Button lastDeletePage;
     private Button nextDeletePage;
 
-    private UserMessage studentDeletionMessage = new UserMessage(new Point(100, 500));
+    private UserMessage studentDeletionMessage = new UserMessage(new Point(340, 500));
 
     //Back button
     private Button backButton;
@@ -1023,7 +1023,7 @@ public class ForumScene extends AScene {
     private int tiCurQuestionPage = 0;
     private Button tlastQuestionPage;
     private Button tnextQuestionPage;
-    private TypingBox tquestionSearch = new TypingBox(new Rectangle(100, 500, 600, 50), "Search question...");
+    private TypingBox tquestionSearch = new TypingBox(new Rectangle(340, 600, 600, 50), "Search question...");
     private int tiChosenQuestion = 0;
     
     //Menu liste propositions questions Teacher
@@ -1031,13 +1031,13 @@ public class ForumScene extends AScene {
     private int tiCurPropositionPage = 0;
     private Button tLastPropPage;
     private Button tNextPropPage;
-    private TypingBox tAnswer = new TypingBox(new Rectangle (150, 100, 400, 50), "Enter your answer...");
+    private TypingBox tAnswer = new TypingBox(new Rectangle (390, 100, 400, 50), "Enter your answer...");
     private Button tValidateAnswer;
-    private TextBox tQuestion = new TextBox(new Rectangle(100, 25, 600, 50)); 
+    private TextBox tQuestion = new TextBox(new Rectangle(340, 25, 600, 50)); 
     private String tQuestionText = "";
     private Button tCancelAnswerButton;
     private boolean bHasAnswered = false;
-    private UserMessage teacherAnswerMessage = new UserMessage(new Point(100, 500));
+    private UserMessage teacherAnswerMessage = new UserMessage(new Point(340, 500));
     
     //Back button Teacher
     private Button tbackButton;

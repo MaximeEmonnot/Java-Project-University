@@ -120,7 +120,7 @@ public class QuizzScene extends AScene {
     public void Draw() throws ProjectException {
         // TODO Auto-generated method stub
         questions.get(iCurQuestion).Draw();
-        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LIVES : " + lives, new Point(10, 500), Color.BLACK, 15);
+        GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LIVES : " + lives, new Point(50, 575), Color.BLACK, 15);
     }
     
     private void SendStatistics(){

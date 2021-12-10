@@ -32,20 +32,20 @@ public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
 		//Determiner quel cadeau est le bon
 		switch(_type) {
 		case ANSWER_A:
-			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),true);
-			cadDroite = new Gift(new Rectangle(500,150,78,78),false);
+			cadGauche = new Gift(new Rectangle(440, 150, 78, 78),true);
+			cadDroite = new Gift(new Rectangle(740,150,78,78),false);
 			break;
 		case ANSWER_B:
-			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),false);
-			cadDroite = new Gift(new Rectangle(500,150,78,78),true);
+			cadGauche = new Gift(new Rectangle(440, 150, 78, 78),false);
+			cadDroite = new Gift(new Rectangle(740,150,78,78),true);
 			break;
 		case BOTH:
-			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),true);
-			cadDroite = new Gift(new Rectangle(500,150,78,78),true);
+			cadGauche = new Gift(new Rectangle(440, 150, 78, 78),true);
+			cadDroite = new Gift(new Rectangle(740,150,78,78),true);
 			break;
 		default:
-			cadGauche = new Gift(new Rectangle(140, 150, 78, 78),false);
-			cadDroite = new Gift(new Rectangle(500,150,78,78),false);
+			cadGauche = new Gift(new Rectangle(440, 150, 78, 78),false);
+			cadDroite = new Gift(new Rectangle(740,150,78,78),false);
 			break;
 			
 		}

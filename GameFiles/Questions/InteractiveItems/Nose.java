@@ -27,12 +27,12 @@ public class Nose {
         case 1:
             bLeftIsWin = true;
             bRightIsWin = false;
-            destDroplet = new Rectangle(407, 84, 32, 24);
+            destDroplet = new Rectangle(651, 84, 32, 24);
             break;
-            case 2:
+        case 2:
             bLeftIsWin = false;
             bRightIsWin = true;
-            destDroplet = new Rectangle(362, 84, 32, 24);
+            destDroplet = new Rectangle(606, 84, 32, 24);
             break;
         case 3:
             bLeftIsWin = true;
@@ -46,8 +46,8 @@ public class Nose {
             break;
         }
 
-        leftZone = new Rectangle(364, 58, 28, 28);
-        rightZone = new Rectangle(415, 58, 28, 28);
+        leftZone = new Rectangle(608, 58, 28, 28);
+        rightZone = new Rectangle(659, 58, 28, 28);
     }
 
     /**
@@ -81,8 +81,8 @@ public class Nose {
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */
     public void Draw() throws ProjectException{
-        GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(355, 85, 85, 8), Color.BLACK);
-        GraphicsSystem.GetInstance().DrawSprite(sprite, new Rectangle(348, 0, 104, 96), 2);
+        GraphicsSystem.GetInstance().DrawFilledRect(new Rectangle(600, 85, 85, 8), Color.BLACK);
+        GraphicsSystem.GetInstance().DrawSprite(sprite, new Rectangle(592, 0, 104, 96), 2);
         if (bIsLost){
             droplet.Draw(destDroplet, 1);
         }

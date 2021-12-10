@@ -28,39 +28,39 @@ public class AppleQuestion extends ATripleAnswerQuestion {
 		super(_question, _timer, _answerA, _answerB, _answerC, _type);
 		switch(_type) {
 			case ANSWER_A:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), false, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), false, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), false, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), false, AppleType.GREEN);
 			break;
 		    case ANSWER_B:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), false, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), false, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), false, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), false, AppleType.GREEN);
 			break;
 		    case ANSWER_C:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), false, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), false, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), false, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), false, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
 		    case ANSWER_AB:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), false, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), false, AppleType.GREEN);
 			break;
 		    case ANSWER_AC:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), false, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), false, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
 		    case ANSWER_BC:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), false, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), false, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
 		    case ANSWER_ABC:
-			appleA = new Apple(new Rectangle(140, 150, 78, 78), true, AppleType.RED);
-			appleB = new Apple(new Rectangle(360, 150, 78, 78), true, AppleType.YELLOW);
-			appleC = new Apple(new Rectangle(580, 150, 78, 78), true, AppleType.GREEN);
+			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
+			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
+			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
 		    default:
 			break;
@@ -75,7 +75,6 @@ public class AppleQuestion extends ATripleAnswerQuestion {
 	public void Update() {
 		// TODO Auto-generated method stub
         super.Update();
-        CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
 		
 		knife.Update();
         
@@ -102,5 +101,5 @@ public class AppleQuestion extends ATripleAnswerQuestion {
 	private Apple appleA;
 	private Apple appleB;
 	private Apple appleC;
-	private Knife knife = new Knife(new Rectangle(400, 400, 256, 64));
+	private Knife knife = new Knife(new Rectangle(950, 450, 256, 64));
 }	
