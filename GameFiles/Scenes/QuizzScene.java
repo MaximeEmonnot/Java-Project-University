@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -64,13 +67,27 @@ public class QuizzScene extends AScene {
         questions.get(iCurQuestion).Update();
         if (questions.get(iCurQuestion).IsLost() || questions.get(iCurQuestion).IsWon()){
             if (!bIsPlayingSong){
-                bIsPlayingSong = true;
-                if (questions.get(iCurQuestion).IsWon()){
-                    SoundSystem.GetInstance().RestartSong(0);
-                }
-                else{
-                    SoundSystem.GetInstance().RestartSong((int)(Math.random() * 3) + 1);
-                }
+                threadPool.execute(() -> {
+                    bIsPlayingSong = true;
+                    if (questions.get(iCurQuestion).IsWon()){
+                        try {
+                            SoundSystem.GetInstance().RestartSong(0);
+                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException
+                                | ProjectException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        try {
+                            SoundSystem.GetInstance().RestartSong((int)(Math.random() * 3) + 1);
+                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException
+                                | ProjectException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
             timerNextQuestion -= CoreSystem.Timer.GetInstance().DeltaTime();
             if (timerNextQuestion <= 0.0f){
@@ -133,6 +150,7 @@ public class QuizzScene extends AScene {
         }
     }
 
+    private ExecutorService threadPool = Executors.newFixedThreadPool(3);
     private float timerNextQuestion = 1.0f;
     private int rightAnswers = 0;
     private boolean bIsPlayingSong = false;
