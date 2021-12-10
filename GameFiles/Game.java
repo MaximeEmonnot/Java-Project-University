@@ -9,6 +9,8 @@ import GameFiles.Scenes.*;
  * Gestion de la boucle de jeu.
  * Contient tout le deroulement de l'application, calculs et affichage.
  * @author Maxime Emonnot
+ * @version 1.0.0
+ * @since 1.3.1
  */
 public class Game {
     /**
@@ -34,7 +36,7 @@ public class Game {
 
     /**
      * Deroulement de la boucle de jeu.
-     * Realise d'abord une phasse de calcul, puis une phase de definition des affichages de la frame, avant de rendre le tout.
+     * <p>Realise d'abord une phasse de calcul, puis une phase de definition des affichages de la frame, avant de rendre le tout.
      * @author Maxime Emonnot
      * @throws Exception Les differentes erreurs contenues dans UpdateFrame
      * @see Game#UpdateFrame()

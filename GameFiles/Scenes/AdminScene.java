@@ -13,8 +13,9 @@ import MenuSystem.Button;
 
 /**
  * Scene adminisatrateur.
- * Permet la gestion des utilisateurs (suppression des etudiants et des professeurs)
+ * <p>Permet la gestion des utilisateurs (suppression des etudiants et des professeurs)
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public class AdminScene extends AScene{
 
@@ -30,185 +31,142 @@ public class AdminScene extends AScene{
    
   /**
    * Constructeur AdminScene.
-   * Initialisation des differents boutons composant la scene
+   * <p>Initialisation des differents boutons composant la scene
    * @author Maxime Emonnot
    */
   public AdminScene() {
-      //TODO Auto-generated constructor stub
-      backButton = new Button(new Rectangle(1100, 600, 100, 50), "Back", () -> {
-          currentStage = SceneStage.SELECTION;
-      });
-      studentListButton = new Button(new Rectangle(340, 150, 600, 50), "Edit student list", () -> {
-        try{
-          ResetStudentList();
-          currentStage = SceneStage.STUDENT_LIST;
-        }
-        catch(SQLException e){
-          e.printStackTrace();
-        }
-      });
-      lastStudentPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPageStudentList--;});
-      nextStudentPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPageStudentList++;});
-      
-      teacherListButton = new Button(new Rectangle(340, 250, 600, 50), "Edit teacher list", () -> {
-        try{
-          ResetTeacherList();
-          currentStage = SceneStage.TEACHER_LIST;
-        }
-        catch(SQLException e){
-          e.printStackTrace();
-        }
-      });
-      lastTeacherPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPageTeacherList--;});
-      nextTeacherPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPageTeacherList++;});
+    //TODO Auto-generated constructor stub
+    backButton = new Button(new Rectangle(1100, 600, 100, 50), "Back", () -> {
+        currentStage = SceneStage.SELECTION;
+    });
+    studentListButton = new Button(new Rectangle(340, 150, 600, 50), "Edit student list", () -> {
+      try{
+        ResetStudentList();
+        currentStage = SceneStage.STUDENT_LIST;
+      }
+      catch(SQLException e){
+        e.printStackTrace();
+      }
+    });
+    lastStudentPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPageStudentList--;});
+    nextStudentPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPageStudentList++;});
     
-    }
-
-    /**
-     * {@inheritDoc}
-     * Mise a jour du menu, en fonction de l'etape de la scene
-     * @author Maxime Emonnot
-     */
-    @Override
-    public void Update() throws SQLException {
-        // TODO Auto-generated method stub
-        CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
-
-        switch(currentStage){
-          case SELECTION:
-            if (studentListButton.OnClick(e)){
-              studentListButton.ComputeFunction();  
-            }
-            if (teacherListButton.OnClick(e)){
-              teacherListButton.ComputeFunction();  
-            }
-            break;
-          case STUDENT_LIST:
-            if(studentList.containsKey(iCurPageStudentList)){
-              Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.get(iCurPageStudentList).entrySet().iterator();
-              while (itrStudent.hasNext()){
-                Button btn = itrStudent.next().getValue();
-                if (btn.OnClick(e)){
-                  btn.ComputeFunction();
-                  break;
-                }
-              }
-            }
-            if (studentList.containsKey(iCurPageStudentList - 1)){
-              if (lastStudentPage.OnClick(e)){
-                lastStudentPage.ComputeFunction();
-              }
-            }
-            if (studentList.containsKey(iCurPageStudentList + 1)){
-              if (nextStudentPage.OnClick(e)){
-                nextStudentPage.ComputeFunction();
-              }
-            }
-
-            if (backButton.OnClick(e)){
-              backButton.ComputeFunction();
-            }
-            deletionMessage.Update();
-            break;
-          case TEACHER_LIST:
-            if (teacherList.containsKey(iCurPageTeacherList)){
-              Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.get(iCurPageTeacherList).entrySet().iterator();
-              while (itrTeacher.hasNext()){
-                Button btn = itrTeacher.next().getValue();
-                if (btn.OnClick(e)){
-                  btn.ComputeFunction();
-                  break;
-                }
-              }
-            }
-            if (teacherList.containsKey(iCurPageTeacherList - 1)){
-              if (lastTeacherPage.OnClick(e)){
-                lastTeacherPage.ComputeFunction();
-              }
-            }
-            if (teacherList.containsKey(iCurPageTeacherList + 1)){
-              if (nextTeacherPage.OnClick(e)){
-                nextTeacherPage.ComputeFunction();
-              }
-            }
-            if (backButton.OnClick(e)){
-              backButton.ComputeFunction();
-            }
-            deletionMessage.Update();
-            break;
-          default:
-            break;
+    teacherListButton = new Button(new Rectangle(340, 250, 600, 50), "Edit teacher list", () -> {
+      try{
+        ResetTeacherList();
+        currentStage = SceneStage.TEACHER_LIST;
+      }
+      catch(SQLException e){
+        e.printStackTrace();
+      }
+    });
+    lastTeacherPage = new Button(new Rectangle(450, 550, 25, 25), "<", () -> {iCurPageTeacherList--;});
+    nextTeacherPage = new Button(new Rectangle(800, 550, 25, 25), ">", () -> {iCurPageTeacherList++;});
+  }
+  /**
+   * {@inheritDoc}
+   * <p>Mise a jour du menu, en fonction de l'etape de la scene
+   * @author Maxime Emonnot
+   */
+  @Override
+  public void Update() throws SQLException {
+      // TODO Auto-generated method stub
+    CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
+    switch(currentStage){
+      case SELECTION:
+        if (studentListButton.OnClick(e)){
+          studentListButton.ComputeFunction();  
         }
+        if (teacherListButton.OnClick(e)){
+          teacherListButton.ComputeFunction();  
+        }
+        break;
+      case STUDENT_LIST:
+        if(studentList.containsKey(iCurPageStudentList)){
+          Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.get(iCurPageStudentList).entrySet().iterator();
+          while (itrStudent.hasNext()){
+            Button btn = itrStudent.next().getValue();
+            if (btn.OnClick(e)){
+              btn.ComputeFunction();
+              break;
+            }
+          }
+        }
+        if (studentList.containsKey(iCurPageStudentList - 1)){
+          if (lastStudentPage.OnClick(e)){
+            lastStudentPage.ComputeFunction();
+          }
+        }
+        if (studentList.containsKey(iCurPageStudentList + 1)){
+          if (nextStudentPage.OnClick(e)){
+            nextStudentPage.ComputeFunction();
+          }
+        }
+        if (backButton.OnClick(e)){
+          backButton.ComputeFunction();
+        }
+        deletionMessage.Update();
+        break;
+      case TEACHER_LIST:
+        if (teacherList.containsKey(iCurPageTeacherList)){
+          Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.get(iCurPageTeacherList).entrySet().iterator();
+          while (itrTeacher.hasNext()){
+            Button btn = itrTeacher.next().getValue();
+            if (btn.OnClick(e)){
+              btn.ComputeFunction();
+              break;
+            }
+          }
+        }
+        if (teacherList.containsKey(iCurPageTeacherList - 1)){
+          if (lastTeacherPage.OnClick(e)){
+            lastTeacherPage.ComputeFunction();
+          }
+        }
+        if (teacherList.containsKey(iCurPageTeacherList + 1)){
+          if (nextTeacherPage.OnClick(e)){
+            nextTeacherPage.ComputeFunction();
+          }
+        }
+        if (backButton.OnClick(e)){
+          backButton.ComputeFunction();
+        }
+        deletionMessage.Update();
+        break;
+      default:
+        break;
     }
+  }
 
-    /**
-     * {@inheritDoc}
-     * Affichage du menu, en fonction de l'etape de la scene
-     * @author Maxime Emonnot
-     */
-    @Override
-    public void Draw() throws ProjectException {
-        // TODO Auto-generated method stub
-        GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
-
-        switch(currentStage){
-            case SELECTION:
-                if (studentListButton.IsClicked()){
-                    studentListButton.Draw(Color.DARK_GRAY);
-                }
-                else{
-                    studentListButton.Draw(Color.LIGHT_GRAY);
-                }
-                if (teacherListButton.IsClicked()){
-                    teacherListButton.Draw(Color.DARK_GRAY);
-                }
-                else{
-                    teacherListButton.Draw(Color.LIGHT_GRAY);
-                }
-                break;
-            case STUDENT_LIST:
-                if (studentList.containsKey(iCurPageStudentList)){
-                  Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.get(iCurPageStudentList).entrySet().iterator();
-                  while(itrStudent.hasNext()){
-                      Map.Entry<TextBox, Button> currentPair = itrStudent.next();
-                      currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
-                      if (currentPair.getValue().IsClicked()){
-                        currentPair.getValue().Draw(Color.DARK_GRAY);
-                      }
-                      else{
-                        currentPair.getValue().Draw(Color.LIGHT_GRAY);
-                      }
-                  }
-                }
-                if (studentList.containsKey(iCurPageStudentList - 1)){
-                  if (lastStudentPage.IsClicked()){
-                    lastStudentPage.Draw(Color.DARK_GRAY);
-                  }
-                  else{
-                    lastStudentPage.Draw(Color.LIGHT_GRAY);
-                  }
-                }
-                if (studentList.containsKey(iCurPageStudentList + 1)){
-                  if (nextStudentPage.IsClicked()){
-                    nextStudentPage.Draw(Color.DARK_GRAY);
-                  }
-                  else{
-                    nextStudentPage.Draw(Color.LIGHT_GRAY);
-                  }
-                }
-                if (backButton.IsClicked()){
-                    backButton.Draw(Color.DARK_GRAY);
-                }
-                else{
-                    backButton.Draw(Color.LIGHT_GRAY);
-                }
-                deletionMessage.Draw();
-                break;
-              case TEACHER_LIST:
-                if (teacherList.containsKey(iCurPageTeacherList)){
-                  Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.get(iCurPageTeacherList).entrySet().iterator();
-                  while(itrTeacher.hasNext()){
-                    Map.Entry<TextBox, Button> currentPair = itrTeacher.next();
+  /**
+   * {@inheritDoc}
+   * <p>Affichage du menu, en fonction de l'etape de la scene
+   * @author Maxime Emonnot
+   */
+  @Override
+  public void Draw() throws ProjectException {
+      // TODO Auto-generated method stub
+      GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
+      switch(currentStage){
+          case SELECTION:
+              if (studentListButton.IsClicked()){
+                  studentListButton.Draw(Color.DARK_GRAY);
+              }
+              else{
+                  studentListButton.Draw(Color.LIGHT_GRAY);
+              }
+              if (teacherListButton.IsClicked()){
+                  teacherListButton.Draw(Color.DARK_GRAY);
+              }
+              else{
+                  teacherListButton.Draw(Color.LIGHT_GRAY);
+              }
+              break;
+          case STUDENT_LIST:
+              if (studentList.containsKey(iCurPageStudentList)){
+                Iterator<Map.Entry<TextBox, Button>> itrStudent = studentList.get(iCurPageStudentList).entrySet().iterator();
+                while(itrStudent.hasNext()){
+                    Map.Entry<TextBox, Button> currentPair = itrStudent.next();
                     currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
                     if (currentPair.getValue().IsClicked()){
                       currentPair.getValue().Draw(Color.DARK_GRAY);
@@ -216,42 +174,78 @@ public class AdminScene extends AScene{
                     else{
                       currentPair.getValue().Draw(Color.LIGHT_GRAY);
                     }
-                  }
                 }
-
-                if (teacherList.containsKey(iCurPageTeacherList - 1)){
-                  if (lastTeacherPage.IsClicked()){
-                    lastTeacherPage.Draw(Color.DARK_GRAY);
-                  }
-                  else{
-                    lastTeacherPage.Draw(Color.LIGHT_GRAY);
-                  }
-                }
-                if (teacherList.containsKey(iCurPageTeacherList + 1)){
-                  if (nextTeacherPage.IsClicked()){
-                    nextTeacherPage.Draw(Color.DARK_GRAY);
-                  }
-                  else{
-                    nextTeacherPage.Draw(Color.LIGHT_GRAY);
-                  }
-                }
-
-                if (backButton.IsClicked()){
-                  backButton.Draw(Color.DARK_GRAY);
+              }
+              if (studentList.containsKey(iCurPageStudentList - 1)){
+                if (lastStudentPage.IsClicked()){
+                  lastStudentPage.Draw(Color.DARK_GRAY);
                 }
                 else{
-                  backButton.Draw(Color.LIGHT_GRAY);
+                  lastStudentPage.Draw(Color.LIGHT_GRAY);
                 }
-                deletionMessage.Draw();
-                break;
-            default:
-                break;
-        }
-    }
+              }
+              if (studentList.containsKey(iCurPageStudentList + 1)){
+                if (nextStudentPage.IsClicked()){
+                  nextStudentPage.Draw(Color.DARK_GRAY);
+                }
+                else{
+                  nextStudentPage.Draw(Color.LIGHT_GRAY);
+                }
+              }
+              if (backButton.IsClicked()){
+                  backButton.Draw(Color.DARK_GRAY);
+              }
+              else{
+                  backButton.Draw(Color.LIGHT_GRAY);
+              }
+              deletionMessage.Draw();
+              break;
+            case TEACHER_LIST:
+              if (teacherList.containsKey(iCurPageTeacherList)){
+                Iterator<Map.Entry<TextBox, Button>> itrTeacher = teacherList.get(iCurPageTeacherList).entrySet().iterator();
+                while(itrTeacher.hasNext()){
+                  Map.Entry<TextBox, Button> currentPair = itrTeacher.next();
+                  currentPair.getKey().Draw(Color.BLACK, Color.GRAY, Color.WHITE);
+                  if (currentPair.getValue().IsClicked()){
+                    currentPair.getValue().Draw(Color.DARK_GRAY);
+                  }
+                  else{
+                    currentPair.getValue().Draw(Color.LIGHT_GRAY);
+                  }
+                }
+              }
+              if (teacherList.containsKey(iCurPageTeacherList - 1)){
+                if (lastTeacherPage.IsClicked()){
+                  lastTeacherPage.Draw(Color.DARK_GRAY);
+                }
+                else{
+                  lastTeacherPage.Draw(Color.LIGHT_GRAY);
+                }
+              }
+              if (teacherList.containsKey(iCurPageTeacherList + 1)){
+                if (nextTeacherPage.IsClicked()){
+                  nextTeacherPage.Draw(Color.DARK_GRAY);
+                }
+                else{
+                  nextTeacherPage.Draw(Color.LIGHT_GRAY);
+                }
+              }
+              if (backButton.IsClicked()){
+                backButton.Draw(Color.DARK_GRAY);
+              }
+              else{
+                backButton.Draw(Color.LIGHT_GRAY);
+              }
+              deletionMessage.Draw();
+              break;
+          default:
+              break;
+      }
+  }
     
     /**
      * Reinitialisation du menu pour la liste des etudiants.
-     * A lieu lors de l'etape STUDENT_LIST
+     * <p>A lieu lors de l'etape STUDENT_LIST
      * @author Maxime Emonnot
      * @throws SQLException Erreurs lors de l'envoi de requetes SQL
      */
@@ -281,7 +275,7 @@ public class AdminScene extends AScene{
 
       /**
        * Reinitialisation du menu pour la liste des enseignants
-       * A lieu lors de l'etape TEACHER_LIST
+       * <p>A lieu lors de l'etape TEACHER_LIST
        * @author Maxime Emonnot
        * @throws SQLException Erreurs lors de l'envoi de requetes SQL
        */

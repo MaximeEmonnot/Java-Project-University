@@ -5,8 +5,9 @@ import Exceptions.ProjectException;
 
 /**
  * Classe abstraite
- * Definitions de base d'une question a quatre possibilites de reponse
+ * <p>Definitions de base d'une question a quatre possibilites de reponse
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public abstract class AQuadrupleAnswerQuestion extends AQuestion {
 
@@ -35,9 +36,10 @@ public abstract class AQuadrupleAnswerQuestion extends AQuestion {
 
     /**
      * Constructeur AQuadrupleAnswerQuestion
-     * Reprend le constructeur de AQuestion et initialise les differentes propositions ainsi que la reponse
+     * <p>Reprend le constructeur de AQuestion et initialise les differentes propositions ainsi que la reponse
      * @author Maxime Emonnot
      * @param _question Intitule de la question
+     * @param _timer Temps necessaire pour repondre
      * @param _anwserA Proposition A
      * @param _answerB Proposition B
      * @param _answerC Proposition C
@@ -56,7 +58,7 @@ public abstract class AQuadrupleAnswerQuestion extends AQuestion {
 
     /**
      * {@inheritDoc}
-     * Affichage des quatres propositions de reponse
+     * <p>Affichage des quatres propositions de reponse
      * @author Maxime Emonnot
      */
     @Override

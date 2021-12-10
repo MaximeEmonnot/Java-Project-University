@@ -9,13 +9,14 @@ import java.awt.Point;
 
 /**
  * Boite de dialogue
- * Texte affiche dans un rectangle
+ * <p>Texte affiche dans un rectangle
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class TextBox {
     /**
      * Constructeur TextBox
-     * Initialise la boite de dialogue selon un rectangle de position
+     * <p>Initialise la boite de dialogue selon un rectangle de position
      * @author Maxime Emonnot
      * @param _rect Rectangle de position de la boite de dialogue
      */
@@ -24,7 +25,7 @@ public class TextBox {
     }
     /**
      * Constructeur TextBox
-     * Initialise la boîte de dialogue selon un texte
+     * <p>Initialise la boîte de dialogue selon un texte
      * @author Maxime Emonnot
      * @param _text Texte de la boite de dialogue
      */
@@ -33,7 +34,7 @@ public class TextBox {
     }
     /**
      * Constructeur TextBox
-     * Initialise la boite de dialogue selon un rectangle de position et un texte
+     * <p>Initialise la boite de dialogue selon un rectangle de position et un texte
      * @author Maxime Emonnot
      * @param _rect Rectangle de position de la boite de la dialogue
      * @param _text Texte de la boite de dialogue
@@ -148,7 +149,7 @@ public class TextBox {
 
     /**
      * Methode override de Object
-     * Deux TextBox sont egales si leur textes sont identiques
+     * <p>Deux TextBox sont egales si leur textes sont identiques
      * @author Maxime Emonnot
      */
     @Override
@@ -160,7 +161,7 @@ public class TextBox {
     }
     /**
      * Methode override de Object
-     * Le hashcode d'une TextBox est le hashcode de son texte
+     * <p>Le hashcode d'une TextBox est le hashcode de son texte
      * @author Maxime Emonnot
      */
     @Override

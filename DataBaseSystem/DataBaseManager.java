@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Permet la connexion a une base de donnees
  * Permet egalement l'envoi de requetes
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class DataBaseManager {
     /**

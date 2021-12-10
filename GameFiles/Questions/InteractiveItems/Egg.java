@@ -11,15 +11,17 @@ import java.util.ArrayList;
 import GraphicsEngine.Sprite;
 
 /**
- * Oeuf utilise dans ConcreteTripleQuestion
- * Possede 4 phases, passant de l'une a l'autre apres un clic.
- * Le contenu, apres les 4 phases, indique sur le succes ou l'echec
+ * Oeuf utilise dans EggQuestion
+ * <p>Possede 4 phases, passant de l'une a l'autre apres un clic.
+ * <p>Le contenu, apres les 4 phases, indique sur le succes ou l'echec
  * @author Maxime Emonnot
+ * @see EggQuestion
+ * @version 1.1.0
  */
 public class Egg {
     /**
      * Constructeur Egg
-     * Initilisation de l'oeuf, ainsi que du contenu selon un rectangle de position de l'oeuf, un rectangle de position du contenu, et un booleen donnes
+     * <p>Initilisation de l'oeuf, ainsi que du contenu selon un rectangle de position de l'oeuf, un rectangle de position du contenu, et un booleen donnes
      * @author Maxime Emonnot
      * @param _rect Rectangle de position de l'oeuf
      * @param _insideRect Rectangle de position du contenu de l'oeuf
@@ -73,6 +75,7 @@ public class Egg {
 
     /**
      * Recuperation de l'etat de succes
+     * @author Maxime Emonnot
      * @return Vrai si la reponse choisie est correcte et que l'oeuf est entierement casse, Faux sinon
      */
     public boolean HasWon(){
@@ -80,6 +83,7 @@ public class Egg {
     }
     /**
      * Recuperation de l'etat d'echec
+     * @author Maxime Emonnot
      * @return Vrai si la reponse choisie est fausse et que l'oeuf est entierement casse, Faux sinon
      */
     public boolean HasLost(){
@@ -87,6 +91,7 @@ public class Egg {
     }
     /**
      * Recuperation de l'etat de fin de l'oeuf
+     * @author Maxime Emonnot
      * @return Vrai si les 4 phases sont passees, Faux sinon
      */
     private boolean IsFinished(){

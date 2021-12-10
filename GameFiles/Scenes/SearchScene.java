@@ -21,10 +21,11 @@ import GameFiles.Questions.*;
 
 /**
  * Scene principale de l'etudiant
- * Permet de rechercher un domaine de quiz a realiser
- * Permet egalement d'acceder a ses statistiques, a son profil, et de modifier son mot de passe
- * Possibilite de lien vers la scene de Forum
+ * <p>Permet de rechercher un domaine de quiz a realiser
+ * <p>Permet egalement d'acceder a ses statistiques, a son profil, et de modifier son mot de passe
+ * <p>Possibilite de lien vers la scene de Forum
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public class SearchScene extends AScene{
     /**
@@ -40,7 +41,7 @@ public class SearchScene extends AScene{
 
     /**
      * Constructeur SearchScene
-     * Initialisation des differents boutons
+     * <p>Initialisation des differents boutons
      * @author Maxime Emonnot
      * @throws SQLException Erreurs lors des envois de requetes SQL (voir ResetQuestionList)
      * @see SearchScene#ResetQuestionList()
@@ -130,8 +131,8 @@ public class SearchScene extends AScene{
     
     /**
      * {@inheritDoc}
-     * Mise a jour des menus en fonction de l'entree utilisateur, via notamment des champs de texte et des boites de choix.
-     * Mise a jour en fonction de l'etape de la scene.
+     * <p>Mise a jour des menus en fonction de l'entree utilisateur, via notamment des champs de texte et des boites de choix.
+     * <p>Mise a jour en fonction de l'etape de la scene.
      * @author Maxime Emonnot
      */
     @Override
@@ -217,7 +218,7 @@ public class SearchScene extends AScene{
     
     /**
      * {@inheritDoc}
-     * Affichage des differents menus, en fonction de l'etape de la scene
+     * <p>Affichage des differents menus, en fonction de l'etape de la scene
      * @author Maxime Emonnot
      */
     @Override

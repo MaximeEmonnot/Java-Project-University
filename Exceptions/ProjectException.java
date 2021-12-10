@@ -7,6 +7,7 @@ import javax.swing.*;
  * Exception propre au Projet
  * Utilisee pour differencier les erreurs
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class ProjectException extends Exception{
     /**

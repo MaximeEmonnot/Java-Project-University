@@ -16,9 +16,11 @@ import Exceptions.ProjectException;
 
 /**
  * Gestion des fichiers audios.
- * Permet d'ouvrir un fichier audio, et de le jour a n'importe quel moment.
- * Utilise le patron de conception Singleton pour qu'un seul systeme audio existe dans toute l'application
+ * <p>Permet d'ouvrir un fichier audio, et de le jour a n'importe quel moment.
+ * <p>Utilise le patron de conception Singleton pour qu'un seul systeme audio existe dans toute l'application
  * @author Maxime Emonnot
+ * @version 1.0.0
+ * @since 1.4.0
  */
 public class SoundSystem {
 
@@ -35,7 +37,7 @@ public class SoundSystem {
 
     /**
      * Constructeur prive dans le cadre du patron de conception Singleton. 
-     * Initialise l'environnement de lecture de fichiers audios.
+     * <p>Initialise l'environnement de lecture de fichiers audios.
      * @author Maxime Emonnot
      * @throws LineUnavailableException Lors de l'initialisation du systeme audio.
     */
@@ -61,9 +63,8 @@ public class SoundSystem {
      * @param path Chemin du fichier audio
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
-     * @throws LineUnavailableException Si le system de lecture est indisponible
      */
-    public void AddNewSong(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+    public void AddNewSong(String path) throws UnsupportedAudioFileException, IOException{
         songs.add(path);
         ais.add(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
         //clip.open(ais);
@@ -72,12 +73,12 @@ public class SoundSystem {
 
     /**
      * Joue le son selectionne.
-     * Passe le systeme en etat PLAY.
+     * <p>Passe le systeme en etat PLAY.
      * @author Maxime Emonnot
-     * @throws ProjectException
-     * @throws IOException
-     * @throws LineUnavailableException
-     * @see SoundSystem#AddNewSong(String)
+     * @param index Index du son a jouer
+     * @throws ProjectException Si l'index ne correspond a aucun son ajoute
+     * @throws IOException Si une erreur d'entree/sortie a lieu durant la lecture de l'adresse du fichier correspondant a l'index
+     * @throws LineUnavailableException Si le system audio est indisponible
      */
     public void PlaySong(int index) throws ProjectException, LineUnavailableException, IOException{
         if (index > ais.size())
@@ -90,10 +91,9 @@ public class SoundSystem {
         sStatus = SongStatus.PLAY;
     }
     /**
-     * Met en pause le son selectionne
-     * Passe le systeme en etat PAUSE
+     * Met en pause le son en cours
+     * <p>Passe le systeme en etat PAUSE
      * @author Maxime Emonnot
-     * @see SoundSystem#AddNewSong(String)
      */
     public void PauseSong(){
         currentFrame = clip.getMicrosecondPosition();
@@ -102,14 +102,15 @@ public class SoundSystem {
     }
     /**
      * Si le system est en pause, relance le son en pause.
-     * Met le systeme en etat PLAY.
+     * <p>Met le systeme en etat PLAY.
      * @author Maxime Emonnot
+     * @param index Index du son a relancer
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
      * @throws LineUnavailableException Si le system de lecture est indisponible
-     * @throws ProjectException
+     * @throws ProjectException Si l'index ne correpond a aucun son ajoute
      * @see SoundSystem#ResetAudio()
-     * @see SoundSystem#PlaySong()
+     * @see SoundSystem#PlaySong(int)
      */
     public void ResumeSong(int index) throws UnsupportedAudioFileException, IOException, LineUnavailableException, ProjectException{
         if (sStatus == SongStatus.PAUSE){
@@ -122,10 +123,9 @@ public class SoundSystem {
         }
     }
     /**
-     * Arrete le son selectionne.
-     * Met le system en etat STOP
+     * Arrete le son en cours.
+     * <p>Met le system en etat STOP
      * @author Maxime Emonnot
-     * @see SoundSystem#AddNewSong(String)
      */
     public void StopSong(){
         currentFrame = 0L;
@@ -135,14 +135,15 @@ public class SoundSystem {
     }
     /**
      * Relance le son selectionne.
-     * Met le systeme en etat PLAY
+     * <p>Met le systeme en etat PLAY
      * @author Maxime Emonnot
+     * @param index Index du son a redemarrer
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
      * @throws LineUnavailableException Si le system de lecture est indisponible
-     * @throws ProjectException
-     * @see SoundSystem#ResetAudio()
-     * @see SoundSystem#PlaySong()
+     * @throws ProjectException Si l'index ne correspond a aucun son ajoute
+     * @see SoundSystem#ResetAudio(int)
+     * @see SoundSystem#PlaySong(int)
      */
     public void RestartSong(int index) throws UnsupportedAudioFileException, IOException, LineUnavailableException, ProjectException{
         clip.stop();
@@ -155,9 +156,10 @@ public class SoundSystem {
     /**
      * Reinitialise le son selectionne.
      * @author Maxime Emonnot
+     * @param index Index du son a reinitialiser
      * @throws UnsupportedAudioFileException Si le fichier audio ne peut pas etre lu
      * @throws IOException S'il ya une erreur d'acces au fichier
-     * @throws LineUnavailableException Si le system de lecture est indisponible
+     * @throws LineUnavailableException Si le systeme de lecture est indisponible
      * @see SoundSystem#AddNewSong(String)
      */
     private void ResetAudio(int index) throws LineUnavailableException, IOException, UnsupportedAudioFileException{

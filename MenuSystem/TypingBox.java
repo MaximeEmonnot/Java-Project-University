@@ -10,13 +10,14 @@ import java.awt.Point;
 
 /**
  * Champs d'ecriture
- * Dans le cadre d'une interface Utilisateur
+ * <p>Dans le cadre d'une interface Utilisateur
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public class TypingBox {
     /**
      * Constructeur TypingBox
-     * Initilisation à partir d'un rectangle de position et d'un texte de description
+     * <p>Initilisation à partir d'un rectangle de position et d'un texte de description
      * @author Maxime Emonnot
      * @param _rect Rectangle de position de la TypingBox
      * @param _description Texte de description de la TypingBox
@@ -28,7 +29,7 @@ public class TypingBox {
 
     /**
      * Mise à jour de la TypingBox
-     * Recuperation des caracteres tapes par l'utilisateur, avec gestion du focus
+     * <p>Recuperation des caracteres tapes par l'utilisateur, avec gestion du focus
      * @author Maxime Emonnot
      * @see TypingBox#Timer()
      * @see TypingBox#Read()
@@ -48,7 +49,7 @@ public class TypingBox {
 
     /**
      * Affiche la TypingBox et son contenu
-     * Priorite d'affichage par defaut a 0
+     * <p>Priorite d'affichage par defaut a 0
      * @author Maxime Emonnot
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */

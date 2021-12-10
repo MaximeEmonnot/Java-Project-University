@@ -12,6 +12,7 @@ import java.util.BitSet;
  * Permet d'identifier le type d'evenement et la touche pressee.
  * Utilise patron de conception Singleton pour etre unique dans toute l'application
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class Keyboard implements KeyListener {
 
@@ -21,11 +22,21 @@ public class Keyboard implements KeyListener {
      * @author Maxime Emonnot
      */
     static public class Event{
+        /**
+         * Type d'evenement clavier
+         * @author Maxime Emonnot
+         */
         public enum Type{
             Pressed,
             Released,
             None
         }
+        /**
+         * Contructeur Event
+         * @author Maxime Emonnot
+         * @param _keycode Code de la touche
+         * @param _type Type d'evenement clavier
+         */
         public Event(int _keycode, Type _type){
             keycode = _keycode;
             type = _type;

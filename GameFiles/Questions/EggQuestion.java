@@ -7,16 +7,18 @@ import GameFiles.Questions.InteractiveItems.Egg;
 
 /**
  * Mini-jeu a trois propositions de reponse
- * Trois oeufs representent les trois possibilites, l'utilisateur doit casser l'oeuf correspondant a la bonne reponse
+ * <p>Trois oeufs representent les trois possibilites, l'utilisateur doit casser l'oeuf correspondant a la bonne reponse
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public class EggQuestion extends ATripleAnswerQuestion {
 
     /**
-     * Constructeur ConcreteTripleQuestion
-     * Reprend le constructeur de ATripleAnswerQuestion et initialise les differents oeufs pour la bonne reponse
+     * Constructeur EggQuestion
+     * <p>Reprend le constructeur de ATripleAnswerQuestion et initialise les differents oeufs pour la bonne reponse
      * @author Maxime Emonnot
      * @param _question Intitule question
+     * @param _timer Temps necessaire pour repondre
      * @param _answerA Proposition A
      * @param _answerB Proposition B
      * @param _answerC Proposition C
@@ -69,8 +71,8 @@ public class EggQuestion extends ATripleAnswerQuestion {
 
     /**
      * {@inheritDoc}
-     * Mise a jour du mini-jeu
-     * Mise a jour des differents etats de l'oeuf, ainsi que des etats de succes et d'echec
+     * <p>Mise a jour du mini-jeu
+     * <p>Mise a jour des differents etats de l'oeuf, ainsi que des etats de succes et d'echec
      * @author Maxime Emonnot
      */
     @Override
@@ -90,7 +92,7 @@ public class EggQuestion extends ATripleAnswerQuestion {
     }
     /**
      * {@inheritDoc}
-     * Affichage des differents oeufs
+     * <p>Affichage des differents oeufs
      * @author Maxime Emonnot
      */
     @Override

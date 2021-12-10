@@ -3,12 +3,13 @@ package GameFiles.User;
 /**
  * Definition d'un des types d'utilisateurs : Etudiant
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public class Student extends AUser{
 
     /**
      * Constructeur Student.
-     * Reprend le constructeur de AUser.
+     * <p>Reprend le constructeur de AUser.
      * @author Maxime Emonnot
      * @param _firstName Prenom de l'etudiant
      * @param _lastName Nom de famille de l'etudiant

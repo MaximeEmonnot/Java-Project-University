@@ -12,6 +12,7 @@ import org.json.simple.parser.*;
  * Gestion des fichiers JSON.
  * Ouverture d'un fichier JSON et recuperation des donnees du fichier.
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class JSONReader {
     /**

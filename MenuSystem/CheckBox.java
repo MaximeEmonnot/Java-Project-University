@@ -7,14 +7,15 @@ import GraphicsEngine.GraphicsSystem;
 
 /**
  * Checkbox interactive.
- * Utilisable dans des formulaires
+ * <p>Utilisable dans des formulaires
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public class CheckBox {
 
     /**
      * Constructeur de la CheckBox
-     * Initialisation a partir d'un rectangle de position
+     * <p>Initialisation a partir d'un rectangle de position
      * @author Maxime Emonnot
      * @param _rect Position de la CheckBox
      */
@@ -56,10 +57,19 @@ public class CheckBox {
         }
     }
 
+    /**
+     * Reinitialisation de l'etat du CheckBox
+     * @author Maxime Emonnot
+     */
     public void Clear(){
         bIsChecked = false;
     }
 
+    /**
+     * Accesseur de l'etat du CheckBox
+     * @author Maxime Emonnot
+     * @return Etat du CheckBox
+     */
     public boolean IsChecked(){
         return bIsChecked;
     }

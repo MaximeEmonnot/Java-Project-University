@@ -2,13 +2,14 @@ package GameFiles.User;
 
 /**
  * Classe abstraite.
- * Contient les informations des utilisateurs
+ * <p>Contient les informations des utilisateurs
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public abstract class AUser {
     /**
      * Constructeur AUser.
-     * Enregistre les differentes valeurs importantes lors de la connexion
+     * <p>Enregistre les differentes valeurs importantes lors de la connexion
      * @author Maxime Emonnot
      * @param _firstName Prenom de l'utilisateur
      * @param _lastName Nom de famille de l'utilisateur
@@ -42,6 +43,7 @@ public abstract class AUser {
     }
     /**
      * Recuperation de l'email
+     * @author Maxime Emonnot
      * @return L'email de l'utilisateur
      */
     public String GetMail(){
@@ -49,6 +51,7 @@ public abstract class AUser {
     }
     /**
      * Recuperation du numero de telephone
+     * @author Maxime Emonnot
      * @return Le numero de telephone de l'utilisateur
      */
     public String GetPhoneNumber(){
@@ -56,6 +59,7 @@ public abstract class AUser {
     }
     /**
      * Recuperation de l'adresse
+     * @author Maxime Emonnot
      * @return L'adresse de l'utilisateur
      */
     public String GetAddress(){

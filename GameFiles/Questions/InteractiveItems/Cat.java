@@ -6,10 +6,12 @@ import Exceptions.ProjectException;
 import GameFiles.Character;
 
 /**
- * Chat utilise dans ConcreteQuadrupleQuestion
- * Herite de Character pour les animations.
- * Chaque chat correspond a une proposition de reponse, cliquer sur un chat entraine une animation differente en fonction de la validite de la reponse
+ * Chat utilise dans CatsLightQuestion
+ * <p>Herite de Character pour les animations.
+ * <p>Chaque chat correspond a une proposition de reponse, cliquer sur un chat entraine une animation differente en fonction de la validite de la reponse
  * @author Maxime Emonnot
+ * @see CatsLightQuestion
+ * @version 1.1.0
  */
 public class Cat extends Character {
 
@@ -34,7 +36,7 @@ public class Cat extends Character {
 
     /**
      * Constructeur Cat
-     * Initialise le chat selon un rectangle de position et un fichier JSON pour l'animation 
+     * <p>Initialise le chat selon un rectangle de position et un fichier JSON pour l'animation 
      * @author Maxime Emonnot
      * @param _rect Rectangle de position du chat
      * @param jsonFile Ficher JSON pour l'initialisation de l'animation du chat
@@ -48,7 +50,7 @@ public class Cat extends Character {
 
     /**
      * Mise a jour de l'animation du chat, ainsi que de son apparition et de sa disparition.
-     * Mise a jour de l'etat de succes et d'echec
+     * <p>Mise a jour de l'etat de succes et d'echec
      * @author Maxime Emonnot
      * @param e Entree souris enregistree dans ConcreteQuadrupleQuestion
      */
@@ -151,7 +153,7 @@ public class Cat extends Character {
 
     /**
      * {@inheritDoc}
-     * Affichage du chat, s'il est visible
+     * <p>Affichage du chat, s'il est visible
      * @author Maxime Emonnot
      */
     @Override
@@ -163,6 +165,7 @@ public class Cat extends Character {
 
     /**
      * Recuperation de l'etat de succes
+     * @author Maxime Emonnot
      * @return Vrai si la reponse selectionnee est correcte, Faux sinon
      */
     public boolean HasWon() {
@@ -171,6 +174,7 @@ public class Cat extends Character {
 
     /**
      * Recuperation de l'etat d'echec
+     * @author Maxime Emonnot
      * @return Vrai si la reponse selectionnee est fausse, Faux sinon
      */
     public boolean HasLost(){

@@ -6,13 +6,14 @@ import Exceptions.ProjectException;
 
 /**
  * Messages utilisateurs
- * Messages temporaires offrant un retour utilisateur sur le succes et l'echec de ses actions
+ * <p>Messages temporaires offrant un retour utilisateur sur le succes et l'echec de ses actions
  * @author Maxime Emonnot
+ * @version 1.3.0
  */
 public class UserMessage {
     /**
      * Constructeur UserMessage
-     * Initialisation selon une position
+     * <p>Initialisation selon une position
      * @author Maxime Emonnot
      * @param _pos Position du message utilisateur
      */

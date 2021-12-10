@@ -6,16 +6,18 @@ import Exceptions.ProjectException;
 import GraphicsEngine.*;
 
 /**
- * Interrupteur utilise dans ConcreteQuadrupleQuestion
- * Passe d'un etat a l'autre suite a un clic utilisateur.
- * Des chats apparaissent lorsque l'on rallume la lumiere
+ * Interrupteur utilise dans CatsLightQuestion
+ * <p>Passe d'un etat a l'autre suite a un clic utilisateur.
+ * <p>Des chats apparaissent lorsque l'on rallume la lumiere
  * @author Maxime Emonnot
+ * @see CatsLightQuestion
+ * @version 1.1.0
  */
 public class LightSwitch {
     
     /**
      * Constructeur LightSwitch
-     * Initialisation des Sprite selon un rectangle de position donne
+     * <p>Initialisation des Sprite selon un rectangle de position donne
      * @author Maxime Emonnot
      * @param _rect Rectangle de position de l'interrupteur
      */
@@ -40,6 +42,7 @@ public class LightSwitch {
 
     /**
      * Affichage de l'interrupteur, en fonction de son etat
+     * @author Maxime Emonnot
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */
     public void Draw() throws ProjectException{
@@ -56,6 +59,7 @@ public class LightSwitch {
 
     /**
      * Recuperation de l'etat de l'interrupteur
+     * @author Maxime Emonnot
      * @return Vrai si la lumiere est allumee, Faux sinon
      */
     public boolean GetState(){

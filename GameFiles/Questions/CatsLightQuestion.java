@@ -9,17 +9,19 @@ import Exceptions.ProjectException;
 
 /**
  * Mini-jeu a quatre possibilites de reponse
- * L'utilisateur doit cliquer sur l'interrupteur, faisant apparaitre differents chats
- * Chaque chat correspond a une proposition de reponse, comme indique sur le cote gauche
+ * <p>L'utilisateur doit cliquer sur l'interrupteur, faisant apparaitre differents chats
+ * <p>Chaque chat correspond a une proposition de reponse, comme indique sur le cote gauche
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public class CatsLightQuestion extends AQuadrupleAnswerQuestion {
 
     /**
-     * Constructeur ConcreteQuadrupleQuestion
-     * Reprend le constructeur de AQuadrupleAnswerQuestion et initialise les differents chats pour la bonne reponse
+     * Constructeur CatsLightQuestion
+     * <p>Reprend le constructeur de AQuadrupleAnswerQuestion et initialise les differents chats pour la bonne reponse
      * @author Maxime Emonnot
      * @param _question Intitule de la question
+     * @param _timer Temps necessaire pour repondre
      * @param _anwserA Proposition A
      * @param _answerB Proposition B 
      * @param _answerC Proposition C
@@ -112,8 +114,8 @@ public class CatsLightQuestion extends AQuadrupleAnswerQuestion {
 
     /**
      * {@inheritDoc}
-     * Mise a jour du mini-jeu
-     * Mise a jour de l'animation des chats, de l'etat de l'interrupteur, ainsi que de l'etat de succes et d'echec
+     * <p>Mise a jour du mini-jeu
+     * <p>Mise a jour de l'animation des chats, de l'etat de l'interrupteur, ainsi que de l'etat de succes et d'echec
      * @author Maxime Emonnot
      */
     @Override
@@ -151,7 +153,7 @@ public class CatsLightQuestion extends AQuadrupleAnswerQuestion {
 
     /**
      * {@inheritDoc}
-     * Affichage des chats et de l'interrupteur
+     * <p>Affichage des chats et de l'interrupteur
      * @author Maxime Emonnot
      */
     @Override

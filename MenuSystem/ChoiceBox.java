@@ -15,6 +15,7 @@ import java.util.Iterator;
  * Implementation de JComboBox.
  * Permet la selection de plusieurs chaines de caracteres.
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public class ChoiceBox {
     

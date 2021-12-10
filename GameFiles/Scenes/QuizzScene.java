@@ -17,8 +17,9 @@ import SoundEngine.SoundSystem;
 
 /**
  * Scene de jeu.
- * Deroulement de la phase de quiz, ou l'etudiant doit repondre rapidement a differentes questions, a travers des mini-jeux
+ * <p>Deroulement de la phase de quiz, ou l'etudiant doit repondre rapidement a differentes questions, a travers des mini-jeux
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public class QuizzScene extends AScene {
     
@@ -41,8 +42,8 @@ public class QuizzScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Mise a jour et calculs des differents mini-jeux.
-     * Traitement des donnees de reussite ou d'echec
+     * <p>Mise a jour et calculs des differents mini-jeux.
+     * <p>Traitement des donnees de reussite ou d'echec
      * @author Maxime Emonnot
      * @throws LineUnavailableException
      * @throws IOException
@@ -113,7 +114,7 @@ public class QuizzScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Affichage des differents mini-jeux
+     * <p>Affichage des differents mini-jeux
      * @author Maxime Emonnot
      */
     @Override
@@ -123,6 +124,10 @@ public class QuizzScene extends AScene {
         GraphicsEngine.GraphicsSystem.GetInstance().DrawText("LIVES : " + lives, new Point(50, 575), Color.BLACK, 15);
     }
     
+    /**
+     * Envoi des statistiques a la base de donnees
+     * @author Maxime Emonnot
+     */
     private void SendStatistics(){
         try{
             ResultSet studentSet = dbm.GetResultFromSQLRequest("SELECT id_etudiant FROM " + dbm.GetDatabaseName() + ".etudiant WHERE email = '" + user.GetMail() + "';");

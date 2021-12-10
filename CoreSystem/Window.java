@@ -6,6 +6,8 @@ import javax.swing.*;
  * Gestion de la fenetre de Java Swing. S'occupe de la creation et de la boucle d'execution. 
  * Utilise le patron de conception Singleton pour etre unique dans toute l'application.
  * @author Maxime Emonnot
+ * @version 1.0.0
+ * @since 1.4.0
  */
 public class Window {
     /**

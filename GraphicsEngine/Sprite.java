@@ -5,13 +5,14 @@ import java.awt.Image;
 
 /**
  * Gestion des Sprites
- * Ouvre une image qui sera utilisee et affichee
+ * <p>Ouvre une image qui sera utilisee et affichee
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class Sprite {
     /**
      * Constructeur.
-     * Permet d'ouvrir une image pour l'enregistrer et l'afficher plus tard
+     * <p>Permet d'ouvrir une image pour l'enregistrer et l'afficher plus tard
      * @author Maxime Emonnot
      * @param path Chemin de l'image 
      */

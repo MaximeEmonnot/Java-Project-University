@@ -10,12 +10,20 @@ import GraphicsEngine.GraphicsSystem;
 import GraphicsEngine.Sprite;
 
 /**
- * Permet l'affichage d'une pomme ayant une couleur sur l'ecran du jeu.
- * Mini jeu de pommes
+ * Pomme utiliee dans AppleQuestion
+ * <p>Possede deux etats : entiere et coupee.
+ * <p>Deux sous etats pour la reponse : normale et pourrie
  * @author Alhousseiny Diallo
+ * @see AppleQuestion
+ * @version 1.4.0
  */
 public class Apple {
 	
+	/**
+	 * Type de pomme.
+	 * <p>Utilise pour initialiser la couleur
+	 * @author Alhousseiny Diallo
+	 */
 	public enum AppleType{
 		RED,
 		YELLOW,
@@ -23,10 +31,12 @@ public class Apple {
 	}
 
 	/**
-	 * 
+	 * Constructeur Apple
+	 * <p>Initialise la position de la pomme, sa validite et sa couleur
+	 * @author Alhousseiny Diallo
 	 * @param _rect le rectangle d'affichage
-	 * @param _bIsRight determine si c'est la bonne pomme
-	 * @param type pour trouver la couleur de la pomme
+	 * @param _bIsRight definit si c'est la bonne pomme
+	 * @param type pour definir la couleur de la pomme
 	 */
 	public Apple(Rectangle _rect, boolean _bIsRight, AppleType type) {
 		//Cr�ation de la pomme
@@ -54,7 +64,12 @@ public class Apple {
 		points.add(new Point(destRectApple.x + (destRectApple.width / 2), destRectApple.y + destRectApple.height));
 	}
 	
-	
+	/**
+	 * Met a jour la pomme en fonction du rectangle de coupe du couteau.
+	 * <p>Animation de chute de la moitie de la pomme si elle est coupee
+	 * @author Alhousseiny Diallo
+	 * @param knifeRectangle Rectangle de decoupe du couteau
+	 */
 	public void Update(Rectangle knifeRectangle){
 		if (points.isEmpty()){
 			destRectApple.y += 2;
@@ -66,14 +81,29 @@ public class Apple {
 		}
 	}
 	
+	/**
+	 * Affichage de la pomme
+	 * @author Alhousseiny Diallo
+	 * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
+	 */
 	public void Draw() throws ProjectException {
-		GraphicsSystem.GetInstance().DrawSprite(spriteApple, destRectInside, srcInside);
+		if (points.isEmpty()) GraphicsSystem.GetInstance().DrawSprite(spriteApple, destRectInside, srcInside);
 		GraphicsSystem.GetInstance().DrawSprite(spriteApple, destRectApple, srcApple, 1);
 	}
 		
+	/**
+     * Recuperation de l'etat de succes
+	 * @author Alhousseiny Diallo
+     * @return Vrai si la reponse choisie est correcte et que la pomme est coupee, Faux sinon
+     */
 	public boolean HasWon(){
 		return bIsRight && points.isEmpty();
 	}
+	/**
+     * Recuperation de l'etat d'echec
+	 * @author Alhousseiny Diallo
+     * @return Vrai si la reponse choisie est fausse et que la pomme est coupee, Faux sinon
+     */
 	public boolean HasLost(){
 		return !bIsRight && points.isEmpty();
 	}

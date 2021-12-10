@@ -17,11 +17,13 @@ import MenuSystem.Button;
 
 /**
  * Scene de forum, commune aux etudiants et aux enseignants
- * Permet aux etudiant de poser des questions aux enseignants
- * Permet egalement de proposer des reponses aux autres questions d'etudiant
- * Les enseignants peuvent soit valider une reponse soit donner leur reponse, ce qui cloture la question
+ * <p>Permet aux etudiant de poser des questions aux enseignants
+ * <p>Permet egalement de proposer des reponses aux autres questions d'etudiant
+ * <p>Les enseignants peuvent soit valider une reponse soit donner leur reponse, ce qui cloture la question
  * @author Godfree Akakpo
  * @author Maxime Emonnot
+ * @version 1.3.0
+ * @since 1.3.1
  */
 public class ForumScene extends AScene {
 
@@ -42,7 +44,7 @@ public class ForumScene extends AScene {
 
     /**
      * Constructeur ForumScene
-     * Initialisation des menus pour les Etudiants et les Enseignants, separes en deux parties
+     * <p>Initialisation des menus pour les Etudiants et les Enseignants, separes en deux parties
      * @author Maxime Emonnot
      * @see ForumScene#InitStudent()
      * @see ForumScene#InitTeacher()
@@ -81,7 +83,7 @@ public class ForumScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Mise a jour des differents menus, en deux parties Etudiant et Enseignant, en fonction de l'etape de la scene
+     * <p>Mise a jour des differents menus, en deux parties Etudiant et Enseignant, en fonction de l'etape de la scene
      * @author Maxime Emonnot
      * @see ForumScene#UpdateStudent(CoreSystem.Mouse.EventType)
      * @see ForumScene#UpdateTeacher(CoreSystem.Mouse.EventType)
@@ -104,7 +106,7 @@ public class ForumScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Affichage des differents menus, en deux parties Etudiant et Enseignant, en fonction de l'etape de la scene
+     * <p>Affichage des differents menus, en deux parties Etudiant et Enseignant, en fonction de l'etape de la scene
      * @author Maxime Emonnot
      * @see ForumScene#DrawStudent()
      * @see ForumScene#DrawTeacher()
@@ -130,7 +132,7 @@ public class ForumScene extends AScene {
 
     /**
      * Initialistion du menu Etudiant.
-     * Separation pour un souci de clarte au niveau du code
+     * <p>Separation pour un souci de clarte au niveau du code
      * @author Maxime Emonnot
      */
     private void InitStudent(){
@@ -216,7 +218,7 @@ public class ForumScene extends AScene {
     }
     /**
      * Initialisation du menu Enseignant.
-     * Separation pour un souci de clarte au niveau du code
+     * <p>Separation pour un souci de clarte au niveau du code
      * @author Godfree Akakpo
      */
     private void InitTeacher(){
@@ -260,7 +262,7 @@ public class ForumScene extends AScene {
 
     /**
      * Mise a jour du menu de la partie Etudiant
-     * Separation pour un souci de clarte au niveau du code
+     * <p>Separation pour un souci de clarte au niveau du code
      * @author Maxime Emonnot
      * @param e Entree souris enregistree dans la methode Update() generale
      * @throws SQLException Erreurs lors d'envoi de requetes SQL
@@ -369,7 +371,7 @@ public class ForumScene extends AScene {
         }
         /**
      * Mise a jour du menu de la partie Enseignant
-     * Separation pour un souci de clarte au niveau du code
+     * <p>Separation pour un souci de clarte au niveau du code
      * @author Godfree Akakpo
      * @param e Entree souris enregistree dans la methode Update() generale
      * @throws SQLException Erreurs lors d'envoi de requetes SQL
@@ -465,7 +467,7 @@ public class ForumScene extends AScene {
         
     /**
      * Affichage du menu de la partie Etudiant
-     * Separation pour un souci de clarte au niveau du code
+     * <p>Separation pour un souci de clarte au niveau du code
      * @author Maxime Emonnot
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */
@@ -627,7 +629,7 @@ public class ForumScene extends AScene {
         
     /**
      * Affichage du menu de la partie Enseignant
-     * Separation pour un souci de clarte au niveau du code
+     * <p>Separation pour un souci de clarte au niveau du code
      * @author Godfree Akakpo
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */
@@ -757,7 +759,7 @@ public class ForumScene extends AScene {
         
     /**
      * Reinitialisation de la liste des question Etudiant
-     * Appels lors de l'etape STUDENT_QUESTION_LIST
+     * <p>Appels lors de l'etape STUDENT_QUESTION_LIST
      * @author Maxime Emonnot
      * @throws SQLException Erreurs lors de l'envoi de requetes SQL
      */
@@ -826,7 +828,7 @@ public class ForumScene extends AScene {
        
     /**
      * Reinitialisation de la liste des questions a supprimer
-     * Appels lors de l'etape STUDENT_MANAGE_QUESTION
+     * <p>Appels lors de l'etape STUDENT_MANAGE_QUESTION
      * @author Maxime Emonnot
      * @throws SQLException Erreurs lors de l'envoi de requetes SQL
      */

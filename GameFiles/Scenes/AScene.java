@@ -15,13 +15,14 @@ import GameFiles.User.AUser;
 
 /**
  * Classe abstraite
- * Definit l'ensemble des methodes de base concernant les differentes scenes 
+ * <p>Definit l'ensemble des methodes de base concernant les differentes scenes 
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public abstract class AScene {
     /**
      * Constructeur AScene.
-     * Pas d'initialisation particuliere
+     * <p>Pas d'initialisation particuliere
      * @author Maxime Emonnot
      */
     public AScene(){}

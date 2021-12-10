@@ -6,14 +6,16 @@ import java.awt.*;
 import Exceptions.ProjectException;
 
 /**
- * Doigt utilise dans ConcreteDoubleQuestion
- * Reste toujours a la position du curseur
+ * Doigt utilise dans FingerNoseQuestion
+ * <p>Reste toujours a la position du curseur
  * @author Maxime Emonnot
+ * @see FingerNoseQuestion
+ * @version 1.1.0
  */
 public class Finger {
     /**
      * Constructeur Finger
-     * Initialisation du Sprite de doigt
+     * <p>Initialisation du Sprite de doigt
      * @author Maxime Emonnot
      */
     public Finger(){
@@ -22,6 +24,7 @@ public class Finger {
 
     /**
      * Mise a jour de la position du doigt (position de la souris)
+     * @author Maxime Emonnot
      */
     public void Update(){
         rect.x = CoreSystem.Mouse.GetInstance().GetMousePosX() - 124;
@@ -30,6 +33,7 @@ public class Finger {
 
     /**
      * Affichage du Sprite de doigt
+     * @author Maxime Emonnot
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem 
      */
     public void Draw() throws ProjectException{

@@ -11,24 +11,25 @@ import GraphicsEngine.Animation;
 import GraphicsEngine.Sprite;
 
 /**
+ * Cadeau utilise dans BubbleGiftQuestion
+ * <p>Des bulles vertes ou rouges s'affichent selon la validite du choix du joueur
  * @author Lansana Diakite
- * 
- * Mini jeu de cadeau, affichage de deuc cadeaux, ensuite des bulles vertes ou rouges
- * selon si le joueur a trouv�ou non
- * @see La classe Animation pour plus de d�tails
+ * @see BubbleGiftQuestion
+ * @version 1.4.0
  */
 public class Gift {
 	
 	/**
 	 * Initailise un cadeau, sa position, son contenu et si c'est le bon
+	 * @author Lansana Diakite
 	 * @param _rect le rectangle de destination
-	 * @param _bIsRight savvoir si c'est le bon cadeau ou pas
+	 * @param _bIsRight definit si c'est le bon cadeau ou pas
 	 */
 	public Gift(Rectangle _rect, boolean _bIsRight) {
 		rect = _rect; //La position du cadeau
 		bIsRight = _bIsRight;
 		//Je fais pas de switch case car c'est le m�me cadeau partout
-		//D�ja, on affiche les cadeaux
+		//Deja, on initialise l'animation du cadeau
 		giftBox = new Animation(new Rectangle(0, 0, 26, 32), 7, new Sprite("Images/giftBox.png"), 0.1);
 		
 		//Affichage des bulles
@@ -38,8 +39,9 @@ public class Gift {
 	}
 	
 	/**
-	 * Mise � jour des cadeaux en fonctions des clics de la souris
-	 * @param e represente la position actuelle de la souris
+	 * Mise a jour des cadeaux en fonctions des clics de la souris
+	 * @author Lansana Diakite
+	 * @param e Evenement souris capture
 	 */
 	public void Update(CoreSystem.Mouse.EventType e){
 		
@@ -57,7 +59,8 @@ public class Gift {
 	}
 	
 	/**
-	 * 	Afficher le cadeau ainsi que son contenu en foonction de la reussite ou non.
+	 * 	Afficher le cadeau ainsi que son contenu en fonction de la reussite ou non.
+	 * @author Lansana Diakite
 	 * @throws ProjectException
 	 */
 	public void Draw() throws ProjectException{
@@ -75,9 +78,19 @@ public class Gift {
 		
 	}
 
+	/**
+	 * Recuperation de l'etat de succes
+	 * @author Lansana Diakite
+	 * @return Vrai si c'est la bonne reponse et que le cadeau est ouvert, Faux sinon
+	 */
 	public boolean HasWon(){
 		return bIsRight && bIsRevealed;
     }
+	/**
+	 * Recuperation de l'etat d'echec
+	 * @author Lansana Diakite
+	 * @return Vrai si c'est la mauvaise reponse et que le cadeau est ouvert, Faux sinon
+	 */
 	public boolean HasLost(){
 		return !bIsRight && bIsRevealed;
     }

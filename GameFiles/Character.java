@@ -11,8 +11,10 @@ import org.json.simple.JSONArray;
 
 /**
  * Gestion des entites animees
- * Classe abstraite possedant les methodes d'affichages et d'Update necessaires pour l'animation
+ * <p>Classe abstraite possedant les methodes d'affichages et d'Update necessaires pour l'animation
  * @author Maxime Emonnot
+ * @version 1.0.0
+ * @since 1.1.0
  */
 public abstract class Character {
     

@@ -6,15 +6,17 @@ import Exceptions.ProjectException;
 
 /**
  * Classe abstraite.
- * Contient toutes les initialisation de base d'une question, ainsi que les calculs et l'affichage de base
+ * <p>Contient toutes les initialisation de base d'une question, ainsi que les calculs et l'affichage de base
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public abstract class AQuestion {
     /**
      * Constructeur AQuestion
-     * Initialisattion a partir d'une question donnee
+     * <p>Initialisattion a partir d'une question donnee
      * @author Maxime Emonnot
      * @param _question Intitule de la question
+     * @param _timer Temps necessaire pour repondre
      */
     public AQuestion(String _question, float _timer){
         question = _question;
@@ -23,7 +25,7 @@ public abstract class AQuestion {
 
     /**
      * Calculs de base d'une question.
-     * Gestion du timer pour la question en cours
+     * <p>Gestion du timer pour la question en cours
      * @author Maxime Emonnot
      */
     public void Update(){
@@ -36,7 +38,7 @@ public abstract class AQuestion {
     }
     /**
      * Affichage de base d'une question
-     * Affichage de la question, du timer et du message de victoire/defaite
+     * <p>Affichage de la question, du timer et du message de victoire/defaite
      * @author Maxime Emonnot
      * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
      */

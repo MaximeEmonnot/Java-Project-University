@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * Gestion du cryptage de mot de passe
  * Utilisation du cryptage SHA3-512
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public class Encrypter {
     /**

@@ -10,14 +10,15 @@ import MenuSystem.*;
 
 /**
  * Scene de connexion a la base de donnees
- * Initialisation des autres scenes apres le succes de la connexion
+ * <p>Initialisation des autres scenes apres le succes de la connexion
  * @author Maxime Emonnot
+ * @version 1.2.1
  */
 public class DatabaseConnectionScene extends AScene {
 
     /**
      * Constructeur DatabaseConnectionScene
-     * Initialise un bouton permettant de se connecter a la base de donnee et d'executer une fonction lambda donnee
+     * <p>Initialise un bouton permettant de se connecter a la base de donnee et d'executer une fonction lambda donnee
      * @author Maxime Emonnot
      * @param func Fonction a executer
      */
@@ -48,7 +49,7 @@ public class DatabaseConnectionScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Gestion des differents champs de texte pour la connexion a la base de donnees
+     * <p>Gestion des differents champs de texte pour la connexion a la base de donnees
      * @author Maxime Emonnot
      */
     @Override
@@ -66,7 +67,7 @@ public class DatabaseConnectionScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Affichage des differents boutons et champs de texte
+     * <p>Affichage des differents boutons et champs de texte
      * @author Maxime Emonnot
      */
     @Override

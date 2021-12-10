@@ -6,8 +6,9 @@ import java.awt.*;
 
 /**
  * Classe abstraite
- * Definitions de base d'une question a deux possibilites de reponse
+ * <p>Definitions de base d'une question a deux possibilites de reponse
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public abstract class ADoubleAnswerQuestion extends AQuestion {
 
@@ -24,9 +25,10 @@ public abstract class ADoubleAnswerQuestion extends AQuestion {
 
     /**
      * Constructeur ADoubleAnswerQuestion
-     * Reprend le constructeur de AQuestion et initilise les differentes propositions ainsi que la reponse
+     * <p>Reprend le constructeur de AQuestion et initilise les differentes propositions ainsi que la reponse
      * @author Maxime Emonnot
      * @param _question Intitule de la question
+     * @param _timer Temps necessaire pour repondre
      * @param _answerA Proposition A
      * @param _answerB Proposition B
      * @param _type Reponse correcte
@@ -41,7 +43,7 @@ public abstract class ADoubleAnswerQuestion extends AQuestion {
 
     /**
      * {@inheritDoc}
-     * Affichage des deux propositions de reponse
+     * <p>Affichage des deux propositions de reponse
      * @author Maxime Emonnot
      */
     @Override

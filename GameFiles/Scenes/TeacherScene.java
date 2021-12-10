@@ -15,8 +15,9 @@ import MenuSystem.Button;
 
 /**
  * Scene professeur
- * Permet d'ajouter des domaines de quiz, des questions, et d'editer la liste des questions (suppression d'une question)
+ * <p>Permet d'ajouter des domaines de quiz, des questions, et d'editer la liste des questions (suppression d'une question)
  * @author Maxime Emonnot
+ * @version 1.2.0
  */
 public class TeacherScene extends AScene {
 
@@ -34,7 +35,7 @@ public class TeacherScene extends AScene {
 
     /**
      * Constructeur TeacherScene
-     * Initialisation des differents boutons composant la scene
+     * <p>Initialisation des differents boutons composant la scene
      * @author Maxime Emonnot
      */
     public TeacherScene(){
@@ -160,7 +161,7 @@ public class TeacherScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Mise a jour des differents menus de la scene, en fonction de l'etape de la scene
+     * <p>Mise a jour des differents menus de la scene, en fonction de l'etape de la scene
      * @author Maxime Emonnot
      */
     @Override
@@ -270,7 +271,7 @@ public class TeacherScene extends AScene {
 
     /**
      * {@inheritDoc}
-     * Affichage du menu, en fonction de l'etape de la scene
+     * <p>Affichage du menu, en fonction de l'etape de la scene
      * @author Maxime Emonnot
      */
     @Override
@@ -405,7 +406,7 @@ public class TeacherScene extends AScene {
 
     /**
      * Reinitialisation des menus, comme par exemple vider les champs d'ecriture
-     * Appels aux clics de boutons dans Update().
+     * <p>Appels aux clics de boutons dans Update().
      * @author Maxime Emonnot
      * @see TeacherScene#Update()
      */
@@ -432,7 +433,7 @@ public class TeacherScene extends AScene {
 
     /**
      * Reinitialisation de la liste des questions entrees par le professeur.
-     * Appels lors de l'entree dans l'etape QUESTION_ASK
+     * <p>Appels lors de l'entree dans l'etape QUESTION_ASK
      * @author Maxime Emonnot
      * @throws SQLException Erreurs lors de l'envoi des requetes SQL
      */

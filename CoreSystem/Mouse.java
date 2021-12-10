@@ -15,6 +15,7 @@ import java.awt.event.MouseMotionListener;
  * <p>Permet d'identifier le type d'evenement ainsi que la position de la souris.
  * Utilise le patron de conception Singleton pour etre unique dans toute l'application.
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class Mouse implements MouseListener, MouseWheelListener, MouseMotionListener {
     

@@ -5,8 +5,9 @@ import Exceptions.ProjectException;
 
 /**
  * Classe abstraite
- * Definitions de base d'une question a trois possibilites de reponse
+ * <p>Definitions de base d'une question a trois possibilites de reponse
  * @author Maxime Emonnot
+ * @version 1.1.0
  */
 public abstract class ATripleAnswerQuestion extends AQuestion{
 
@@ -27,9 +28,10 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
 
     /**
      * Constructeur ATripleAnswerQuestion
-     * Reprend le constructeur de AQuestion et initialise les differentes propositions ainsi que la reponse
+     * <p>Reprend le constructeur de AQuestion et initialise les differentes propositions ainsi que la reponse
      * @author Maxime Emonnot
      * @param _question Intitule de la question
+     * @param _timer Temps necessaire pour repondre
      * @param _answerA Proposition A
      * @param _answerB Proposition B
      * @param _answerC Proposition C
@@ -46,7 +48,7 @@ public abstract class ATripleAnswerQuestion extends AQuestion{
 
     /**
      * {@inheritDoc}
-     * Affichage des trois propositions de reponse
+     * <p>Affichage des trois propositions de reponse
      * @author Maxime Emonnot
      */
     @Override

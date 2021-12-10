@@ -6,15 +6,17 @@ import java.awt.*;
 import Exceptions.ProjectException;
 
 /**
- * Nez utilise dans ConcreteDoubleQuestion
- * Chaque narine correspon a une proposition de reponse
+ * Nez utilise dans FingerNoseQuestion
+ * <p>Chaque narine correspond a une proposition de reponse
  * @author Maxime Emonnot
+ * @see FingerNoseQuestion
+ * @version 1.1.0
  */
 public class Nose {
     
     /**
      * Constructeur Nose
-     * Initialise la zone de repone selon un code de question donne
+     * <p>Initialise la zone de repone selon un code de question donne
      * @author Maxime Emonnot
      * @param questionCode Code de question correspondant a la bonne repone
      */
@@ -93,6 +95,7 @@ public class Nose {
 
     /**
      * Recuperation de l'etat de succes
+     * @author Maxime Emonnot
      * @return Vrai si la bonne reponse est selectionnee, Faux sinon
      */
     public boolean HasWon(){
@@ -100,6 +103,7 @@ public class Nose {
     }
     /**
      * Recuperation de l'etat d'echec
+     * @author Maxime Emonnot
      * @return Vrai si la mauvaise reponse est selectionnee, Faux sinon
      */
     public boolean HasLost(){

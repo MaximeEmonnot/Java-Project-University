@@ -10,68 +10,75 @@ import GameFiles.Questions.InteractiveItems.Apple.AppleType;
 
 /**
  * Mini jeu des pommes.
- * Quizz � trois r�ponses possibles
- * @author Alhousseiny Diallo @ Lansana DIakite
- *
+ * <p>Quizz a trois reponses possibles
+ * @author Alhousseiny Diallo 
+ * @author Lansana Diakite
+ * @version 1.4.0
  */
 public class AppleQuestion extends ATripleAnswerQuestion {
 
 	/**
-	 * 
-	 * @param _question
-	 * @param _answerA
-	 * @param _answerB
-	 * @param _answerC
-	 * @param _type
+	 * Constructeur AppleQuestion
+	 * <p>Reprend le construceur de ATripleAnswerQuestion et initialise les pommes
+	 * @author Alhousseiny Diallo 
+ 	 * @author Lansana Diakite
+	 * @param _question Intitule question
+	 * @param _timer Temps necessaire pour repondre
+	 * @param _answerA Proposition A
+	 * @param _answerB Proposition B
+	 * @param _answerC Proposition C
+	 * @param _type Reponse correcte
 	 */
 	public AppleQuestion(String _question, float _timer, String _answerA, String _answerB, String _answerC, AnswerType _type) {
 		super(_question, _timer, _answerA, _answerB, _answerC, _type);
 		switch(_type) {
-			case ANSWER_A:
+		case ANSWER_A:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), false, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), false, AppleType.GREEN);
 			break;
-		    case ANSWER_B:
+		case ANSWER_B:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), false, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), false, AppleType.GREEN);
 			break;
-		    case ANSWER_C:
+		case ANSWER_C:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), false, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), false, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
-		    case ANSWER_AB:
+		case ANSWER_AB:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), false, AppleType.GREEN);
 			break;
-		    case ANSWER_AC:
+		case ANSWER_AC:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), false, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
-		    case ANSWER_BC:
+		case ANSWER_BC:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), false, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
-		    case ANSWER_ABC:
+		case ANSWER_ABC:
 			appleA = new Apple(new Rectangle(280, 150, 78, 78), true, AppleType.RED);
 			appleB = new Apple(new Rectangle(600, 150, 78, 78), true, AppleType.YELLOW);
 			appleC = new Apple(new Rectangle(920, 150, 78, 78), true, AppleType.GREEN);
 			break;
-		    default:
+		default:
 			break;
 		}
-		
-		
 	}
 	
 	/**
-	 * Mise � jour des diff�rents affichages
+	 * {@inheritDoc}
+	 * <p>Mise � jour des diff�rents affichages
+	 * @author Alhousseiny Diallo 
+ 	 * @author Lansana Diakite
 	 */
+	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
         super.Update();
@@ -87,8 +94,13 @@ public class AppleQuestion extends ATripleAnswerQuestion {
     }
 	
 	/**
-	 * S'occupe des diff�rents affichages
+	 * {@inheritDoc}
+	 * <p>S'occupe des diff�rents affichages
+	 * @author Alhousseiny Diallo 
+ 	 * @author Lansana Diakite
+	 * @throws ProjectException Erreur lors de l'instanciation de GraphicsSystem
 	 */
+	@Override
 	public void Draw() throws ProjectException {
 		super.Draw();
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);

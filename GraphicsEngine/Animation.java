@@ -5,8 +5,9 @@ import java.awt.*;
 
 /**
  * Gestion des animations.
- * Decoupe un Sprite en plusieurs rectangles pour realiser une animation.
+ * <p>Decoupe un Sprite en plusieurs rectangles pour realiser une animation.
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class Animation {
     /**

@@ -7,25 +7,23 @@ import Exceptions.ProjectException;
 import GameFiles.Questions.InteractiveItems.Gift;
 
 /**
- * 
- * @author Lansana Diakite
  * Le mini jeu des cadeaux, en concret
- * H�rite de ADOubleAnswer
- * Mini jeu valable pour les quizzs � deux r�ponses
- * 
- *
+ * <p>Herite de ADOubleAnswer
+ * <p>Mini jeu valable pour les quizzs � deux r�ponses
+ * @author Lansana Diakite
+ * @version 1.4.0
  */
 public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
-	private Gift cadGauche;
-	private Gift cadDroite;
 
 	/**
 	 * Mini jeux des cadeaux, 02 r�ponses possibles.
-	 * Initialise l'affichage des cadeaux.
-	 * @param _question
-	 * @param _answerA
-	 * @param _answerB
-	 * @param _type
+	 * <p> Initialise l'affichage des cadeaux.
+	 * @author Lansana Diakite
+	 * @param _question Intitule question
+	 * @param _timer Temps necessaire pour repondre
+	 * @param _answerA Proposition A
+	 * @param _answerB Proposition B
+	 * @param _type Reponse correcte
 	 */
 	public BubbleGiftQuestion(String _question, float _timer, String _answerA, String _answerB, AnswerType _type) {
 		super(_question, _timer, _answerA, _answerB, _type);
@@ -47,37 +45,40 @@ public class BubbleGiftQuestion extends ADoubleAnswerQuestion {
 			cadGauche = new Gift(new Rectangle(440, 150, 78, 78),false);
 			cadDroite = new Gift(new Rectangle(740,150,78,78),false);
 			break;
-			
 		}
-
 	}
 	
 	/**
-	 * Actualise l'affichage des cadeaux au fur et � mesure.
-	 * Se base de la position de la souris
-	 * @see CoreSystem#Mouse
+	 * {@inheritDoc}
+	 * <p>Actualise l'affichage des cadeaux au fur et � mesure.
+	 * @author Lansana Diakite
 	 */
+	@Override
 	public void Update() {
 		super.Update();
 		CoreSystem.Mouse.EventType e = CoreSystem.Mouse.GetInstance().Read();
+
         cadGauche.Update(e);
         cadDroite.Update(e);
+
         bIsWon = (cadDroite.HasWon() || cadGauche.HasWon());
-        bIsLost = (bIsLost || cadDroite.HasLost() || cadGauche.HasLost());
-        
+        bIsLost = (bIsLost || cadDroite.HasLost() || cadGauche.HasLost());  
 	}
 	
 	/**
-	 * Se charge d'afficher les diff�rents cadeaux, celui de gauche et de droite
+	 * {@inheritDoc}
+	 * <p>Se charge d'afficher les diff�rents cadeaux, celui de gauche et de droite. 
+	 * <p>Affiche egalement les bulles apres selection du cadeau
+	 * @author Lansana Diakite
 	 */
+	@Override
 	public void Draw() throws ProjectException {
         super.Draw();
-        
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.LIGHT_GRAY);
         cadGauche.Draw();
-        cadDroite.Draw();
-        
+        cadDroite.Draw(); 
     }
 	
-
+	private Gift cadGauche;
+	private Gift cadDroite;
 }	

@@ -4,6 +4,7 @@ package CoreSystem;
  * Permet de gerer un timer. 
  * Utilise le patron de conception Singleton pour que ce Timer soit unique pour toute l'application
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class Timer {
     /**

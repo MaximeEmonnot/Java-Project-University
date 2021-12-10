@@ -9,14 +9,15 @@ import java.awt.Point;
 
 /**
  * Bouton interactif.
- * Permet d'executer une fonction lambda.
+ * <p>Permet d'executer une fonction lambda.
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class Button {
 
     /**
      * Constructeur du bouton.
-     * Initialisation a partir d'un rectangle de position, d'un texte et d'une fonction lambda
+     * <p>Initialisation a partir d'un rectangle de position, d'un texte et d'une fonction lambda
      * @author Maxime Emonnot
      * @param _rect Rectangle de position du bouton
      * @param _text Texte descriptif du bouton
@@ -120,7 +121,7 @@ public class Button {
 
     /**
      * Methode override de Object.
-     * Deux boutons sont egaux s'ils ont le meme texte de description
+     * <p>Deux boutons sont egaux s'ils ont le meme texte de description
      * @author Maxime Emonnot
      */
     @Override
@@ -133,7 +134,7 @@ public class Button {
 
     /**
      * Methode override de Object
-     * Le hashcode d'un bouton depend de son texte de description
+     * <p>Le hashcode d'un bouton depend de son texte de description
      * @author Maxime Emonnot
      */
     @Override

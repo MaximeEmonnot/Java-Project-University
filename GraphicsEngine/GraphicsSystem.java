@@ -8,15 +8,16 @@ import java.util.Map;
 
 /**
  * Gestion de l'interface graphique.
- * l'affichage est mis a jour 60 fois par secondes
- * Chaque frame realise l'affichage defini dans les fonctions Draw
- * Gestion d'une priorite d'affichage, agissant comme des calques de Photoshop
+ * <p>L'affichage est mis a jour 60 fois par secondes
+ * <p>Chaque frame realise l'affichage defini dans les fonctions Draw
+ * <p>Gestion d'une priorite d'affichage, agissant comme des calques de Photoshop
  * @author Maxime Emonnot
+ * @version 1.0.0
  */
 public class GraphicsSystem extends JPanel {
     /**
      * Interface pour les fonctions lambda de l'affichage.
-     * Appels dans paintComponent(Graphics)
+     * <p>Appels dans paintComponent(Graphics)
      * @author Maxime Emonnot
      * @see GraphicsSystem#paintComponent(Graphics)
      */
@@ -26,7 +27,7 @@ public class GraphicsSystem extends JPanel {
     
     /**
      * Constructeur prive dans le cadre du patron de conception Singleton.
-     * Applique le systeme graphique au JFrame de Window
+     * <p>Applique le systeme graphique au JFrame de Window
      * @author Maxime Emonnot
      * @throws Exceptions.ProjectException Erreur d'instanciation de Window
      */
@@ -48,8 +49,8 @@ public class GraphicsSystem extends JPanel {
 
     /**
      * Methode override de Swing
-     * Permet la mise a jour de l'affichage
-     * Appelle toutes les fonctions lambda graphiques
+     * <p>Permet la mise a jour de l'affichage
+     * <p>Appelle toutes les fonctions lambda graphiques
      * @author Maxime Emonnot
      */ 
     @Override
@@ -66,7 +67,7 @@ public class GraphicsSystem extends JPanel {
         
     /**
      * Trie les differents appels d'affichage puis execute la mise a jour de l'affichage
-     * Execution 60 fois par secondes
+     * <p>Execution 60 fois par secondes
      * @author Maxime Emonnot
      * @see GraphicsSystem#paintComponent(Graphics)
      */
@@ -397,7 +398,7 @@ public class GraphicsSystem extends JPanel {
 
     /**
      * Affiche du texte selon un texte, une position et une couleur donnes
-     * Police par defaut : Arial Bold, mode Plain, taille 16
+     * <p>Police par defaut : Arial Bold, mode Plain, taille 16
      * @author Maxime Emonnot
      * @param text Texte a afficher
      * @param p Position du texte
@@ -419,7 +420,7 @@ public class GraphicsSystem extends JPanel {
     }
     /**
      * Surcharge fonctionnelle. Affiche du texte selon un texte, une position, une couleur et une priorite donnes
-     * Police par defaut : Arial Bold, mode Plain, taille 16
+     * <p>Police par defaut : Arial Bold, mode Plain, taille 16
      * @author Maxime Emonnot
      * @param text Texte a afficher
      * @param p Position du texte
@@ -443,7 +444,7 @@ public class GraphicsSystem extends JPanel {
     }
     /**
      * Surcharge fonctionnelle. Affiche du texte selon un texte, des coordonnees et une couleur donnes
-     * Police par defaut : Arial Bold, mode Plain, taille 16
+     * <p>Police par defaut : Arial Bold, mode Plain, taille 16
      * @author Maxime Emonnot
      * @param text Texte a afficher
      * @param x Position X du texte
@@ -467,7 +468,7 @@ public class GraphicsSystem extends JPanel {
     }
     /**
      * Surcharge fonctionnelle. Affiche du texte selon un texte, des coordonnees, une couleur et une priorite donnes
-     * Police par defaut : Arial Bold, mode Plain, taille 16
+     * <p>Police par defaut : Arial Bold, mode Plain, taille 16
      * @author Maxime Emonnot
      * @param text Texte a afficher
      * @param x Position X du texte

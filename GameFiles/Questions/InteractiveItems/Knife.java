@@ -7,23 +7,29 @@ import GraphicsEngine.GraphicsSystem;
 import GraphicsEngine.Sprite;
 
 /**
- * initialise l'animation d'un couteau qui va servir � couper la pomme
- * @author ALhouseeiny Diallo @ Lansana Dakite
- * @see Apple 
- *
+ * Couteau utilise dans AppleQuestion
+ * <p>Permet de couper les pommes du mini-jeux
+ * @author ALhousseiny Diallo 
+ * @author Lansana Diakite
+ * @see AppleQuestion
+ * @version 1.4.0
  */
 public class Knife {
 	/**
-	 * Creation d'une instance d'animation de knife � travers un rectangle et un sprite
-	 * @see #Sprite
+	 * Constructeur de knife
+	 * @author ALhousseiny Diallo 
+ 	 * @author Lansana Diakite
+	 * @param _startingRect rectangle de depart du couteau
 	 */
 	public Knife(Rectangle _startingRect) {
 		startingRect = _startingRect;
-		destRect = startingRect;
+		destRect = new Rectangle(_startingRect);
 	}
 	
 	/**
-	 * D�place le couteau en m�me temps que la souris
+	 * Si l'on clique sur le couteau, il se deplace en meme temps que la souris, deplacant ainsi la zone de decoupe du couteau
+	 * @author ALhousseiny Diallo 
+ 	 * @author Lansana Diakite
 	 */
 	public void Update(){
 		if (CoreSystem.Mouse.GetInstance().LeftIsPressed()){
@@ -44,10 +50,23 @@ public class Knife {
 		}
     }
 	
+	/**
+	 * Affichage du coutau
+	 * @author ALhousseiny Diallo 
+ 	 * @author Lansana Diakite
+	 * @throws ProjectException Erreur lors de l'initialisation de GraphicsSystem
+	 */
 	public void Draw() throws ProjectException{
 		GraphicsSystem.GetInstance().DrawSprite(sprite, destRect);
 	}
 
+	/**
+	 * Retourne le rectangle de decoupe du couteau. Utilise dans la classe Apple
+	 * @author ALhousseiny Diallo 
+ 	 * @author Lansana Diakite
+	 * @return Rectangle de decoupe
+	 * @see Apple#Update(Rectangle)
+	 */
 	public Rectangle GetCuttingRectangle(){
 		return cuttingRectangle;
 	}
