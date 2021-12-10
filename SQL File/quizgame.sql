@@ -9,11 +9,7 @@ drop table if exists `sujets`;
 drop table if exists `forumQuestion`;
 drop table if exists `forumProposition`;
 
-<<<<<<< HEAD
 /* Création de la table utilisateur*/
-=======
-/* CrÃƒÂ©ation de la table utilisateur*/
->>>>>>> e460311832a6b142fd931770d3e5d93a4d92381d
 
 create table `etudiant`(
 	`id_etudiant` int not null auto_increment unique,
@@ -26,11 +22,7 @@ create table `etudiant`(
     constraint pk_etudiant primary key (id_etudiant)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-<<<<<<< HEAD
 /* Création de la table professeur */
-=======
-/* CrÃƒÂ©ation de la table professeur */
->>>>>>> e460311832a6b142fd931770d3e5d93a4d92381d
 
 create table `professeur`(
 	`id_professeur` int not null auto_increment unique,
