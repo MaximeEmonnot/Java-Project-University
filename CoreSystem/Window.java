@@ -19,8 +19,9 @@ public class Window {
         frame = new JFrame("Quiz Game");
         if (frame == null)
             throw new Exceptions.ProjectException("Error during Swing Window creation.");
+        frame.setIconImage((new ImageIcon("Images/icon.png")).getImage());
         frame.setVisible(true);
-        frame.setBounds(100, 100, WIDTH, HEIGHT);
+        frame.setBounds(43, 43, WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addMouseListener(Mouse.GetInstance());
         frame.addMouseMotionListener(Mouse.GetInstance());

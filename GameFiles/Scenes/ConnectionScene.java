@@ -48,8 +48,8 @@ public class ConnectionScene extends AScene {
 
         //logo = new Sprite("Images/quizzGameLogo.png");
 
-        connectButton = new Button(new Rectangle(440, 400, 400, 50), "Log in", () -> { currentStage = ConnectionStep.LOGIN;});
-        createAccountButton = new Button(new Rectangle(440, 475, 400, 50), "Register", () -> { currentStage = ConnectionStep.REGISTER;});
+        connectButton = new Button(new Rectangle(440, 500, 400, 50), "Log in", () -> { currentStage = ConnectionStep.LOGIN;});
+        createAccountButton = new Button(new Rectangle(440, 575, 400, 50), "Register", () -> { currentStage = ConnectionStep.REGISTER;});
         backButton = new Button(new Rectangle(740, 500, 200, 50), "Back", () -> { currentStage = ConnectionStep.INTRO;});
         loginButton = new Button(new Rectangle(340, 500, 200, 50), "Connect", () -> { 
             if (emailConnection.GetText().length() != 0
@@ -289,7 +289,7 @@ public class ConnectionScene extends AScene {
         GraphicsEngine.GraphicsSystem.GetInstance().SetBackgroundColor(Color.WHITE);
         switch(currentStage){
             case INTRO:
-                //GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(logo, new Rectangle(169, 50, 463, 250));
+                GraphicsEngine.GraphicsSystem.GetInstance().DrawSprite(logo, new Rectangle(384, 75, 512, 288));
                 if(connectButton.IsClicked()){
                     connectButton.Draw(Color.DARK_GRAY);
                 }
@@ -374,7 +374,7 @@ public class ConnectionScene extends AScene {
     }
 
     //Intro menu
-    //private Sprite logo;
+    private Sprite logo = new Sprite("Images/logo.png");
     private Button connectButton;
     private Button createAccountButton;
  
