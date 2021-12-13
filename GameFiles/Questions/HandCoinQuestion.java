@@ -62,7 +62,7 @@ public class HandCoinQuestion extends ADoubleAnswerQuestion {
         rightHand.Update(e, bIsWon || bIsLost);
 
         bIsWon = leftHand.HasWon() || rightHand.HasWon();
-        bIsLost = leftHand.HasLost() || rightHand.HasLost();
+        bIsLost = bIsLost || leftHand.HasLost() || rightHand.HasLost();
     }
     
     /**
