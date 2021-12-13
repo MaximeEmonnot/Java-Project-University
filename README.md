@@ -34,7 +34,7 @@ L'utilisateur peut également aller à son profil, voir ses statistiques, ou vis
 S'il sélectionne un nom de quiz, il devra répondre à une suite de questions, dans le domaine qu'il aura choisi. Pour répondre à ces questions, il doit résoudre les différents mini-jeux qui lui sont proposés, dans un temps imparti (10s, 15s ou 20s).
 
 Un mini-jeu se présente de la manière suivante : 
-Une question (1) avec plusieurs possibilités de réponse (2), le nombre de vies restantes (3) ainsi que le temps nécessaire pour répondre (4).
+Une question (1) avec plusieurs possibilités de réponse (2), le nombre de vies restantes (3) ainsi que le temps restant pour répondre (4).
 ![image](https://user-images.githubusercontent.com/61348720/145895935-520963ac-a4e8-405c-8064-a247afc731e9.png)
 
 ---
