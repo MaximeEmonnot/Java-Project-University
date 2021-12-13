@@ -18,7 +18,7 @@ S'il choisit de créer un compte, un formulaire lui est présenté où il doit t
 ![image](https://user-images.githubusercontent.com/61348720/145885683-bbf987d8-1388-45b0-9ee7-c085d96d9d1e.png)
 ---
 
-S'il choisit de se connecter, un autre formulaire lui est présenté où il doit taper son mail (1), son mot de passe (2), et sélectionner le type de compte associé à ces données (3).
+S'il choisit de se connecter, un autre formulaire lui est présenté où il doit taper son adresse mail (1), son mot de passe (2), et sélectionner le type de compte associé à ces données (3).
 ![image](https://user-images.githubusercontent.com/61348720/145885902-4adb5ab0-41ad-4020-a81c-090f50b42cbf.png)
 
 Une fois connecté, la scène correspondant au type de compte de l'utilisateur se déroule.
@@ -69,7 +69,7 @@ Plusieurs mini-jeux sont présents dans l'application :
 - Des mini-jeux à quatre possibilités de réponse :
    * CatsLightQuestion : 
    ![image](https://user-images.githubusercontent.com/61348720/145887895-dec40c65-a216-4f45-bdc0-ff57138d11ce.png)
-   Un interrupteur est présenté en haut à gauche. L'utilisateur doit cliquer sur l'interrupteur pour éteindre et allumer la lumière. Lorsque la lumière se   rallume, des chats apparaissent à des positions aléatoires avec des poses aléatoires. L'utilisateur a ensuite le choix de cliquer sur le chat correspondant à la bonne réponse, ou de cliquer de nouveau sur l'interrupteur pour avoir d'autres chats si ce chat n'est pas disponible.
+   Un interrupteur est présenté en haut à gauche. L'utilisateur doit cliquer sur l'interrupteur pour éteindre et allumer la lumière. Lorsque la lumière se rallume, des chats apparaissent à des positions aléatoires avec des poses aléatoires. L'utilisateur a ensuite le choix de cliquer sur le chat correspondant à la bonne réponse, ou de cliquer de nouveau sur l'interrupteur pour avoir d'autres chats si ce chat n'est pas disponible.
     ---
    * CardQuestion : 
    ![image](https://user-images.githubusercontent.com/61348720/145887844-98ce7dc2-e723-432d-97fd-6b1d1ea6d8df.png)
@@ -77,7 +77,7 @@ Plusieurs mini-jeux sont présents dans l'application :
     ---
    * CardBoardQuestion :
    ![image](https://user-images.githubusercontent.com/61348720/145887730-a66d8323-ba93-4168-87f1-a10d9580d3c8.png)
-   Quatre cartons sont présentés à l'utilisateur, qui doit cliquer sur la carte correspondant à la bonne réponse.
+   Quatre cartons sont présentés à l'utilisateur, qui doit cliquer sur le carton correspondant à la bonne réponse.
     ---
     
 Si l'utilisateur choisit d'accéder à son profil, il peut lire un résumé de ses informations (1), et également faire une demande de changement de mot de passe (2).
@@ -98,7 +98,7 @@ S'il choisit d'accéder à ses stastiques, il lui sera alors présenté les stat
 
  ---
  
-S'il choisit d'accéder au forum, il lui est alors proposé d'ajouter une question (1), d'accéder à la liste des questions posées par tous les étudiants (2) et de gérer les questions qu'il posées (3).
+S'il choisit d'accéder au forum, il lui est alors proposé d'ajouter une question (1), d'accéder à la liste des questions posées par tous les étudiants (2) et de gérer les questions qu'il a posées (3).
 
 ![image](https://user-images.githubusercontent.com/61348720/145888954-f27a08b4-47d1-4b97-b251-80c3591da209.png)
 
@@ -175,13 +175,13 @@ Après avoir validé son entrée, ou sélectionné la réponse, le sujet est clo
 
 ---
 
- Une fois le logiciel de base de données intallé, vous pouvez décompresser le dosser QuizGame.zip.
+ Une fois le logiciel de base de données installé, vous pouvez décompresser le dosser QuizGame.zip.
  
  ![image](https://user-images.githubusercontent.com/61348720/145893140-9241babf-1c7d-4404-911f-fda61da5e926.png)
 
 ---
 
- Ouvrez ensuite le fichier quizgame.sql situé dans SQL File et exécutez le dans le système de BDD.
+ Ouvrez ensuite le fichier quizgame.sql situé dans SQL File et exécutez-le dans le système de BDD.
  
  ![image](https://user-images.githubusercontent.com/61348720/145892611-d80a6e3e-bbb2-47b7-bf3d-98573f0670b6.png)
  ![image](https://user-images.githubusercontent.com/61348720/145893419-e342ec1b-d27a-4dcd-9803-cad9bfa8a6d1.png)
